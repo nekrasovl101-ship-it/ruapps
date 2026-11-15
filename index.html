@@ -68,6 +68,22 @@
   .get{flex:none;border:0;border-radius:999px;padding:8px 18px;font-weight:700;font-size:14px;
     background:var(--soft);color:var(--blue);text-decoration:none;cursor:pointer;font-family:inherit}
   .get:active{opacity:.6}
+  .danger{background:#ffe5e5;color:#d92d20;cursor:default}
+  :root[data-theme="dark"] .danger{background:#3a1616;color:#ff6b6b}
+  .wtxt{color:#d92d20}
+  .wbox{margin:16px 0 0;padding:12px 14px;border-radius:14px;background:#ffe5e5;color:#b42318;font-size:14px;line-height:1.45}
+  :root[data-theme="dark"] .wbox{background:#3a1616;color:#ff8a8a}
+  .bigbtn{width:100%;border:0;font-family:inherit;cursor:pointer}
+  .cf-bg{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:24px}
+  .cf-bg.on{display:flex}
+  .cf{background:var(--card);border-radius:18px;max-width:320px;width:100%;text-align:center;overflow:hidden}
+  .cf .in{padding:20px 18px 16px}
+  .cf .t{font-weight:700;font-size:17px;margin:6px 0}
+  .cf .d{font-size:13px;color:var(--dim);line-height:1.45}
+  .cf .b{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+  .cf .b>*{padding:13px 0;font:600 17px/1 inherit;font-family:inherit;border:0;background:none;color:var(--blue);text-decoration:none;cursor:pointer}
+  .cf .b>*+*{border-left:1px solid var(--line)}
+  .cf .b .yes{color:#e5484d}
   .empty{color:var(--dim);text-align:center;padding:36px 0}
 
   /* настройки */
@@ -179,8 +195,15 @@
 <div class="sheet-bg" id="bg"></div>
 <div class="sheet" id="sheet"></div>
 
+<div class="cf-bg" id="cf"><div class="cf">
+  <div class="in"><div style="font-size:34px">⚠️</div>
+    <div class="t">Вы точно хотите установить?</div>
+    <div class="d">Это приложение может быть вредным и опасным для ваших данных.</div></div>
+  <div class="b"><button id="cfNo">Отмена</button><a class="yes" id="cfYes" href="#">Установить</a></div>
+</div></div>
+
 <script>
-const APPS = [{"name": "MAX", "bundle": "ru.oneme.app", "version": "26.17.3", "build": "31710", "minIOS": "10.0", "size": 55811640, "icon": "icons/ru.oneme.app.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.oneme.app.plist", "ipa": "apps/ru.oneme.app.ipa", "expires": "27.05.2027", "expired": false}, {"name": "RuTube", "bundle": "ru.rutube.main.test", "version": "47.15.0", "build": "37", "minIOS": "15.0", "size": 18368296, "icon": "icons/ru.rutube.main.test.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.rutube.main.test.plist", "ipa": "apps/ru.rutube.main.test.ipa", "expires": "16.09.2026", "expired": true}, {"name": "VK Video", "bundle": "com.vk.vkvideo.prod", "version": "8.183", "build": "2124", "minIOS": "17.6", "size": 132525824, "icon": "icons/com.vk.vkvideo.prod.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkvideo.prod.plist", "ipa": "apps/com.vk.vkvideo.prod.ipa", "expires": "08.04.2027", "expired": false}, {"name": "VK", "bundle": "com.vk.vkclient", "version": "8.183", "build": "8149", "minIOS": "17.6", "size": 230690938, "icon": "icons/com.vk.vkclient.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkclient.plist", "ipa": "apps/com.vk.vkclient.ipa", "expires": "08.04.2027", "expired": false}, {"name": "Авито", "bundle": "org.reactjs.native.prod.AuReactNativeApp", "version": "220.0", "build": "1774349983", "minIOS": "15.2", "size": 366777456, "icon": "icons/org.reactjs.native.prod.AuReactNativeApp.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Forg.reactjs.native.prod.AuReactNativeApp.plist", "ipa": "apps/org.reactjs.native.prod.AuReactNativeApp.ipa", "expires": null, "expired": false}, {"name": "Почта Mail.ru ", "bundle": "ru.mail.mail", "version": "15.92.0", "build": "90407", "minIOS": 10.0, "size": 486624591, "icon": "icons/ru.mail.mail.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.mail.mail.plist", "ipa": "apps/ru.mail.mail.ipa", "expires": "08.04.2027", "expired": false}];
+const APPS = [{"name": "MAX", "bundle": "ru.oneme.app", "version": "26.17.3", "build": "31710", "minIOS": "10.0", "size": 55811640, "icon": "icons/ru.oneme.app.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.oneme.app.plist", "ipa": "apps/ru.oneme.app.ipa", "expires": "27.05.2027", "expired": false, "warn": null}, {"name": "RuTube", "bundle": "ru.rutube.main.test", "version": "47.15.0", "build": "37", "minIOS": "15.0", "size": 18368296, "icon": "icons/ru.rutube.main.test.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.rutube.main.test.plist", "ipa": "apps/ru.rutube.main.test.ipa", "expires": "16.09.2026", "expired": true, "warn": null}, {"name": "VK Video", "bundle": "com.vk.vkvideo.prod", "version": "8.183", "build": "2124", "minIOS": "17.6", "size": 132525824, "icon": "icons/com.vk.vkvideo.prod.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkvideo.prod.plist", "ipa": "apps/com.vk.vkvideo.prod.ipa", "expires": "08.04.2027", "expired": false, "warn": null}, {"name": "VK", "bundle": "com.vk.vkclient", "version": "8.183", "build": "8149", "minIOS": "17.6", "size": 230690938, "icon": "icons/com.vk.vkclient.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkclient.plist", "ipa": "apps/com.vk.vkclient.ipa", "expires": "08.04.2027", "expired": false, "warn": null}, {"name": "Авито", "bundle": "org.reactjs.native.prod.AuReactNativeApp", "version": "220.0", "build": "1774349983", "minIOS": "15.2", "size": 366777456, "icon": "icons/org.reactjs.native.prod.AuReactNativeApp.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Forg.reactjs.native.prod.AuReactNativeApp.plist", "ipa": "apps/org.reactjs.native.prod.AuReactNativeApp.ipa", "expires": null, "expired": false, "warn": null}, {"name": "ПочтаMail.ru", "bundle": "ru.mail.mail", "version": "15.92.0", "build": "90407", "minIOS": 10.0, "size": 486624591, "icon": "icons/ru.mail.mail.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.mail.mail.plist", "ipa": "apps/ru.mail.mail.ipa", "expires": "08.04.2027", "expired": false, "warn": null}, {"name": "Сбербанк", "bundle": "com.inv.gen", "version": "17.6.1", "build": "3", "minIOS": "15.0", "size": 283657479, "icon": "icons/com.inv.gen.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.inv.gen.plist", "ipa": "apps/com.inv.gen.ipa", "expires": null, "expired": false, "warn": "Лучше не устанавливать. Файл не проверен и может быть вредоносным: внутри не оригинальное приложение Сбера (другое название и ID, нет профиля подписи). Ставь Сбер только официальным способом."}];
 const DNS = [{"name": "Cloudflare 1.1.1.1", "desc": "Быстрый и простой", "emoji": "☁️", "color": "#f38020", "file": "profiles/ruapps-dns-cloudflare.mobileconfig"}, {"name": "AdGuard DNS", "desc": "Режет рекламу и трекеры", "emoji": "🛡️", "color": "#68bc71", "file": "profiles/ruapps-dns-adguard.mobileconfig"}, {"name": "Google DNS", "desc": "8.8.8.8", "emoji": "🔎", "color": "#4285f4", "file": "profiles/ruapps-dns-google.mobileconfig"}, {"name": "Quad9", "desc": "Блокирует опасные сайты", "emoji": "🔒", "color": "#7a2bd8", "file": "profiles/ruapps-dns-quad9.mobileconfig"}];
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
@@ -198,9 +221,9 @@ function render(filter = "") {
       <img class="icon" src="${esc(a.icon)}" alt="" loading="lazy">
       <div class="meta">
         <div class="name">${esc(a.name)}</div>
-        <div class="sub">v${esc(a.version)} · ${mb(a.size)}</div>
+        <div class="sub">${a.warn ? '<span class="wtxt">⚠ Лучше не устанавливать</span>' : `v${esc(a.version)} · ${mb(a.size)}`}</div>
       </div>
-      <a class="get" href="${esc(a.install)}" onclick="event.stopPropagation()">Установить</a>
+      ${a.warn ? `<button class="get" onclick="event.stopPropagation();confirmInstall(APPS[${APPS.indexOf(a)}])">Установить</button>` : `<a class="get" href="${esc(a.install)}" onclick="event.stopPropagation()">Установить</a>`}
     </div>`).join("") : `<div class="empty">Ничего не найдено</div>`;
 }
 
@@ -218,10 +241,10 @@ function openApp(a) {
     </div>
     <div class="rows">
       <div><span>Сборка</span><span>${esc(a.build || "—")}</span></div>
-      <div><span>Файл</span><span><a class="link" href="${esc(a.ipa)}" download>Скачать .ipa</a></span></div>
+      ${a.warn ? "" : `<div><span>Файл</span><span><a class="link" href="${esc(a.ipa)}" download>Скачать .ipa</a></span></div>`}
     </div>
-    <a class="big" href="${esc(a.install)}">Установить</a>
-    <div class="hint">iPhone спросит «Установить?» — жми «Установить», иконка появится на экране «Домой».</div>`;
+    ${a.warn ? `<div class="wbox">⚠️ ${esc(a.warn)}</div><button class="big bigbtn" onclick="confirmInstall(APPS[${APPS.indexOf(a)}])">Установить</button>` : `<a class="big" href="${esc(a.install)}">Установить</a>
+    <div class="hint">iPhone спросит «Установить?» — жми «Установить», иконка появится на экране «Домой».</div>`}`;
   document.body.classList.add("open");
 }
 
@@ -259,6 +282,14 @@ $("#dns").innerHTML = DNS.map(d => `
     <div class="meta"><div class="name">${esc(d.name)}</div><div class="sub">${esc(d.desc)}</div></div>
     <a class="get" href="${esc(d.file)}">Профиль</a>
   </div>`).join("");
+
+function confirmInstall(a) {
+  $("#cfYes").href = a.install;
+  $("#cf").classList.add("on");
+}
+$("#cfNo").addEventListener("click", () => $("#cf").classList.remove("on"));
+$("#cfYes").addEventListener("click", () => setTimeout(() => $("#cf").classList.remove("on"), 300));
+$("#cf").addEventListener("click", e => { if (e.target.id === "cf") $("#cf").classList.remove("on"); });
 
 render();
 </script>
