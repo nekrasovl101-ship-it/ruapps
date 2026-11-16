@@ -17,218 +17,249 @@
 </script>
 <style>
   :root{
-    --bg:#f3f5f9; --card:#fff; --line:#e7eaf0; --text:#14171f; --dim:#7c8494; --field:#eef1f6;
-    --blue:#1f63f5; --blue2:#3d8bff; --soft:#e8f0ff; --bar:rgba(255,255,255,.88); --shadow:rgba(20,23,31,.06);
+    --bg:#ffffff; --bg2:#f2f2f7; --card:#ffffff; --text:#000; --dim:#8e8e93; --dim2:#6c6c70;
+    --sep:rgba(60,60,67,.18); --pill:#eff0f4; --blue:#007aff; --red:#ff3b30;
+    --glass:rgba(250,250,252,.72); --glassBorder:rgba(255,255,255,.7); --shadow:rgba(0,0,0,.12);
+    --r-card:22px; --r-group:14px;
   }
   :root[data-theme="dark"]{
-    --bg:#0b0d12; --card:#161a22; --line:#252b36; --text:#eef1f7; --dim:#8a93a5; --field:#1d222c;
-    --blue:#5b9bff; --blue2:#3d8bff; --soft:#1a2a4a; --bar:rgba(18,21,28,.86); --shadow:rgba(0,0,0,.3);
+    --bg:#000; --bg2:#1c1c1e; --card:#1c1c1e; --text:#fff; --dim:#8e8e93; --dim2:#aeaeb2;
+    --sep:rgba(84,84,88,.6); --pill:#2c2c2e; --blue:#0a84ff; --red:#ff453a;
+    --glass:rgba(30,30,32,.72); --glassBorder:rgba(255,255,255,.08); --shadow:rgba(0,0,0,.5);
   }
   @media (prefers-color-scheme: dark){
     :root[data-theme="system"]{
-      --bg:#0b0d12; --card:#161a22; --line:#252b36; --text:#eef1f7; --dim:#8a93a5; --field:#1d222c;
-      --blue:#5b9bff; --blue2:#3d8bff; --soft:#1a2a4a; --bar:rgba(18,21,28,.86); --shadow:rgba(0,0,0,.3);
+      --bg:#000; --bg2:#1c1c1e; --card:#1c1c1e; --text:#fff; --dim:#8e8e93; --dim2:#aeaeb2;
+      --sep:rgba(84,84,88,.6); --pill:#2c2c2e; --blue:#0a84ff; --red:#ff453a;
+      --glass:rgba(30,30,32,.72); --glassBorder:rgba(255,255,255,.08); --shadow:rgba(0,0,0,.5);
     }
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html{background:var(--bg)}
   body{margin:0;background:var(--bg);color:var(--text);
-    font:16px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
-    padding-bottom:calc(env(safe-area-inset-bottom) + 90px)}
-  button{font-family:inherit}
-  .top{position:sticky;top:0;z-index:5;background:var(--bar);
-    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
-    padding:calc(env(safe-area-inset-top) + 12px) 0 0;border-bottom:1px solid var(--line)}
-  .wrap{max-width:760px;margin:0 auto;padding:0 16px}
-  .brand{display:flex;align-items:center;gap:10px}
-  .brand img{width:36px;height:36px;border-radius:10px}
-  .brand b{font-size:24px;font-weight:800;letter-spacing:-.02em}
-  .brand b span{color:var(--blue)}
-  .search{margin-top:12px;width:100%;padding:11px 14px 11px 38px;border-radius:14px;border:0;background:var(--field);
-    color:var(--text);font-size:16px;outline:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237c8494' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E");
-    background-repeat:no-repeat;background-position:12px center;background-size:18px}
-  .search:focus{box-shadow:0 0 0 2px var(--blue2) inset}
-  .chips{display:flex;gap:8px;overflow-x:auto;padding:12px 16px;margin:0 -16px;scrollbar-width:none}
-  .chips::-webkit-scrollbar{display:none}
-  .chip{flex:none;border:0;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;background:var(--field);color:var(--text);cursor:pointer}
-  .chip.on{background:var(--blue);color:#fff}
-  .notop{padding-bottom:12px}
+    font:17px/1.3 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;padding-bottom:calc(env(safe-area-inset-bottom) + 110px)}
+  button{font-family:inherit;color:inherit}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px}
 
-  /* баннеры */
-  .banners{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:16px -16px 0;padding:0 16px;scrollbar-width:none}
-  .banners::-webkit-scrollbar{display:none}
-  .ban{flex:none;width:86%;max-width:520px;height:170px;border-radius:22px;padding:20px;color:#fff;position:relative;overflow:hidden;
-    scroll-snap-align:center;cursor:pointer;box-shadow:0 6px 18px var(--shadow)}
-  .ban small{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
-  .ban h2{margin:6px 0 4px;font-size:24px;line-height:1.15;max-width:62%}
-  .ban p{margin:0;font-size:14px;opacity:.9;max-width:62%}
-  .ban .art{position:absolute;right:-6px;bottom:-14px;font-size:110px;transform:rotate(-10deg);filter:drop-shadow(0 8px 16px rgba(0,0,0,.25))}
-  .dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
-  .dots i{width:6px;height:6px;border-radius:3px;background:var(--line);transition:.2s}
-  .dots i.on{width:18px;background:var(--blue)}
-  .catHero{margin-top:16px;height:130px}
-  .catHero h2{max-width:70%}
+  /* ---------- большой заголовок ---------- */
+  .lt{padding:calc(env(safe-area-inset-top) + 18px) 0 6px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+  .lt small{display:block;color:var(--dim);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;margin-bottom:2px}
+  .lt h1{margin:0;font-size:34px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+  .avatar{width:36px;height:36px;border-radius:50%;border:0;padding:0;cursor:pointer;overflow:hidden;flex:none;
+    background:var(--pill);box-shadow:0 0 0 .5px var(--sep)}
+  .avatar img{width:100%;height:100%;object-fit:cover}
 
-  h3{font-size:20px;margin:24px 2px 10px;display:flex;justify-content:space-between;align-items:baseline}
-  h3 a,h3 small{font-size:15px;color:var(--blue);font-weight:500;text-decoration:none;cursor:pointer}
-  h3 small{color:var(--dim)}
-  .card{background:var(--card);border-radius:20px;padding:0 14px;box-shadow:0 1px 3px var(--shadow)}
-  .app{display:flex;align-items:center;gap:14px;padding:12px 0;cursor:pointer}
-  .app+.app{border-top:1px solid var(--line)}
-  .icon{width:62px;height:62px;border-radius:22.5%;flex:none;object-fit:cover;background:var(--field);
-    box-shadow:0 0 0 .5px rgba(127,127,127,.2)}
-  .meta{flex:1;min-width:0}
-  .name{font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .sub{color:var(--dim);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .get{flex:none;border:0;border-radius:999px;padding:8px 18px;font-weight:700;font-size:14px;
-    background:var(--soft);color:var(--blue);text-decoration:none;cursor:pointer}
-  .get:active{opacity:.6}
-  .x{flex:none;border:0;background:none;color:var(--dim);font-size:22px;padding:4px 6px;cursor:pointer}
-  .wtxt{color:#e5484d}
-  .wbox{margin:16px 0 0;padding:12px 14px;border-radius:14px;background:#ffe5e5;color:#b42318;font-size:14px;line-height:1.45}
-  :root[data-theme="dark"] .wbox{background:#3a1616;color:#ff8a8a}
-  .empty{color:var(--dim);text-align:center;padding:34px 10px}
-  .empty .e{font-size:54px;margin-bottom:8px}
-  .empty b{display:block;color:var(--text);font-size:17px;margin-bottom:4px}
+  /* ---------- карточки «Сегодня» ---------- */
+  .today{display:grid;gap:22px;margin-top:14px}
+  .tc{position:relative;border-radius:var(--r-card);overflow:hidden;color:#fff;cursor:pointer;min-height:420px;
+    box-shadow:0 10px 30px var(--shadow);transition:transform .2s cubic-bezier(.2,.9,.3,1)}
+  .tc:active{transform:scale(.97)}
+  .tc .tx{position:absolute;left:20px;right:20px;top:20px;z-index:2}
+  .tc small{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;opacity:.8}
+  .tc h2{margin:4px 0 0;font-size:28px;line-height:1.1;font-weight:800;letter-spacing:-.01em;max-width:85%}
+  .tc .art{position:absolute;right:-20px;bottom:40px;font-size:190px;transform:rotate(-12deg);filter:drop-shadow(0 18px 30px rgba(0,0,0,.3))}
+  .tc .ft{position:absolute;left:0;right:0;bottom:0;padding:14px 20px;display:flex;align-items:center;gap:12px;
+    background:rgba(0,0,0,.18);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);z-index:2}
+  .tc .ft p{margin:0;font-size:14px;opacity:.95;flex:1}
+  .tc .ft img{width:40px;height:40px;border-radius:22.37%}
+  .hero-app{display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:60px}
+  .hero-app img{width:150px;height:150px;border-radius:22.37%;box-shadow:0 20px 40px rgba(0,0,0,.3)}
 
-  /* настройки */
-  .row{display:flex;align-items:center;gap:12px;padding:13px 0}
-  .row+.row{border-top:1px solid var(--line)}
-  .row .ico{width:30px;height:30px;border-radius:8px;flex:none;display:grid;place-items:center;color:#fff;font-size:16px}
-  .row .meta .name{font-weight:500}
-  .seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--field);border-radius:11px;padding:3px;margin:12px 0}
-  .seg button{border:0;background:none;color:var(--text);font:600 14px/1 inherit;font-family:inherit;padding:9px 0;border-radius:9px;cursor:pointer}
-  .seg button.on{background:var(--card);box-shadow:0 1px 4px var(--shadow),0 0 0 .5px var(--line)}
-  .note{color:var(--dim);font-size:13px;margin:8px 4px 0;line-height:1.45}
-  .note b{color:var(--text);font-weight:600}
+  /* ---------- секции ---------- */
+  .sec{margin-top:30px;border-top:.5px solid var(--sep);padding-top:16px}
+  .sec:first-of-type{border-top:0}
+  .sh{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .sh h3{margin:0;font-size:22px;font-weight:700;letter-spacing:-.01em}
+  .sh a{color:var(--blue);font-size:17px;cursor:pointer;white-space:nowrap}
+  .sh p{margin:2px 0 0;color:var(--dim);font-size:15px}
 
-  /* таб-бар */
-  .tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bar);
-    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-top:1px solid var(--line);
-    display:flex;justify-content:space-around;max-width:100%;padding:8px 10px calc(env(safe-area-inset-bottom) + 6px)}
-  .tab{border:0;background:none;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:2px;
-    font:600 11px/1 inherit;font-family:inherit;cursor:pointer;padding:2px 10px;position:relative}
-  .tab svg{width:26px;height:26px}
-  .tab.on{color:var(--blue)}
-  .badge{position:absolute;top:-2px;right:12px;min-width:17px;height:17px;border-radius:9px;background:#e5484d;color:#fff;
-    font-size:11px;line-height:17px;padding:0 4px;text-align:center}
-  .page{display:none}.page.on{display:block}
+  /* горизонтальная подборка по 3 строки */
+  .rail{display:grid;grid-auto-flow:column;grid-template-rows:repeat(3,auto);grid-auto-columns:calc(100% - 28px);
+    gap:0 16px;overflow-x:auto;scroll-snap-type:x mandatory;margin:8px -20px 0;padding:0 20px;scrollbar-width:none}
+  .rail::-webkit-scrollbar{display:none}
+  .rail .ar{scroll-snap-align:start}
+  .rail.one{grid-template-rows:auto}
 
-  /* карточка приложения */
-  .sheet-bg{position:fixed;inset:0;z-index:9;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:.25s}
-  .sheet{position:fixed;z-index:10;left:0;right:0;bottom:0;max-width:760px;margin:0 auto;background:var(--card);
-    border-radius:24px 24px 0 0;padding:22px 20px calc(env(safe-area-inset-bottom) + 22px);
-    transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.9,.3,1)}
-  .open .sheet-bg{opacity:1;pointer-events:auto}
-  .open .sheet{transform:none}
-  .grab{width:38px;height:5px;border-radius:3px;background:var(--line);margin:-8px auto 16px}
-  .head{display:flex;gap:16px;align-items:center}
-  .head .icon{width:96px;height:96px}
-  .head .name{font-size:22px;white-space:normal}
-  .tag{display:inline-block;margin-top:6px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--soft);color:var(--blue)}
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);margin:18px 0;background:var(--bg);border-radius:16px}
-  .stat{text-align:center;padding:12px 4px}
-  .stat b{display:block;font-size:17px}
-  .stat small{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.03em}
-  .rows div{display:flex;justify-content:space-between;padding:9px 0;font-size:14px;border-bottom:1px solid var(--line)}
-  .rows span:first-child{color:var(--dim)}
-  .rows span:last-child{text-align:right;word-break:break-all;margin-left:12px}
-  .big{display:block;width:100%;border:0;cursor:pointer;text-align:center;margin-top:20px;padding:15px;font-size:17px;font-weight:700;border-radius:16px;
-    background:linear-gradient(135deg,#3d8bff,#1650e6);color:#fff;text-decoration:none}
-  .hint{color:var(--dim);font-size:12px;text-align:center;margin-top:10px}
+  /* строка приложения */
+  .ar{display:flex;align-items:center;gap:12px;padding:8px 0;cursor:pointer;min-width:0}
+  .ar .ic{width:64px;height:64px;border-radius:22.37%;flex:none;object-fit:cover;background:var(--pill);
+    box-shadow:0 0 0 .5px var(--sep)}
+  .ar .mt{flex:1;min-width:0;align-self:stretch;display:flex;flex-direction:column;justify-content:center;
+    border-bottom:.5px solid var(--sep);padding:6px 0;margin:-8px 0}
+  .ar:last-child .mt,.rail .ar:nth-child(3n) .mt{border-bottom-color:transparent}
+  .ar .nm{font-size:17px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ar .sb{color:var(--dim);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+  .ar .sb.w{color:var(--red)}
+  .ar .rk{width:18px;flex:none;font-weight:600;font-size:17px;text-align:center;margin-left:-4px}
+  .getwrap{display:flex;flex-direction:column;align-items:center;gap:3px;flex:none}
+  .get{border:0;border-radius:999px;background:var(--pill);color:var(--blue);font-weight:700;font-size:15px;
+    padding:6px 0;width:84px;text-align:center;cursor:pointer;display:inline-block}
+  .get:active{opacity:.55}
+  .getwrap small{font-size:9.5px;color:var(--dim);line-height:1}
+  .list{margin-top:6px}
 
-  /* подтверждение */
-  .cf-bg{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:24px}
+  /* ---------- поиск ---------- */
+  .sf{display:flex;align-items:center;gap:8px;margin-top:12px;background:var(--pill);border-radius:12px;padding:0 10px;height:38px}
+  .sf svg{width:17px;height:17px;flex:none;color:var(--dim)}
+  .sf input{flex:1;border:0;background:none;outline:none;font:17px inherit;font-family:inherit;color:var(--text);min-width:0}
+  .sf input::placeholder{color:var(--dim)}
+  .cats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .cat{border-radius:16px;height:96px;padding:12px;color:#fff;font-weight:700;font-size:17px;position:relative;overflow:hidden;cursor:pointer}
+  .cat span{position:absolute;right:-6px;bottom:-12px;font-size:64px;transform:rotate(-12deg)}
+  .cat:active{transform:scale(.97)}
+
+  /* ---------- пусто ---------- */
+  .empty{text-align:center;color:var(--dim);padding:40px 20px}
+  .empty .e{font-size:56px;margin-bottom:10px}
+  .empty b{display:block;color:var(--text);font-size:20px;margin-bottom:4px}
+
+  /* ---------- страницы ---------- */
+  .page{display:none}.page.on{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .back{display:inline-flex;align-items:center;gap:2px;color:var(--blue);font-size:17px;border:0;background:none;padding:0;cursor:pointer;
+    margin-top:calc(env(safe-area-inset-top) + 14px)}
+  .back svg{width:22px;height:22px}
+
+  /* ---------- стеклянный таб-бар ---------- */
+  .tabbar{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 12px);transform:translateX(-50%);z-index:20;
+    display:flex;gap:2px;padding:6px;border-radius:999px;background:var(--glass);
+    -webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);
+    border:.5px solid var(--glassBorder);box-shadow:0 10px 40px var(--shadow),0 1px 0 rgba(255,255,255,.4) inset;
+    width:min(calc(100% - 24px),460px)}
+  .tab{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0 5px;
+    border-radius:999px;color:var(--text);font-size:10.5px;font-weight:600;cursor:pointer;position:relative;transition:background .2s,color .2s}
+  .tab svg{width:25px;height:25px}
+  .tab.on{color:var(--blue);background:rgba(127,127,140,.14)}
+  .badge{position:absolute;top:2px;left:calc(50% + 6px);min-width:17px;height:17px;border-radius:9px;background:var(--red);color:#fff;
+    font-size:11px;line-height:17px;padding:0 4px;font-weight:600}
+
+  /* ---------- шит ---------- */
+  .sheet-bg{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .3s}
+  .sheet{position:fixed;z-index:31;left:0;right:0;bottom:0;top:calc(env(safe-area-inset-top) + 14px);max-width:820px;margin:0 auto;
+    background:var(--bg);border-radius:14px 14px 0 0;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    transform:translateY(105%);transition:transform .38s cubic-bezier(.2,.9,.25,1);padding:0 20px calc(env(safe-area-inset-bottom) + 30px)}
+  .sheet.on{transform:none}
+  .sheet-bg.on{opacity:1;pointer-events:auto}
+  .grab{position:sticky;top:0;padding:8px 0 4px;display:flex;justify-content:space-between;align-items:center;background:var(--bg);z-index:2}
+  .grab i{width:36px;height:5px;border-radius:3px;background:var(--sep);position:absolute;left:50%;top:6px;margin-left:-18px}
+  .close{margin-left:auto;margin-top:6px;width:30px;height:30px;border-radius:50%;border:0;background:var(--pill);color:var(--dim2);
+    font-size:17px;font-weight:700;cursor:pointer;display:grid;place-items:center}
+
+  /* страница приложения */
+  .ah{display:flex;gap:16px;margin-top:6px}
+  .ah .ic{width:118px;height:118px;border-radius:22.37%;flex:none;box-shadow:0 0 0 .5px var(--sep)}
+  .ah .mt{flex:1;min-width:0;display:flex;flex-direction:column}
+  .ah h2{margin:2px 0 0;font-size:22px;font-weight:700;line-height:1.15;letter-spacing:-.01em}
+  .ah .sub{color:var(--dim);font-size:15px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ah .row{margin-top:auto;display:flex;align-items:center;justify-content:space-between}
+  .get.blue{background:var(--blue);color:#fff;width:92px}
+  .share{border:0;background:none;color:var(--blue);cursor:pointer;padding:4px}
+  .share svg{width:24px;height:24px}
+  .info{display:flex;margin:22px -20px 0;padding:0 20px 14px;overflow-x:auto;scrollbar-width:none;border-bottom:.5px solid var(--sep)}
+  .info::-webkit-scrollbar{display:none}
+  .info div{flex:none;min-width:104px;text-align:center;padding:0 12px;border-left:.5px solid var(--sep)}
+  .info div:first-child{border-left:0;padding-left:0}
+  .info small{display:block;color:var(--dim);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.02em}
+  .info b{display:block;font-size:20px;color:var(--dim2);margin:4px 0 2px;font-weight:700}
+  .info span{display:block;color:var(--dim);font-size:12px}
+  .blk{padding:16px 0;border-bottom:.5px solid var(--sep)}
+  .blk h3{margin:0 0 8px;font-size:22px;font-weight:700}
+  .blk p{margin:0;font-size:15px;line-height:1.45;color:var(--text)}
+  .kv{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:.5px solid var(--sep);font-size:15px}
+  .kv:last-child{border-bottom:0}
+  .kv span:first-child{color:var(--dim)}
+  .kv span:last-child{text-align:right;word-break:break-all}
+  .wbox{margin-top:16px;padding:14px 16px;border-radius:var(--r-group);background:rgba(255,59,48,.12);color:var(--red);font-size:15px;line-height:1.4}
+
+  /* сгруппированные списки (настройки) */
+  .gl{background:var(--bg2);border-radius:var(--r-group);overflow:hidden;margin-top:8px}
+  .gh{color:var(--dim);font-size:13px;text-transform:uppercase;margin:26px 16px 0;letter-spacing:.02em}
+  .gf{color:var(--dim);font-size:13px;margin:8px 16px 0;line-height:1.4}
+  .gf b{color:var(--text);font-weight:600}
+  .gr{display:flex;align-items:center;gap:12px;padding:0 16px;min-height:50px}
+  .gr .ico{width:30px;height:30px;border-radius:7px;display:grid;place-items:center;font-size:17px;color:#fff;flex:none}
+  .gr .t{flex:1;min-width:0;align-self:stretch;display:flex;flex-direction:column;justify-content:center;border-bottom:.5px solid var(--sep);padding:8px 0}
+  .gr:last-child .t{border-bottom:0}
+  .gr .t small{color:var(--dim);font-size:13px}
+  .seg{display:grid;grid-template-columns:repeat(3,1fr);background:rgba(118,118,128,.16);border-radius:9px;padding:2px;margin:12px 16px}
+  .seg button{border:0;background:none;font-size:14px;font-weight:600;padding:7px 0;border-radius:7px;cursor:pointer}
+  .seg button.on{background:var(--card);box-shadow:0 3px 8px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04)}
+
+  /* алерт и тост */
+  .cf-bg{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;padding:24px}
   .cf-bg.on{display:flex}
-  .cf{background:var(--card);border-radius:18px;max-width:320px;width:100%;text-align:center;overflow:hidden}
-  .cf .in{padding:20px 18px 16px}
-  .cf .t{font-weight:700;font-size:17px;margin:6px 0}
-  .cf .d{font-size:13px;color:var(--dim);line-height:1.45}
-  .cf .b{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
-  .cf .b>*{padding:13px 0;font:600 17px/1 inherit;font-family:inherit;border:0;background:none;color:var(--blue);text-decoration:none;cursor:pointer}
-  .cf .b>*+*{border-left:1px solid var(--line)}
-  .cf .b .yes{color:#e5484d}
-  .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 92px);transform:translate(-50%,20px);opacity:0;z-index:30;
-    background:rgba(20,23,31,.92);color:#fff;padding:10px 16px;border-radius:14px;font-size:14px;transition:.25s;pointer-events:none;white-space:nowrap}
+  .cf{width:270px;border-radius:14px;overflow:hidden;text-align:center;background:var(--glass);
+    -webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%)}
+  .cf .in{padding:20px 16px 18px}
+  .cf .t{font-weight:600;font-size:17px}
+  .cf .d{font-size:13px;margin-top:4px;line-height:1.35}
+  .cf .b{display:grid;grid-template-columns:1fr 1fr;border-top:.5px solid var(--sep)}
+  .cf .b>*{padding:11px 0;font-size:17px;border:0;background:none;color:var(--blue);cursor:pointer}
+  .cf .b>*+*{border-left:.5px solid var(--sep)}
+  .cf .b .yes{color:var(--red);font-weight:600}
+  .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 96px);transform:translate(-50%,16px);opacity:0;z-index:60;
+    background:var(--glass);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);color:var(--text);
+    padding:11px 18px;border-radius:999px;font-size:15px;font-weight:600;transition:.25s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 30px var(--shadow)}
   .toast.on{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
-<div class="top">
-  <div class="wrap">
-    <div class="brand"><img src="ruapps_icon.png" alt=""><b>Ru<span>Apps</span></b></div>
-    <div id="storeTop">
-      <input class="search" id="q" type="search" placeholder="Игры, приложения и многое другое" autocomplete="off">
-      <div class="chips" id="chips"></div>
-    </div>
-    <div class="notop" id="plainTop" style="display:none"></div>
-  </div>
-</div>
 
-<!-- Магазин -->
-<div class="wrap page on" id="p-store"><div id="storeBody"></div></div>
+<!-- Сегодня -->
+<div class="page on" id="p-today"><div class="wrap">
+  <div class="lt"><div><small id="today"></small><h1>Сегодня</h1></div>
+    <button class="avatar" data-open="settings" aria-label="Настройки"><img src="ruapps_icon.png" alt=""></button></div>
+  <div class="today" id="todayCards"></div>
+</div></div>
 
-<!-- Мои приложения -->
-<div class="wrap page" id="p-my">
-  <h3>Мои приложения <small id="myCount"></small></h3>
-  <div id="myList"></div>
-  <div class="note">Сюда попадает всё, что ты ставил через RuApps на этом устройстве. Если приложение удалилось или подпись слетела — жми «Ещё раз».</div>
-</div>
+<!-- Игры -->
+<div class="page" id="p-games"><div class="wrap">
+  <div class="lt"><h1>Игры</h1><button class="avatar" data-open="settings"><img src="ruapps_icon.png" alt=""></button></div>
+  <div id="gamesBody"></div>
+</div></div>
 
-<!-- Настройки -->
-<div class="wrap page" id="p-settings">
-  <h3>Оформление</h3>
-  <div class="card" style="padding:4px 14px 12px">
-    <div class="seg" id="theme">
-      <button data-t="system">Авто</button>
-      <button data-t="light">Светлая</button>
-      <button data-t="dark">Тёмная</button>
-    </div>
-    <div class="note" style="margin:0">«Авто» — как в настройках iPhone.</div>
-  </div>
+<!-- Приложения -->
+<div class="page" id="p-apps"><div class="wrap">
+  <div class="lt"><h1>Приложения</h1><button class="avatar" data-open="settings"><img src="ruapps_icon.png" alt=""></button></div>
+  <div id="appsBody"></div>
+</div></div>
 
-  <h3>RuApps на экран «Домой»</h3>
-  <div class="card">
-    <div class="row">
-      <div class="ico"><img src="ruapps_icon.png" alt="" style="width:30px;height:30px;border-radius:8px"></div>
-      <div class="meta"><div class="name">Установить как приложение</div><div class="sub">Иконка RuApps, открывается на весь экран</div></div>
-      <a class="get" href="profiles/ruapps-app.mobileconfig">Профиль</a>
-    </div>
-  </div>
+<!-- Мои -->
+<div class="page" id="p-my"><div class="wrap">
+  <div class="lt"><h1>Мои</h1><button class="avatar" data-open="settings"><img src="ruapps_icon.png" alt=""></button></div>
+  <div id="myBody"></div>
+</div></div>
 
-  <h3>DNS</h3>
-  <div class="card" id="dns"></div>
-  <div class="note">
-    Каждый DNS-профиль заодно ставит RuApps на экран «Домой».<br><br>
-    <b>Как установить:</b> нажми «Профиль» → «Разрешить» → открой <b>Настройки</b> → сверху «Профиль загружен» → «Установить».<br>
-    DNS включается в <b>Настройки → Основные → VPN и управление устройством → DNS</b>.<br>
-    <b>Удалить:</b> там же, «VPN и управление устройством» → профиль → «Удалить профиль».
-  </div>
-</div>
+<!-- Поиск -->
+<div class="page" id="p-search"><div class="wrap">
+  <div class="lt"><h1>Поиск</h1><button class="avatar" data-open="settings"><img src="ruapps_icon.png" alt=""></button></div>
+  <label class="sf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+    <input id="q" type="search" placeholder="Игры, приложения и многое другое" autocomplete="off"></label>
+  <div id="searchBody"></div>
+</div></div>
 
-<nav class="tabs">
-  <button class="tab on" data-p="store">
-    <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="2.2"/><rect x="13" y="3" width="8" height="8" rx="2.2"/><rect x="3" y="13" width="8" height="8" rx="2.2"/><rect x="13" y="13" width="8" height="8" rx="2.2"/></svg>
-    Магазин
-  </button>
-  <button class="tab" data-p="my">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/><path d="M12 12v5m-2.2-2.2L12 17l2.2-2.2"/></svg>
-    Мои
-    <span class="badge" id="myBadge" style="display:none"></span>
-  </button>
-  <button class="tab" data-p="settings">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></svg>
-    Настройки
-  </button>
+<!-- Подстраница раздела -->
+<div class="page" id="p-cat"><div class="wrap">
+  <button class="back" id="catBack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg><span id="backLabel">Назад</span></button>
+  <div class="lt" style="padding-top:6px"><h1 id="catTitle"></h1></div>
+  <div id="catBody"></div>
+</div></div>
+
+<nav class="tabbar" id="tabbar">
+  <button class="tab on" data-p="today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="17" rx="4"/><path d="M8 8.5h8M8 12h5"/></svg>Сегодня</button>
+  <button class="tab" data-p="games"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10a4 4 0 0 1 4 4v3.5a2.5 2.5 0 0 1-4.6 1.4L15 14H9l-1.4 1.9A2.5 2.5 0 0 1 3 14.5V11a4 4 0 0 1 4-4z"/><path d="M8 10v3M6.5 11.5h3"/><circle cx="15.5" cy="10.5" r=".6" fill="currentColor"/><circle cx="17" cy="12.3" r=".6" fill="currentColor"/></svg>Игры</button>
+  <button class="tab" data-p="apps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg>Приложения</button>
+  <button class="tab" data-p="my"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/><path d="M12 12v5m-2.2-2.2L12 17l2.2-2.2"/></svg>Мои<span class="badge" id="myBadge" style="display:none"></span></button>
+  <button class="tab" data-p="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>Поиск</button>
 </nav>
 
-<div class="sheet-bg" id="bg"></div>
+<div class="sheet-bg" id="sbg"></div>
 <div class="sheet" id="sheet"></div>
 
 <div class="cf-bg" id="cf"><div class="cf">
-  <div class="in"><div style="font-size:34px">⚠️</div>
-    <div class="t">Вы точно хотите установить?</div>
+  <div class="in"><div class="t">Вы точно хотите установить?</div>
     <div class="d">Это приложение может быть вредным и опасным для ваших данных.</div></div>
   <div class="b"><button id="cfNo">Отмена</button><a class="yes" id="cfYes" href="#">Установить</a></div>
 </div></div>
@@ -240,179 +271,224 @@ const DNS = [{"name": "Cloudflare 1.1.1.1", "desc": "Быстрый и прос�
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const mb = b => (b / 1048576).toFixed(1) + " МБ";
+const mb = b => b >= 1073741824 ? (b / 1073741824).toFixed(1) + " ГБ" : Math.round(b / 1048576) + " МБ";
 const store = {
   get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 };
 
-/* ---- разделы ---- */
 const CATS = [
-  {id:"all",    name:"Все",                 emoji:"✨"},
-  {id:"games",  name:"Игры",                emoji:"🎮", title:"Игры для iPhone",        text:"Во что поиграть сегодня",          bg:"linear-gradient(135deg,#a855f7,#6d28d9)", empty:"Игры скоро появятся"},
-  {id:"banks",  name:"Банки",               emoji:"🏦", title:"Банки и финансы",        text:"Будь осторожен: ставь только проверенное", bg:"linear-gradient(135deg,#10b981,#047857)", empty:"Банков пока нет"},
-  {id:"video",  name:"Видео и развлечения", emoji:"🎬", title:"Видео и развлечения",    text:"Кино, ролики и стримы",            bg:"linear-gradient(135deg,#fb7185,#e11d48)", empty:"Видео скоро появится"},
-  {id:"social", name:"Общение",             emoji:"💬", title:"Общение и соцсети",      text:"Мессенджеры, почта и соцсети",     bg:"linear-gradient(135deg,#38bdf8,#1d4ed8)", empty:"Пока пусто"},
-  {id:"tools",  name:"Полезное",            emoji:"🧰", title:"Полезное",               text:"Покупки, сервисы и всё для жизни",  bg:"linear-gradient(135deg,#fbbf24,#ea580c)", empty:"Пока пусто"},
+  {id:"games",  name:"Игры",                emoji:"🎮", kicker:"Подборка",   title:"Во что поиграть сегодня",          text:"Лучшие игры в RuApps",                  bg:"linear-gradient(160deg,#a855f7,#4c1d95)", empty:"Игры скоро появятся"},
+  {id:"banks",  name:"Банки",               emoji:"🏦", kicker:"Финансы",    title:"Банки и финансы",                  text:"Ставь только проверенное",              bg:"linear-gradient(160deg,#34d399,#065f46)", empty:"Банков пока нет"},
+  {id:"video",  name:"Видео и развлечения", emoji:"🎬", kicker:"Смотреть",   title:"Кино, ролики и стримы",            text:"Видео и развлечения",                   bg:"linear-gradient(160deg,#fb7185,#9f1239)", empty:"Видео скоро появится"},
+  {id:"social", name:"Общение",             emoji:"💬", kicker:"На связи",   title:"Мессенджеры и соцсети",            text:"Общайся с друзьями",                    bg:"linear-gradient(160deg,#38bdf8,#1e3a8a)", empty:"Пока пусто"},
+  {id:"tools",  name:"Полезное",            emoji:"🧰", kicker:"Каждый день", title:"Полезное на каждый день",          text:"Покупки, сервисы и всё для жизни",      bg:"linear-gradient(160deg,#fbbf24,#9a3412)", empty:"Пока пусто"},
 ];
 const catOf = id => CATS.find(c => c.id === id) || CATS[CATS.length - 1];
-let curCat = "all";
+const inCat = id => APPS.filter(a => a.cat === id);
 
-$("#chips").innerHTML = CATS.map(c => `<button class="chip${c.id === "all" ? " on" : ""}" data-c="${c.id}">${c.emoji} ${c.name}</button>`).join("");
-$("#chips").addEventListener("click", e => { const b = e.target.closest(".chip"); if (b) setCat(b.dataset.c); });
-
-function setCat(id) {
-  curCat = id;
-  $$(".chip").forEach(c => c.classList.toggle("on", c.dataset.c === id));
-  const chip = $(`.chip[data-c="${id}"]`); chip && chip.scrollIntoView({inline:"center", block:"nearest", behavior:"smooth"});
-  $("#q").value = "";
-  renderStore(); window.scrollTo(0, 0);
+/* ---------- строки ---------- */
+function getBtn(a, label = "Загрузить") {
+  return `<div class="getwrap"><button class="get" data-install="${APPS.indexOf(a)}">${label}</button>${a.warn ? "" : "<small>Через Safari</small>"}</div>`;
 }
-
-/* ---- строки ---- */
-function rowHTML(a, mode = "store") {
-  const i = APPS.indexOf(a);
-  const sub = a.warn ? '<span class="wtxt">⚠ Лучше не устанавливать</span>' : `${esc(catOf(a.cat).name)} · ${mb(a.size)}`;
-  const btn = `<button class="get" data-install="${i}">${mode === "my" ? "Ещё раз" : "Установить"}</button>`;
-  const x = mode === "my" ? `<button class="x" data-remove="${i}" aria-label="Убрать">×</button>` : "";
-  return `<div class="app" data-i="${i}"><img class="icon" src="${esc(a.icon)}" alt="" loading="lazy">
-    <div class="meta"><div class="name">${esc(a.name)}</div><div class="sub">${sub}</div></div>${btn}${x}</div>`;
+function rowHTML(a, opts = {}) {
+  const sub = a.warn ? '<div class="sb w">⚠ Лучше не устанавливать</div>' : `<div class="sb">${esc(catOf(a.cat).name)}</div>`;
+  return `<div class="ar" data-i="${APPS.indexOf(a)}">${opts.rank ? `<div class="rk">${opts.rank}</div>` : ""}
+    <img class="ic" src="${esc(a.icon)}" alt="" loading="lazy">
+    <div class="mt"><div class="nm">${esc(a.name)}</div>${sub}</div>${opts.btn || getBtn(a)}</div>`;
 }
-function listHTML(arr, mode, emptyText) {
-  return arr.length ? `<div class="card">${arr.map(a => rowHTML(a, mode)).join("")}</div>`
-    : `<div class="card"><div class="empty"><div class="e">🫥</div>${esc(emptyText || "Ничего не найдено")}</div></div>`;
+function rail(arr, rank) {
+  if (!arr.length) return "";
+  return `<div class="rail${arr.length < 3 ? " one" : ""}" ${arr.length < 3 ? 'style="grid-auto-flow:row;grid-auto-columns:auto;grid-template-rows:none"' : ""}>
+    ${arr.map((a, i) => rowHTML(a, {rank: rank ? i + 1 : 0})).join("")}</div>`;
 }
-
-/* ---- витрина ---- */
-function bannersHTML() {
-  const bs = CATS.filter(c => c.id !== "all").map(c => {
-    const n = APPS.filter(a => a.cat === c.id).length;
-    return `<div class="ban" data-c="${c.id}" style="background:${c.bg}"><small>${n ? n + " прил." : "Скоро"}</small>
-      <h2>${esc(c.title)}</h2><p>${esc(c.text)}</p><div class="art">${c.emoji}</div></div>`;
-  });
-  return `<div class="banners" id="bans">${bs.join("")}</div><div class="dots" id="dots">${bs.map((_, i) => `<i${i ? "" : ' class="on"'}></i>`).join("")}</div>`;
+function section(title, sub, arr, catId, emptyText) {
+  return `<div class="sec"><div class="sh"><div><h3>${esc(title)}</h3>${sub ? `<p>${esc(sub)}</p>` : ""}</div>
+    ${catId && arr.length ? `<a data-cat="${catId}">См. все</a>` : ""}</div>
+    ${arr.length ? rail(arr) : `<div class="empty" style="padding:24px 10px"><div class="e" style="font-size:40px">🫥</div>${esc(emptyText || "Пока пусто")}</div>`}</div>`;
 }
+function emptyBox(e, b, t) { return `<div class="empty"><div class="e">${e}</div><b>${b}</b>${t}</div>`; }
 
-function renderStore() {
-  const f = $("#q").value.trim().toLowerCase();
+/* ---------- Сегодня ---------- */
+function renderToday() {
+  $("#today").textContent = new Date().toLocaleDateString("ru-RU", {weekday:"long", day:"numeric", month:"long"});
   let h = "";
-  if (f) {
-    const res = APPS.filter(a => a.name.toLowerCase().includes(f) || a.bundle.toLowerCase().includes(f) || catOf(a.cat).name.toLowerCase().includes(f));
-    h = `<h3>Результаты <small>${res.length}</small></h3>` + listHTML(res, "store", "Ничего не найдено");
-  } else if (curCat === "all") {
-    h = bannersHTML();
-    h += `<h3>Все приложения <small>${APPS.length}</small></h3>` + listHTML(APPS, "store");
-    for (const c of CATS.slice(1)) {
-      const arr = APPS.filter(a => a.cat === c.id);
-      h += `<h3>${c.emoji} ${esc(c.name)} <a data-c="${c.id}">См. все</a></h3>` + listHTML(arr.slice(0, 4), "store", c.empty);
-    }
-  } else {
-    const c = catOf(curCat), arr = APPS.filter(a => a.cat === c.id);
-    h = `<div class="ban catHero" style="background:${c.bg};width:100%;max-width:none;cursor:default"><small>${arr.length} прил.</small>
-      <h2>${esc(c.title)}</h2><p>${esc(c.text)}</p><div class="art">${c.emoji}</div></div>`;
-    h += `<h3>${esc(c.name)} <small>${arr.length}</small></h3>` + listHTML(arr, "store", c.empty);
+  const feat = APPS.find(a => !a.warn);
+  if (feat) h += `<div class="tc" data-i="${APPS.indexOf(feat)}" style="background:linear-gradient(160deg,#3d8bff,#0b2a8c)">
+    <div class="tx"><small>Приложение дня</small><h2>${esc(feat.name)}</h2></div>
+    <div class="hero-app" style="min-height:420px"><img src="${esc(feat.icon)}" alt=""></div>
+    <div class="ft"><img src="${esc(feat.icon)}" alt=""><p><b>${esc(feat.name)}</b><br>${esc(catOf(feat.cat).name)}</p>
+      <button class="get" style="background:rgba(255,255,255,.25);color:#fff" data-install="${APPS.indexOf(feat)}">Загрузить</button></div></div>`;
+  for (const c of CATS) {
+    const arr = inCat(c.id);
+    h += `<div class="tc" data-cat="${c.id}" style="background:${c.bg}">
+      <div class="tx"><small>${esc(c.kicker)}</small><h2>${esc(c.title)}</h2></div><div class="art">${c.emoji}</div>
+      <div class="ft">${arr.slice(0, 3).map(a => `<img src="${esc(a.icon)}" alt="">`).join("")}
+        <p>${arr.length ? `${arr.length} ${plural(arr.length, "приложение", "приложения", "приложений")}` : "Скоро"} · ${esc(c.text)}</p></div></div>`;
   }
-  $("#storeBody").innerHTML = h;
-  const bans = $("#bans");
-  if (bans) bans.addEventListener("scroll", () => {
-    const i = Math.round(bans.scrollLeft / (bans.firstElementChild.offsetWidth + 12));
-    $$("#dots i").forEach((d, k) => d.classList.toggle("on", k === i));
-  }, {passive:true});
+  $("#todayCards").innerHTML = h;
+}
+function plural(n, a, b, c) { const m = n % 10, k = n % 100; return m === 1 && k !== 11 ? a : m >= 2 && m <= 4 && (k < 12 || k > 14) ? b : c; }
+
+/* ---------- Игры / Приложения ---------- */
+function renderGames() {
+  const g = inCat("games");
+  $("#gamesBody").innerHTML = g.length
+    ? section("Популярные игры", "Выбор RuApps", g, "games") + `<div class="sec"><div class="sh"><h3>Топ игр</h3></div><div class="list">${g.map((a, i) => rowHTML(a, {rank:i + 1})).join("")}</div></div>`
+    : emptyBox("🎮", "Игры скоро появятся", "Мы уже работаем над подборкой.");
+}
+function renderApps() {
+  const non = APPS.filter(a => a.cat !== "games");
+  let h = section("Все приложения", `${non.length} ${plural(non.length, "приложение", "приложения", "приложений")}`, non, null);
+  for (const c of CATS.slice(1)) h += section(c.name, c.text, inCat(c.id), c.id, c.empty);
+  $("#appsBody").innerHTML = h;
 }
 
-/* ---- мои приложения ---- */
-function myGet() { return store.get("ruapps-my", []); }
-function mySet(v) { store.set("ruapps-my", v); renderMy(); }
-function addMine(a) {
-  const my = myGet().filter(b => b !== a.bundle); my.unshift(a.bundle); mySet(my);
-  toast("Добавлено в «Мои приложения»");
+/* ---------- Поиск ---------- */
+function renderSearch() {
+  const f = $("#q").value.trim().toLowerCase();
+  if (!f) {
+    $("#searchBody").innerHTML = `<div class="sec" style="border:0"><div class="sh"><h3>Категории</h3></div><div class="cats">
+      ${CATS.map(c => `<div class="cat" data-cat="${c.id}" style="background:${c.bg}">${esc(c.name)}<span>${c.emoji}</span></div>`).join("")}</div></div>`;
+    return;
+  }
+  const res = APPS.filter(a => (a.name + " " + a.bundle + " " + catOf(a.cat).name).toLowerCase().includes(f));
+  $("#searchBody").innerHTML = res.length ? `<div class="list" style="margin-top:14px">${res.map(a => rowHTML(a)).join("")}</div>`
+    : emptyBox("🔍", "Ничего не найдено", `По запросу «${esc($("#q").value)}» пусто.`);
 }
+$("#q").addEventListener("input", renderSearch);
+
+/* ---------- Мои ---------- */
+const myGet = () => store.get("ruapps-my", []);
+function mySet(v) { store.set("ruapps-my", v); renderMy(); }
+function addMine(a) { const m = myGet().filter(b => b !== a.bundle); m.unshift(a.bundle); mySet(m); toast("Добавлено в «Мои»"); }
 function renderMy() {
   const arr = myGet().map(b => APPS.find(a => a.bundle === b)).filter(Boolean);
-  $("#myCount").textContent = arr.length || "";
   $("#myBadge").textContent = arr.length; $("#myBadge").style.display = arr.length ? "" : "none";
-  $("#myList").innerHTML = arr.length ? `<div class="card">${arr.map(a => rowHTML(a, "my")).join("")}</div>`
-    : `<div class="card"><div class="empty"><div class="e">📲</div><b>Тут пока пусто</b>Установи что-нибудь из магазина — и оно появится здесь.</div></div>`;
+  $("#myBody").innerHTML = arr.length
+    ? `<div class="sec" style="border:0"><div class="sh"><div><h3>Загружено</h3><p>На этом устройстве через RuApps</p></div></div>
+       <div class="list">${arr.map(a => rowHTML(a, {btn:`<div class="getwrap"><button class="get" data-install="${APPS.indexOf(a)}">Ещё раз</button>
+         <small><a data-remove="${APPS.indexOf(a)}" style="color:var(--red);cursor:pointer">Убрать</a></small></div>`})).join("")}</div></div>`
+    : emptyBox("📲", "Тут пока пусто", "Загрузи что-нибудь — и оно появится здесь.");
 }
 
-/* ---- установка ---- */
+/* ---------- подстраница раздела ---------- */
+let prevPage = "today";
+function openCat(id) {
+  const c = catOf(id), arr = inCat(id);
+  prevPage = curPage === "cat" ? prevPage : curPage;
+  $("#backLabel").textContent = {today:"Сегодня", games:"Игры", apps:"Приложения", my:"Мои", search:"Поиск"}[prevPage] || "Назад";
+  $("#catTitle").textContent = c.name;
+  $("#catBody").innerHTML = (`<div class="tc" style="background:${c.bg};min-height:200px;margin-top:8px;cursor:default">
+      <div class="tx"><small>${esc(c.kicker)}</small><h2>${esc(c.title)}</h2></div><div class="art" style="font-size:130px;bottom:-10px">${c.emoji}</div></div>`)
+    + (arr.length ? `<div class="list" style="margin-top:14px">${arr.map(a => rowHTML(a)).join("")}</div>` : emptyBox(c.emoji, c.empty, ""));
+  showPage("cat");
+}
+$("#catBack").addEventListener("click", () => showPage(prevPage));
+
+/* ---------- страница приложения ---------- */
+function openApp(a) {
+  const c = catOf(a.cat), i = APPS.indexOf(a);
+  sheet(`
+    <div class="ah"><img class="ic" src="${esc(a.icon)}" alt="">
+      <div class="mt"><h2>${esc(a.name)}</h2><div class="sub">${esc(c.name)}</div>
+        <div class="row"><button class="get blue" data-install="${i}">Загрузить</button>
+          <button class="share" data-share="${i}" aria-label="Поделиться"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7.5 7.5L12 3l4.5 4.5"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg></button></div></div></div>
+    ${a.warn ? `<div class="wbox">⚠️ ${esc(a.warn)}</div>` : ""}
+    <div class="info">
+      <div><small>Категория</small><b>${c.emoji}</b><span>${esc(c.name)}</span></div>
+      <div><small>Версия</small><b>${esc(a.version)}</b><span>Сборка ${esc(a.build || "—")}</span></div>
+      <div><small>Размер</small><b>${mb(a.size).split(" ")[0]}</b><span>${mb(a.size).split(" ")[1]}</span></div>
+      <div><small>Совместимость</small><b>${a.minIOS ? esc(a.minIOS.split(".")[0]) + "+" : "—"}</b><span>iOS</span></div>
+    </div>
+    <div class="blk"><h3>Как установить</h3><p>Нажми «Загрузить» и подтверди установку. Иконка появится на экране «Домой». Если приложение не открывается — включи «Режим разработчика» в Настройки → Конфиденциальность и безопасность.</p></div>
+    <div class="blk" style="border:0"><h3>Информация</h3>
+      <div class="kv"><span>Идентификатор</span><span>${esc(a.bundle)}</span></div>
+      <div class="kv"><span>Размер</span><span>${mb(a.size)}</span></div>
+      <div class="kv"><span>Категория</span><span>${esc(c.name)}</span></div>
+      <div class="kv"><span>Совместимость</span><span>${a.minIOS ? "iOS " + esc(a.minIOS) + " или новее" : "—"}</span></div>
+    </div>`);
+}
+
+/* ---------- настройки ---------- */
+function openSettings() {
+  const t = document.documentElement.dataset.theme || "system";
+  sheet(`<div class="lt" style="padding-top:4px"><h1>Настройки</h1></div>
+    <div class="gh">Оформление</div>
+    <div class="gl"><div class="seg" id="theme">
+      ${[["system","Авто"],["light","Светлая"],["dark","Тёмная"]].map(([k, v]) => `<button data-t="${k}" class="${t === k ? "on" : ""}">${v}</button>`).join("")}
+    </div></div>
+    <div class="gf">«Авто» — как в настройках iPhone.</div>
+    <div class="gh">RuApps на экран «Домой»</div>
+    <div class="gl"><div class="gr"><div class="ico" style="background:none"><img src="ruapps_icon.png" style="width:30px;height:30px;border-radius:7px"></div>
+      <div class="t">Установить как приложение<small>Открывается на весь экран</small></div><a class="get" href="profiles/ruapps-app.mobileconfig">Профиль</a></div></div>
+    <div class="gh">DNS</div>
+    <div class="gl">${DNS.map(d => `<div class="gr"><div class="ico" style="background:${esc(d.color)}">${esc(d.emoji)}</div>
+      <div class="t">${esc(d.name)}<small>${esc(d.desc)}</small></div><a class="get" href="${esc(d.file)}">Профиль</a></div>`).join("")}</div>
+    <div class="gf">Каждый DNS-профиль заодно ставит RuApps на экран «Домой».<br><br>
+      <b>Как установить:</b> «Профиль» → «Разрешить» → <b>Настройки</b> → «Профиль загружен» → «Установить».<br>
+      <b>Удалить:</b> Настройки → Основные → VPN и управление устройством.</div>`);
+  $$("#theme button").forEach(b => b.addEventListener("click", () => {
+    setTheme(b.dataset.t); $$("#theme button").forEach(x => x.classList.toggle("on", x === b));
+  }));
+}
+function setTheme(t) {
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem("ruapps-theme", t); } catch (e) {}
+  const dark = t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+  document.querySelector('meta[name="theme-color"]').content = dark ? "#000000" : "#ffffff";
+}
+setTheme(document.documentElement.dataset.theme || "system");
+
+/* ---------- шит ---------- */
+function sheet(html) {
+  $("#sheet").innerHTML = `<div class="grab"><i></i><button class="close" id="sclose" aria-label="Закрыть">✕</button></div>${html}`;
+  $("#sheet").scrollTop = 0;
+  $("#sheet").classList.add("on"); $("#sbg").classList.add("on");
+  $("#sclose").addEventListener("click", closeSheet);
+}
+function closeSheet() { $("#sheet").classList.remove("on"); $("#sbg").classList.remove("on"); }
+$("#sbg").addEventListener("click", closeSheet);
+
+/* ---------- установка ---------- */
 function install(a) {
   if (a.warn) { $("#cfYes").href = a.install; $("#cfYes").dataset.i = APPS.indexOf(a); $("#cf").classList.add("on"); return; }
   addMine(a); location.href = a.install;
 }
 $("#cfNo").addEventListener("click", () => $("#cf").classList.remove("on"));
 $("#cfYes").addEventListener("click", () => { addMine(APPS[+$("#cfYes").dataset.i]); setTimeout(() => $("#cf").classList.remove("on"), 300); });
-$("#cf").addEventListener("click", e => { if (e.target.id === "cf") $("#cf").classList.remove("on"); });
-
 function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("on"), 1800); }
 
-/* ---- карточка ---- */
-function openApp(a) {
-  const c = catOf(a.cat);
-  $("#sheet").innerHTML = `
-    <div class="grab"></div>
-    <div class="head">
-      <img class="icon" src="${esc(a.icon)}" alt="">
-      <div class="meta"><div class="name">${esc(a.name)}</div><div class="sub">${esc(a.bundle)}</div><span class="tag">${c.emoji} ${esc(c.name)}</span></div>
-    </div>
-    <div class="stats">
-      <div class="stat"><b>${esc(a.version)}</b><small>Версия</small></div>
-      <div class="stat"><b>${a.minIOS ? esc(a.minIOS) + "+" : "—"}</b><small>iOS</small></div>
-      <div class="stat"><b>${mb(a.size)}</b><small>Размер</small></div>
-    </div>
-    <div class="rows"><div><span>Сборка</span><span>${esc(a.build || "—")}</span></div></div>
-    ${a.warn ? `<div class="wbox">⚠️ ${esc(a.warn)}</div>` : ""}
-    <button class="big" data-install="${APPS.indexOf(a)}">Установить</button>
-    <div class="hint">iPhone спросит «Установить?» — жми «Установить», иконка появится на экране «Домой».</div>`;
-  document.body.classList.add("open");
+/* ---------- навигация ---------- */
+let curPage = "today";
+function showPage(p) {
+  curPage = p;
+  $$(".page").forEach(x => x.classList.toggle("on", x.id === "p-" + p));
+  if (p !== "cat") $$(".tab").forEach(t => t.classList.toggle("on", t.dataset.p === p));
+  window.scrollTo(0, 0);
 }
-$("#bg").addEventListener("click", () => document.body.classList.remove("open"));
+$$(".tab").forEach(t => t.addEventListener("click", () => {
+  if (t.dataset.p === curPage) { window.scrollTo({top:0, behavior:"smooth"}); return; }
+  showPage(t.dataset.p); if (t.dataset.p === "search") setTimeout(() => $("#q").focus(), 50);
+}));
 
-/* общий обработчик кликов */
 document.addEventListener("click", e => {
   const ins = e.target.closest("[data-install]");
   if (ins) { e.stopPropagation(); install(APPS[+ins.dataset.install]); return; }
   const rm = e.target.closest("[data-remove]");
   if (rm) { mySet(myGet().filter(b => b !== APPS[+rm.dataset.remove].bundle)); return; }
-  const cat = e.target.closest(".ban[data-c], h3 a[data-c]");
-  if (cat) { setCat(cat.dataset.c); return; }
-  const row = e.target.closest(".app");
+  const sh = e.target.closest("[data-share]");
+  if (sh) { const a = APPS[+sh.dataset.share], url = location.href.split("#")[0];
+    if (navigator.share) navigator.share({title:a.name, text:`${a.name} в RuApps`, url}).catch(() => {});
+    else { navigator.clipboard && navigator.clipboard.writeText(url); toast("Ссылка скопирована"); } return; }
+  if (e.target.closest("[data-open='settings']")) { openSettings(); return; }
+  const cat = e.target.closest("[data-cat]");
+  if (cat && !e.target.closest(".ar")) { openCat(cat.dataset.cat); return; }
+  const row = e.target.closest("[data-i]");
   if (row) openApp(APPS[+row.dataset.i]);
 });
 
-$("#q").addEventListener("input", renderStore);
-
-/* ---- вкладки ---- */
-function showTab(p) {
-  $$(".tab").forEach(t => t.classList.toggle("on", t.dataset.p === p));
-  $$(".page").forEach(x => x.classList.toggle("on", x.id === "p-" + p));
-  $("#storeTop").style.display = p === "store" ? "" : "none";
-  $("#plainTop").style.display = p === "store" ? "none" : "";
-  window.scrollTo(0, 0);
-}
-$$(".tab").forEach(t => t.addEventListener("click", () => showTab(t.dataset.p)));
-
-/* ---- тема ---- */
-function setTheme(t) {
-  document.documentElement.dataset.theme = t;
-  try { localStorage.setItem("ruapps-theme", t); } catch (e) {}
-  $$("#theme button").forEach(b => b.classList.toggle("on", b.dataset.t === t));
-  const dark = t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
-  document.querySelector('meta[name="theme-color"]').content = dark ? "#0b0d12" : "#ffffff";
-}
-$$("#theme button").forEach(b => b.addEventListener("click", () => setTheme(b.dataset.t)));
-setTheme(document.documentElement.dataset.theme || "system");
-
-/* ---- DNS ---- */
-$("#dns").innerHTML = DNS.map(d => `
-  <div class="row">
-    <div class="ico" style="background:${esc(d.color)}">${esc(d.emoji)}</div>
-    <div class="meta"><div class="name">${esc(d.name)}</div><div class="sub">${esc(d.desc)}</div></div>
-    <a class="get" href="${esc(d.file)}">Профиль</a>
-  </div>`).join("");
-
-renderStore();
-renderMy();
+renderToday(); renderGames(); renderApps(); renderSearch(); renderMy();
 </script>
 </body>
 </html>
