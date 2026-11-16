@@ -12,14 +12,13 @@
 <link rel="icon" href="ruapps_icon.png">
 <title>RuApps</title>
 <script>
-  // тема ставится до отрисовки, чтобы не мигало
   (function(){ var t="system"; try{ t=localStorage.getItem("ruapps-theme")||"system"; }catch(e){}
     document.documentElement.dataset.theme=t; })();
 </script>
 <style>
   :root{
     --bg:#f3f5f9; --card:#fff; --line:#e7eaf0; --text:#14171f; --dim:#7c8494; --field:#eef1f6;
-    --blue:#1f63f5; --blue2:#3d8bff; --soft:#e8f0ff; --bar:rgba(255,255,255,.88); --shadow:rgba(20,23,31,.05);
+    --blue:#1f63f5; --blue2:#3d8bff; --soft:#e8f0ff; --bar:rgba(255,255,255,.88); --shadow:rgba(20,23,31,.06);
   }
   :root[data-theme="dark"]{
     --bg:#0b0d12; --card:#161a22; --line:#252b36; --text:#eef1f7; --dim:#8a93a5; --field:#1d222c;
@@ -35,10 +34,11 @@
   html{background:var(--bg)}
   body{margin:0;background:var(--bg);color:var(--text);
     font:16px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
-    padding-bottom:calc(env(safe-area-inset-bottom) + 84px);transition:background .2s,color .2s}
+    padding-bottom:calc(env(safe-area-inset-bottom) + 90px)}
+  button{font-family:inherit}
   .top{position:sticky;top:0;z-index:5;background:var(--bar);
     -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
-    padding:calc(env(safe-area-inset-top) + 12px) 0 12px;border-bottom:1px solid var(--line)}
+    padding:calc(env(safe-area-inset-top) + 12px) 0 0;border-bottom:1px solid var(--line)}
   .wrap{max-width:760px;margin:0 auto;padding:0 16px}
   .brand{display:flex;align-items:center;gap:10px}
   .brand img{width:36px;height:36px;border-radius:10px}
@@ -49,14 +49,30 @@
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237c8494' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E");
     background-repeat:no-repeat;background-position:12px center;background-size:18px}
   .search:focus{box-shadow:0 0 0 2px var(--blue2) inset}
-  .hero{margin:18px 0 6px;border-radius:22px;padding:22px;color:#fff;overflow:hidden;position:relative;
-    background:linear-gradient(135deg,#3d8bff,#1650e6)}
-  .hero h2{margin:0 0 6px;font-size:22px;line-height:1.2;max-width:68%}
-  .hero p{margin:0;opacity:.9;font-size:14px;max-width:70%}
-  .hero img{position:absolute;right:-14px;bottom:-14px;width:104px;height:104px;border-radius:24px;
-    transform:rotate(-12deg);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:12px 16px;margin:0 -16px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none;border:0;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;background:var(--field);color:var(--text);cursor:pointer}
+  .chip.on{background:var(--blue);color:#fff}
+  .notop{padding-bottom:12px}
+
+  /* баннеры */
+  .banners{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:16px -16px 0;padding:0 16px;scrollbar-width:none}
+  .banners::-webkit-scrollbar{display:none}
+  .ban{flex:none;width:86%;max-width:520px;height:170px;border-radius:22px;padding:20px;color:#fff;position:relative;overflow:hidden;
+    scroll-snap-align:center;cursor:pointer;box-shadow:0 6px 18px var(--shadow)}
+  .ban small{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+  .ban h2{margin:6px 0 4px;font-size:24px;line-height:1.15;max-width:62%}
+  .ban p{margin:0;font-size:14px;opacity:.9;max-width:62%}
+  .ban .art{position:absolute;right:-6px;bottom:-14px;font-size:110px;transform:rotate(-10deg);filter:drop-shadow(0 8px 16px rgba(0,0,0,.25))}
+  .dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+  .dots i{width:6px;height:6px;border-radius:3px;background:var(--line);transition:.2s}
+  .dots i.on{width:18px;background:var(--blue)}
+  .catHero{margin-top:16px;height:130px}
+  .catHero h2{max-width:70%}
+
   h3{font-size:20px;margin:24px 2px 10px;display:flex;justify-content:space-between;align-items:baseline}
-  h3 small{font-size:14px;color:var(--dim);font-weight:500}
+  h3 a,h3 small{font-size:15px;color:var(--blue);font-weight:500;text-decoration:none;cursor:pointer}
+  h3 small{color:var(--dim)}
   .card{background:var(--card);border-radius:20px;padding:0 14px;box-shadow:0 1px 3px var(--shadow)}
   .app{display:flex;align-items:center;gap:14px;padding:12px 0;cursor:pointer}
   .app+.app{border-top:1px solid var(--line)}
@@ -66,25 +82,15 @@
   .name{font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .sub{color:var(--dim);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .get{flex:none;border:0;border-radius:999px;padding:8px 18px;font-weight:700;font-size:14px;
-    background:var(--soft);color:var(--blue);text-decoration:none;cursor:pointer;font-family:inherit}
+    background:var(--soft);color:var(--blue);text-decoration:none;cursor:pointer}
   .get:active{opacity:.6}
-  .danger{background:#ffe5e5;color:#d92d20;cursor:default}
-  :root[data-theme="dark"] .danger{background:#3a1616;color:#ff6b6b}
-  .wtxt{color:#d92d20}
+  .x{flex:none;border:0;background:none;color:var(--dim);font-size:22px;padding:4px 6px;cursor:pointer}
+  .wtxt{color:#e5484d}
   .wbox{margin:16px 0 0;padding:12px 14px;border-radius:14px;background:#ffe5e5;color:#b42318;font-size:14px;line-height:1.45}
   :root[data-theme="dark"] .wbox{background:#3a1616;color:#ff8a8a}
-  .bigbtn{width:100%;border:0;font-family:inherit;cursor:pointer}
-  .cf-bg{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:24px}
-  .cf-bg.on{display:flex}
-  .cf{background:var(--card);border-radius:18px;max-width:320px;width:100%;text-align:center;overflow:hidden}
-  .cf .in{padding:20px 18px 16px}
-  .cf .t{font-weight:700;font-size:17px;margin:6px 0}
-  .cf .d{font-size:13px;color:var(--dim);line-height:1.45}
-  .cf .b{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
-  .cf .b>*{padding:13px 0;font:600 17px/1 inherit;font-family:inherit;border:0;background:none;color:var(--blue);text-decoration:none;cursor:pointer}
-  .cf .b>*+*{border-left:1px solid var(--line)}
-  .cf .b .yes{color:#e5484d}
-  .empty{color:var(--dim);text-align:center;padding:36px 0}
+  .empty{color:var(--dim);text-align:center;padding:34px 10px}
+  .empty .e{font-size:54px;margin-bottom:8px}
+  .empty b{display:block;color:var(--text);font-size:17px;margin-bottom:4px}
 
   /* настройки */
   .row{display:flex;align-items:center;gap:12px;padding:13px 0}
@@ -100,11 +106,13 @@
   /* таб-бар */
   .tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bar);
     -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-top:1px solid var(--line);
-    display:flex;justify-content:center;gap:60px;padding:8px 0 calc(env(safe-area-inset-bottom) + 6px)}
+    display:flex;justify-content:space-around;max-width:100%;padding:8px 10px calc(env(safe-area-inset-bottom) + 6px)}
   .tab{border:0;background:none;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:2px;
-    font:600 11px/1 inherit;font-family:inherit;cursor:pointer;padding:2px 10px}
+    font:600 11px/1 inherit;font-family:inherit;cursor:pointer;padding:2px 10px;position:relative}
   .tab svg{width:26px;height:26px}
   .tab.on{color:var(--blue)}
+  .badge{position:absolute;top:-2px;right:12px;min-width:17px;height:17px;border-radius:9px;background:#e5484d;color:#fff;
+    font-size:11px;line-height:17px;padding:0 4px;text-align:center}
   .page{display:none}.page.on{display:block}
 
   /* карточка приложения */
@@ -118,6 +126,7 @@
   .head{display:flex;gap:16px;align-items:center}
   .head .icon{width:96px;height:96px}
   .head .name{font-size:22px;white-space:normal}
+  .tag{display:inline-block;margin-top:6px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--soft);color:var(--blue)}
   .stats{display:grid;grid-template-columns:repeat(3,1fr);margin:18px 0;background:var(--bg);border-radius:16px}
   .stat{text-align:center;padding:12px 4px}
   .stat b{display:block;font-size:17px}
@@ -125,29 +134,46 @@
   .rows div{display:flex;justify-content:space-between;padding:9px 0;font-size:14px;border-bottom:1px solid var(--line)}
   .rows span:first-child{color:var(--dim)}
   .rows span:last-child{text-align:right;word-break:break-all;margin-left:12px}
-  .big{display:block;text-align:center;margin-top:20px;padding:15px;font-size:17px;font-weight:700;border-radius:16px;
+  .big{display:block;width:100%;border:0;cursor:pointer;text-align:center;margin-top:20px;padding:15px;font-size:17px;font-weight:700;border-radius:16px;
     background:linear-gradient(135deg,#3d8bff,#1650e6);color:#fff;text-decoration:none}
   .hint{color:var(--dim);font-size:12px;text-align:center;margin-top:10px}
-  .link{color:var(--blue);text-decoration:none}
+
+  /* подтверждение */
+  .cf-bg{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:24px}
+  .cf-bg.on{display:flex}
+  .cf{background:var(--card);border-radius:18px;max-width:320px;width:100%;text-align:center;overflow:hidden}
+  .cf .in{padding:20px 18px 16px}
+  .cf .t{font-weight:700;font-size:17px;margin:6px 0}
+  .cf .d{font-size:13px;color:var(--dim);line-height:1.45}
+  .cf .b{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+  .cf .b>*{padding:13px 0;font:600 17px/1 inherit;font-family:inherit;border:0;background:none;color:var(--blue);text-decoration:none;cursor:pointer}
+  .cf .b>*+*{border-left:1px solid var(--line)}
+  .cf .b .yes{color:#e5484d}
+  .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 92px);transform:translate(-50%,20px);opacity:0;z-index:30;
+    background:rgba(20,23,31,.92);color:#fff;padding:10px 16px;border-radius:14px;font-size:14px;transition:.25s;pointer-events:none;white-space:nowrap}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
 <div class="top">
   <div class="wrap">
     <div class="brand"><img src="ruapps_icon.png" alt=""><b>Ru<span>Apps</span></b></div>
-    <input class="search" id="q" type="search" placeholder="Игры, приложения и многое другое" autocomplete="off">
+    <div id="storeTop">
+      <input class="search" id="q" type="search" placeholder="Игры, приложения и многое другое" autocomplete="off">
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="notop" id="plainTop" style="display:none"></div>
   </div>
 </div>
 
-<!-- Приложения -->
-<div class="wrap page on" id="p-apps">
-  <div class="hero" id="hero">
-    <h2>Приложения для iPhone</h2>
-    <p>Жми «Установить» — приложение встанет прямо на экран «Домой».</p>
-    <img src="ruapps_icon.png" alt="">
-  </div>
-  <h3>Все приложения <small id="count"></small></h3>
-  <div class="card" id="list"></div>
+<!-- Магазин -->
+<div class="wrap page on" id="p-store"><div id="storeBody"></div></div>
+
+<!-- Мои приложения -->
+<div class="wrap page" id="p-my">
+  <h3>Мои приложения <small id="myCount"></small></h3>
+  <div id="myList"></div>
+  <div class="note">Сюда попадает всё, что ты ставил через RuApps на этом устройстве. Если приложение удалилось или подпись слетела — жми «Ещё раз».</div>
 </div>
 
 <!-- Настройки -->
@@ -165,7 +191,7 @@
   <h3>RuApps на экран «Домой»</h3>
   <div class="card">
     <div class="row">
-      <div class="ico" style="background:linear-gradient(135deg,#3d8bff,#1650e6)"><img src="ruapps_icon.png" alt="" style="width:30px;height:30px;border-radius:8px"></div>
+      <div class="ico"><img src="ruapps_icon.png" alt="" style="width:30px;height:30px;border-radius:8px"></div>
       <div class="meta"><div class="name">Установить как приложение</div><div class="sub">Иконка RuApps, открывается на весь экран</div></div>
       <a class="get" href="profiles/ruapps-app.mobileconfig">Профиль</a>
     </div>
@@ -182,9 +208,14 @@
 </div>
 
 <nav class="tabs">
-  <button class="tab on" data-p="apps">
+  <button class="tab on" data-p="store">
     <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="2.2"/><rect x="13" y="3" width="8" height="8" rx="2.2"/><rect x="3" y="13" width="8" height="8" rx="2.2"/><rect x="13" y="13" width="8" height="8" rx="2.2"/></svg>
-    Приложения
+    Магазин
+  </button>
+  <button class="tab" data-p="my">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/><path d="M12 12v5m-2.2-2.2L12 17l2.2-2.2"/></svg>
+    Мои
+    <span class="badge" id="myBadge" style="display:none"></span>
   </button>
   <button class="tab" data-p="settings">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></svg>
@@ -201,65 +232,162 @@
     <div class="d">Это приложение может быть вредным и опасным для ваших данных.</div></div>
   <div class="b"><button id="cfNo">Отмена</button><a class="yes" id="cfYes" href="#">Установить</a></div>
 </div></div>
+<div class="toast" id="toast"></div>
 
 <script>
-const APPS = [{"name": "MAX", "bundle": "ru.oneme.app", "version": "26.17.3", "build": "31710", "minIOS": "10.0", "size": 55811640, "icon": "icons/ru.oneme.app.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.oneme.app.plist", "ipa": "apps/ru.oneme.app.ipa", "expires": "27.05.2027", "expired": false, "warn": null}, {"name": "RuTube", "bundle": "ru.rutube.main.test", "version": "47.15.0", "build": "37", "minIOS": "15.0", "size": 18368296, "icon": "icons/ru.rutube.main.test.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.rutube.main.test.plist", "ipa": "apps/ru.rutube.main.test.ipa", "expires": "16.09.2026", "expired": true, "warn": null}, {"name": "VK Video", "bundle": "com.vk.vkvideo.prod", "version": "8.183", "build": "2124", "minIOS": "17.6", "size": 132525824, "icon": "icons/com.vk.vkvideo.prod.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkvideo.prod.plist", "ipa": "apps/com.vk.vkvideo.prod.ipa", "expires": "08.04.2027", "expired": false, "warn": null}, {"name": "VK", "bundle": "com.vk.vkclient", "version": "8.183", "build": "8149", "minIOS": "17.6", "size": 230690938, "icon": "icons/com.vk.vkclient.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkclient.plist", "ipa": "apps/com.vk.vkclient.ipa", "expires": "08.04.2027", "expired": false, "warn": null}, {"name": "Авито", "bundle": "org.reactjs.native.prod.AuReactNativeApp", "version": "220.0", "build": "1774349983", "minIOS": "15.2", "size": 366777456, "icon": "icons/org.reactjs.native.prod.AuReactNativeApp.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Forg.reactjs.native.prod.AuReactNativeApp.plist", "ipa": "apps/org.reactjs.native.prod.AuReactNativeApp.ipa", "expires": null, "expired": false, "warn": null}, {"name": "ПочтаMail.ru", "bundle": "ru.mail.mail", "version": "15.92.0", "build": "90407", "minIOS": 10.0, "size": 486624591, "icon": "icons/ru.mail.mail.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.mail.mail.plist", "ipa": "apps/ru.mail.mail.ipa", "expires": "08.04.2027", "expired": false, "warn": null}, {"name": "Сбербанк", "bundle": "com.inv.gen", "version": "17.6.1", "build": "3", "minIOS": "15.0", "size": 283657479, "icon": "icons/com.inv.gen.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.inv.gen.plist", "ipa": "apps/com.inv.gen.ipa", "expires": null, "expired": false, "warn": "Лучше не устанавливать. Файл не проверен и может быть вредоносным: внутри не оригинальное приложение Сбера (другое название и ID, нет профиля подписи). Ставь Сбер только официальным способом."}];
+const APPS = [{"name": "MAX", "bundle": "ru.oneme.app", "version": "26.17.3", "build": "31710", "minIOS": "10.0", "size": 55811640, "icon": "icons/ru.oneme.app.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.oneme.app.plist", "ipa": "apps/ru.oneme.app.ipa", "expires": "27.05.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "RuTube", "bundle": "ru.rutube.main.test", "version": "47.15.0", "build": "37", "minIOS": "15.0", "size": 18368296, "icon": "icons/ru.rutube.main.test.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.rutube.main.test.plist", "ipa": "apps/ru.rutube.main.test.ipa", "expires": "16.09.2026", "expired": true, "warn": null, "cat": "video"}, {"name": "VK Video", "bundle": "com.vk.vkvideo.prod", "version": "8.183", "build": "2124", "minIOS": "17.6", "size": 132525824, "icon": "icons/com.vk.vkvideo.prod.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkvideo.prod.plist", "ipa": "apps/com.vk.vkvideo.prod.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "video"}, {"name": "VK", "bundle": "com.vk.vkclient", "version": "8.183", "build": "8149", "minIOS": "17.6", "size": 230690938, "icon": "icons/com.vk.vkclient.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkclient.plist", "ipa": "apps/com.vk.vkclient.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "Авито", "bundle": "org.reactjs.native.prod.AuReactNativeApp", "version": "220.0", "build": "1774349983", "minIOS": "15.2", "size": 366777456, "icon": "icons/org.reactjs.native.prod.AuReactNativeApp.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Forg.reactjs.native.prod.AuReactNativeApp.plist", "ipa": "apps/org.reactjs.native.prod.AuReactNativeApp.ipa", "expires": null, "expired": false, "warn": null, "cat": "tools"}, {"name": "ПочтаMail.ru", "bundle": "ru.mail.mail", "version": "15.92.0", "build": "90407", "minIOS": 10.0, "size": 486624591, "icon": "icons/ru.mail.mail.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.mail.mail.plist", "ipa": "apps/ru.mail.mail.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "Сбербанк", "bundle": "com.inv.gen", "version": "17.6.1", "build": "3", "minIOS": "15.0", "size": 283657479, "icon": "icons/com.inv.gen.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.inv.gen.plist", "ipa": "apps/com.inv.gen.ipa", "expires": null, "expired": false, "warn": "Лучше не устанавливать. Файл не проверен и может быть вредоносным: внутри не оригинальное приложение Сбера (другое название и ID, нет профиля подписи). Ставь Сбер только официальным способом.", "cat": "banks"}];
 const DNS = [{"name": "Cloudflare 1.1.1.1", "desc": "Быстрый и простой", "emoji": "☁️", "color": "#f38020", "file": "profiles/ruapps-dns-cloudflare.mobileconfig"}, {"name": "AdGuard DNS", "desc": "Режет рекламу и трекеры", "emoji": "🛡️", "color": "#68bc71", "file": "profiles/ruapps-dns-adguard.mobileconfig"}, {"name": "Google DNS", "desc": "8.8.8.8", "emoji": "🔎", "color": "#4285f4", "file": "profiles/ruapps-dns-google.mobileconfig"}, {"name": "Quad9", "desc": "Блокирует опасные сайты", "emoji": "🔒", "color": "#7a2bd8", "file": "profiles/ruapps-dns-quad9.mobileconfig"}];
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const mb = b => (b / 1048576).toFixed(1) + " МБ";
+const store = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
 
-/* ---- приложения ---- */
-function render(filter = "") {
-  const f = filter.trim().toLowerCase();
-  $("#hero").style.display = f ? "none" : "";
-  const list = APPS.filter(a => !f || a.name.toLowerCase().includes(f) || a.bundle.toLowerCase().includes(f));
-  $("#count").textContent = list.length || "";
-  $("#list").innerHTML = list.length ? list.map(a => `
-    <div class="app" data-i="${APPS.indexOf(a)}">
-      <img class="icon" src="${esc(a.icon)}" alt="" loading="lazy">
-      <div class="meta">
-        <div class="name">${esc(a.name)}</div>
-        <div class="sub">${a.warn ? '<span class="wtxt">⚠ Лучше не устанавливать</span>' : `v${esc(a.version)} · ${mb(a.size)}`}</div>
-      </div>
-      ${a.warn ? `<button class="get" onclick="event.stopPropagation();confirmInstall(APPS[${APPS.indexOf(a)}])">Установить</button>` : `<a class="get" href="${esc(a.install)}" onclick="event.stopPropagation()">Установить</a>`}
-    </div>`).join("") : `<div class="empty">Ничего не найдено</div>`;
+/* ---- разделы ---- */
+const CATS = [
+  {id:"all",    name:"Все",                 emoji:"✨"},
+  {id:"games",  name:"Игры",                emoji:"🎮", title:"Игры для iPhone",        text:"Во что поиграть сегодня",          bg:"linear-gradient(135deg,#a855f7,#6d28d9)", empty:"Игры скоро появятся"},
+  {id:"banks",  name:"Банки",               emoji:"🏦", title:"Банки и финансы",        text:"Будь осторожен: ставь только проверенное", bg:"linear-gradient(135deg,#10b981,#047857)", empty:"Банков пока нет"},
+  {id:"video",  name:"Видео и развлечения", emoji:"🎬", title:"Видео и развлечения",    text:"Кино, ролики и стримы",            bg:"linear-gradient(135deg,#fb7185,#e11d48)", empty:"Видео скоро появится"},
+  {id:"social", name:"Общение",             emoji:"💬", title:"Общение и соцсети",      text:"Мессенджеры, почта и соцсети",     bg:"linear-gradient(135deg,#38bdf8,#1d4ed8)", empty:"Пока пусто"},
+  {id:"tools",  name:"Полезное",            emoji:"🧰", title:"Полезное",               text:"Покупки, сервисы и всё для жизни",  bg:"linear-gradient(135deg,#fbbf24,#ea580c)", empty:"Пока пусто"},
+];
+const catOf = id => CATS.find(c => c.id === id) || CATS[CATS.length - 1];
+let curCat = "all";
+
+$("#chips").innerHTML = CATS.map(c => `<button class="chip${c.id === "all" ? " on" : ""}" data-c="${c.id}">${c.emoji} ${c.name}</button>`).join("");
+$("#chips").addEventListener("click", e => { const b = e.target.closest(".chip"); if (b) setCat(b.dataset.c); });
+
+function setCat(id) {
+  curCat = id;
+  $$(".chip").forEach(c => c.classList.toggle("on", c.dataset.c === id));
+  const chip = $(`.chip[data-c="${id}"]`); chip && chip.scrollIntoView({inline:"center", block:"nearest", behavior:"smooth"});
+  $("#q").value = "";
+  renderStore(); window.scrollTo(0, 0);
 }
 
+/* ---- строки ---- */
+function rowHTML(a, mode = "store") {
+  const i = APPS.indexOf(a);
+  const sub = a.warn ? '<span class="wtxt">⚠ Лучше не устанавливать</span>' : `${esc(catOf(a.cat).name)} · ${mb(a.size)}`;
+  const btn = `<button class="get" data-install="${i}">${mode === "my" ? "Ещё раз" : "Установить"}</button>`;
+  const x = mode === "my" ? `<button class="x" data-remove="${i}" aria-label="Убрать">×</button>` : "";
+  return `<div class="app" data-i="${i}"><img class="icon" src="${esc(a.icon)}" alt="" loading="lazy">
+    <div class="meta"><div class="name">${esc(a.name)}</div><div class="sub">${sub}</div></div>${btn}${x}</div>`;
+}
+function listHTML(arr, mode, emptyText) {
+  return arr.length ? `<div class="card">${arr.map(a => rowHTML(a, mode)).join("")}</div>`
+    : `<div class="card"><div class="empty"><div class="e">🫥</div>${esc(emptyText || "Ничего не найдено")}</div></div>`;
+}
+
+/* ---- витрина ---- */
+function bannersHTML() {
+  const bs = CATS.filter(c => c.id !== "all").map(c => {
+    const n = APPS.filter(a => a.cat === c.id).length;
+    return `<div class="ban" data-c="${c.id}" style="background:${c.bg}"><small>${n ? n + " прил." : "Скоро"}</small>
+      <h2>${esc(c.title)}</h2><p>${esc(c.text)}</p><div class="art">${c.emoji}</div></div>`;
+  });
+  return `<div class="banners" id="bans">${bs.join("")}</div><div class="dots" id="dots">${bs.map((_, i) => `<i${i ? "" : ' class="on"'}></i>`).join("")}</div>`;
+}
+
+function renderStore() {
+  const f = $("#q").value.trim().toLowerCase();
+  let h = "";
+  if (f) {
+    const res = APPS.filter(a => a.name.toLowerCase().includes(f) || a.bundle.toLowerCase().includes(f) || catOf(a.cat).name.toLowerCase().includes(f));
+    h = `<h3>Результаты <small>${res.length}</small></h3>` + listHTML(res, "store", "Ничего не найдено");
+  } else if (curCat === "all") {
+    h = bannersHTML();
+    h += `<h3>Все приложения <small>${APPS.length}</small></h3>` + listHTML(APPS, "store");
+    for (const c of CATS.slice(1)) {
+      const arr = APPS.filter(a => a.cat === c.id);
+      h += `<h3>${c.emoji} ${esc(c.name)} <a data-c="${c.id}">См. все</a></h3>` + listHTML(arr.slice(0, 4), "store", c.empty);
+    }
+  } else {
+    const c = catOf(curCat), arr = APPS.filter(a => a.cat === c.id);
+    h = `<div class="ban catHero" style="background:${c.bg};width:100%;max-width:none;cursor:default"><small>${arr.length} прил.</small>
+      <h2>${esc(c.title)}</h2><p>${esc(c.text)}</p><div class="art">${c.emoji}</div></div>`;
+    h += `<h3>${esc(c.name)} <small>${arr.length}</small></h3>` + listHTML(arr, "store", c.empty);
+  }
+  $("#storeBody").innerHTML = h;
+  const bans = $("#bans");
+  if (bans) bans.addEventListener("scroll", () => {
+    const i = Math.round(bans.scrollLeft / (bans.firstElementChild.offsetWidth + 12));
+    $$("#dots i").forEach((d, k) => d.classList.toggle("on", k === i));
+  }, {passive:true});
+}
+
+/* ---- мои приложения ---- */
+function myGet() { return store.get("ruapps-my", []); }
+function mySet(v) { store.set("ruapps-my", v); renderMy(); }
+function addMine(a) {
+  const my = myGet().filter(b => b !== a.bundle); my.unshift(a.bundle); mySet(my);
+  toast("Добавлено в «Мои приложения»");
+}
+function renderMy() {
+  const arr = myGet().map(b => APPS.find(a => a.bundle === b)).filter(Boolean);
+  $("#myCount").textContent = arr.length || "";
+  $("#myBadge").textContent = arr.length; $("#myBadge").style.display = arr.length ? "" : "none";
+  $("#myList").innerHTML = arr.length ? `<div class="card">${arr.map(a => rowHTML(a, "my")).join("")}</div>`
+    : `<div class="card"><div class="empty"><div class="e">📲</div><b>Тут пока пусто</b>Установи что-нибудь из магазина — и оно появится здесь.</div></div>`;
+}
+
+/* ---- установка ---- */
+function install(a) {
+  if (a.warn) { $("#cfYes").href = a.install; $("#cfYes").dataset.i = APPS.indexOf(a); $("#cf").classList.add("on"); return; }
+  addMine(a); location.href = a.install;
+}
+$("#cfNo").addEventListener("click", () => $("#cf").classList.remove("on"));
+$("#cfYes").addEventListener("click", () => { addMine(APPS[+$("#cfYes").dataset.i]); setTimeout(() => $("#cf").classList.remove("on"), 300); });
+$("#cf").addEventListener("click", e => { if (e.target.id === "cf") $("#cf").classList.remove("on"); });
+
+function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("on"), 1800); }
+
+/* ---- карточка ---- */
 function openApp(a) {
+  const c = catOf(a.cat);
   $("#sheet").innerHTML = `
     <div class="grab"></div>
     <div class="head">
       <img class="icon" src="${esc(a.icon)}" alt="">
-      <div class="meta"><div class="name">${esc(a.name)}</div><div class="sub">${esc(a.bundle)}</div></div>
+      <div class="meta"><div class="name">${esc(a.name)}</div><div class="sub">${esc(a.bundle)}</div><span class="tag">${c.emoji} ${esc(c.name)}</span></div>
     </div>
     <div class="stats">
       <div class="stat"><b>${esc(a.version)}</b><small>Версия</small></div>
       <div class="stat"><b>${a.minIOS ? esc(a.minIOS) + "+" : "—"}</b><small>iOS</small></div>
       <div class="stat"><b>${mb(a.size)}</b><small>Размер</small></div>
     </div>
-    <div class="rows">
-      <div><span>Сборка</span><span>${esc(a.build || "—")}</span></div>
-      ${a.warn ? "" : `<div><span>Файл</span><span><a class="link" href="${esc(a.ipa)}" download>Скачать .ipa</a></span></div>`}
-    </div>
-    ${a.warn ? `<div class="wbox">⚠️ ${esc(a.warn)}</div><button class="big bigbtn" onclick="confirmInstall(APPS[${APPS.indexOf(a)}])">Установить</button>` : `<a class="big" href="${esc(a.install)}">Установить</a>
-    <div class="hint">iPhone спросит «Установить?» — жми «Установить», иконка появится на экране «Домой».</div>`}`;
+    <div class="rows"><div><span>Сборка</span><span>${esc(a.build || "—")}</span></div></div>
+    ${a.warn ? `<div class="wbox">⚠️ ${esc(a.warn)}</div>` : ""}
+    <button class="big" data-install="${APPS.indexOf(a)}">Установить</button>
+    <div class="hint">iPhone спросит «Установить?» — жми «Установить», иконка появится на экране «Домой».</div>`;
   document.body.classList.add("open");
 }
+$("#bg").addEventListener("click", () => document.body.classList.remove("open"));
 
-$("#list").addEventListener("click", e => {
+/* общий обработчик кликов */
+document.addEventListener("click", e => {
+  const ins = e.target.closest("[data-install]");
+  if (ins) { e.stopPropagation(); install(APPS[+ins.dataset.install]); return; }
+  const rm = e.target.closest("[data-remove]");
+  if (rm) { mySet(myGet().filter(b => b !== APPS[+rm.dataset.remove].bundle)); return; }
+  const cat = e.target.closest(".ban[data-c], h3 a[data-c]");
+  if (cat) { setCat(cat.dataset.c); return; }
   const row = e.target.closest(".app");
   if (row) openApp(APPS[+row.dataset.i]);
 });
-$("#bg").addEventListener("click", () => document.body.classList.remove("open"));
-$("#q").addEventListener("input", e => { showTab("apps"); render(e.target.value); });
+
+$("#q").addEventListener("input", renderStore);
 
 /* ---- вкладки ---- */
 function showTab(p) {
   $$(".tab").forEach(t => t.classList.toggle("on", t.dataset.p === p));
   $$(".page").forEach(x => x.classList.toggle("on", x.id === "p-" + p));
-  $(".search").style.display = p === "apps" ? "" : "none";
+  $("#storeTop").style.display = p === "store" ? "" : "none";
+  $("#plainTop").style.display = p === "store" ? "none" : "";
   window.scrollTo(0, 0);
 }
 $$(".tab").forEach(t => t.addEventListener("click", () => showTab(t.dataset.p)));
@@ -283,15 +411,8 @@ $("#dns").innerHTML = DNS.map(d => `
     <a class="get" href="${esc(d.file)}">Профиль</a>
   </div>`).join("");
 
-function confirmInstall(a) {
-  $("#cfYes").href = a.install;
-  $("#cf").classList.add("on");
-}
-$("#cfNo").addEventListener("click", () => $("#cf").classList.remove("on"));
-$("#cfYes").addEventListener("click", () => setTimeout(() => $("#cf").classList.remove("on"), 300));
-$("#cf").addEventListener("click", e => { if (e.target.id === "cf") $("#cf").classList.remove("on"); });
-
-render();
+renderStore();
+renderMy();
 </script>
 </body>
 </html>
