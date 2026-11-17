@@ -187,6 +187,49 @@
   .seg button{border:0;background:none;font-size:14px;font-weight:600;padding:7px 0;border-radius:7px;cursor:pointer}
   .seg button.on{background:var(--card);box-shadow:0 3px 8px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04)}
 
+
+  /* ---------- настройки в стиле iOS ---------- */
+  .avatar{display:grid;place-items:center;color:#fff;font-weight:600;font-size:15px}
+  .avatar.anon{background:linear-gradient(180deg,#b5b5bb,#8e8e93)}
+  .avatar svg{width:22px;height:22px}
+  .st{padding:6px 0 10px}
+  .st h1{margin:0;font-size:34px;font-weight:700;letter-spacing:-.02em}
+  .acct{display:flex;align-items:center;gap:14px;padding:12px 16px;cursor:pointer}
+  .av{border-radius:50%;flex:none;overflow:hidden;display:grid;place-items:center;color:#fff;font-weight:600;
+    background:linear-gradient(180deg,#b5b5bb,#8e8e93)}
+  .av img{width:100%;height:100%;object-fit:cover}
+  .av svg{width:56%;height:56%}
+  .acct .t{flex:1;min-width:0}
+  .acct .t b{display:block;font-size:20px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .acct .t small{display:block;color:var(--dim);font-size:13px;margin-top:2px}
+  .gr.btn{cursor:pointer}
+  .gr.btn:active{background:rgba(127,127,140,.12)}
+  .gr .t{flex-direction:row;align-items:center;justify-content:space-between;gap:8px}
+  .gr .t .lbl{display:flex;flex-direction:column;min-width:0}
+  .gr .val{color:var(--dim);font-size:17px;white-space:nowrap}
+  .chev{width:8px;height:14px;flex:none;color:#c4c4c7;margin-left:6px}
+  .gr.center .t{justify-content:center}
+  .gr.danger .t{color:var(--red);justify-content:center;font-weight:400}
+  .check{color:var(--blue);font-weight:700}
+  .bk{display:inline-flex;align-items:center;gap:2px;color:var(--blue);font-size:17px;border:0;background:none;padding:6px 0;cursor:pointer}
+  .bk svg{width:22px;height:22px}
+  .bigav{display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 0 4px}
+  .bigav b{font-size:24px;font-weight:700;margin-top:10px}
+  .bigav small{color:var(--dim);font-size:15px;margin-top:2px}
+  .login{display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 8px 0}
+  .login img.logo{width:96px;height:96px;border-radius:22.37%;box-shadow:0 10px 30px var(--shadow)}
+  .login h2{margin:18px 0 6px;font-size:28px;font-weight:700}
+  .login p{margin:0;color:var(--dim);font-size:15px;line-height:1.4;max-width:320px}
+  .lbtns{display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px;margin-top:28px;align-items:stretch}
+  .abtn{height:44px;border-radius:999px;border:0;background:#000;color:#fff;font-size:17px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px}
+  :root[data-theme="dark"] .abtn{background:#fff;color:#000}
+  @media (prefers-color-scheme: dark){ :root[data-theme="system"] .abtn{background:#fff;color:#000} }
+  .abtn svg{width:18px;height:18px}
+  #gbtn{display:flex;justify-content:center;min-height:44px}
+  .fine{color:var(--dim);font-size:12px;line-height:1.4;margin-top:22px;max-width:320px}
+  .need{margin:10px 0 0;padding:12px 14px;border-radius:12px;background:rgba(255,149,0,.14);color:#c26a00;font-size:14px;line-height:1.4;text-align:left}
+
   /* алерт и тост */
   .cf-bg{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;padding:24px}
   .cf-bg.on{display:flex}
@@ -210,31 +253,31 @@
 <!-- Сегодня -->
 <div class="page on" id="p-today"><div class="wrap">
   <div class="lt"><div><small id="today"></small><h1>Сегодня</h1></div>
-    <button class="avatar" data-open="settings" aria-label="Настройки"><img src="ruapps_icon.png" alt=""></button></div>
+    <button class="avatar" data-open="settings" aria-label="Аккаунт"></button></div>
   <div class="today" id="todayCards"></div>
 </div></div>
 
 <!-- Игры -->
 <div class="page" id="p-games"><div class="wrap">
-  <div class="lt"><h1>Игры</h1><button class="avatar" data-open="settings"><img src="ruapps_icon.png" alt=""></button></div>
+  <div class="lt"><h1>Игры</h1><button class="avatar" data-open="settings" aria-label="Аккаунт"></button></div>
   <div id="gamesBody"></div>
 </div></div>
 
 <!-- Приложения -->
 <div class="page" id="p-apps"><div class="wrap">
-  <div class="lt"><h1>Приложения</h1><button class="avatar" data-open="settings"><img src="ruapps_icon.png" alt=""></button></div>
+  <div class="lt"><h1>Приложения</h1><button class="avatar" data-open="settings" aria-label="Аккаунт"></button></div>
   <div id="appsBody"></div>
 </div></div>
 
 <!-- Мои -->
 <div class="page" id="p-my"><div class="wrap">
-  <div class="lt"><h1>Мои</h1><button class="avatar" data-open="settings"><img src="ruapps_icon.png" alt=""></button></div>
+  <div class="lt"><h1>Мои</h1><button class="avatar" data-open="settings" aria-label="Аккаунт"></button></div>
   <div id="myBody"></div>
 </div></div>
 
 <!-- Поиск -->
 <div class="page" id="p-search"><div class="wrap">
-  <div class="lt"><h1>Поиск</h1><button class="avatar" data-open="settings"><img src="ruapps_icon.png" alt=""></button></div>
+  <div class="lt"><h1>Поиск</h1><button class="avatar" data-open="settings" aria-label="Аккаунт"></button></div>
   <label class="sf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
     <input id="q" type="search" placeholder="Игры, приложения и многое другое" autocomplete="off"></label>
   <div id="searchBody"></div>
@@ -265,7 +308,10 @@
 </div></div>
 <div class="toast" id="toast"></div>
 
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" async defer></script>
 <script>
+const AUTH = {"google_client_id": "944658927755-qt8rq7v4304eh8fgpktfnkq0rvdv9rqj.apps.googleusercontent.com", "apple_client_id": "", "apple_redirect_uri": ""};
 const APPS = [{"name": "MAX", "bundle": "ru.oneme.app", "version": "26.17.3", "build": "31710", "minIOS": "10.0", "size": 55811640, "icon": "icons/ru.oneme.app.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.oneme.app.plist", "ipa": "apps/ru.oneme.app.ipa", "expires": "27.05.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "PojavLauncher", "bundle": "net.kdt.pojavlauncher", "version": "2.2", "build": "2.2", "minIOS": "12.2", "size": 108175347, "icon": "icons/net.kdt.pojavlauncher.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fnet.kdt.pojavlauncher.plist", "ipa": "apps/net.kdt.pojavlauncher.ipa", "expires": null, "expired": false, "warn": null, "cat": "games"}, {"name": "RuTube", "bundle": "ru.rutube.main.test", "version": "47.15.0", "build": "37", "minIOS": "15.0", "size": 18368296, "icon": "icons/ru.rutube.main.test.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.rutube.main.test.plist", "ipa": "apps/ru.rutube.main.test.ipa", "expires": "16.09.2026", "expired": true, "warn": null, "cat": "video"}, {"name": "VK Video", "bundle": "com.vk.vkvideo.prod", "version": "8.183", "build": "2124", "minIOS": "17.6", "size": 132525824, "icon": "icons/com.vk.vkvideo.prod.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkvideo.prod.plist", "ipa": "apps/com.vk.vkvideo.prod.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "video"}, {"name": "VK", "bundle": "com.vk.vkclient", "version": "8.183", "build": "8149", "minIOS": "17.6", "size": 230690938, "icon": "icons/com.vk.vkclient.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkclient.plist", "ipa": "apps/com.vk.vkclient.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "Авито", "bundle": "org.reactjs.native.prod.AuReactNativeApp", "version": "220.0", "build": "1774349983", "minIOS": "15.2", "size": 366777456, "icon": "icons/org.reactjs.native.prod.AuReactNativeApp.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Forg.reactjs.native.prod.AuReactNativeApp.plist", "ipa": "apps/org.reactjs.native.prod.AuReactNativeApp.ipa", "expires": null, "expired": false, "warn": null, "cat": "tools"}, {"name": "ПочтаMail.ru", "bundle": "ru.mail.mail", "version": "15.92.0", "build": "90407", "minIOS": 10.0, "size": 486624591, "icon": "icons/ru.mail.mail.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.mail.mail.plist", "ipa": "apps/ru.mail.mail.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "Сбербанк", "bundle": "com.inv.gen", "version": "17.6.1", "build": "3", "minIOS": "15.0", "size": 283657479, "icon": "icons/com.inv.gen.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.inv.gen.plist", "ipa": "apps/com.inv.gen.ipa", "expires": null, "expired": false, "warn": "Лучше не устанавливать. Файл не проверен и может быть вредоносным: внутри не оригинальное приложение Сбера (другое название и ID, нет профиля подписи). Ставь Сбер только официальным способом.", "cat": "banks"}];
 const DNS = [{"name": "Cloudflare 1.1.1.1", "desc": "Быстрый и простой", "emoji": "☁️", "color": "#f38020", "file": "profiles/ruapps-dns-cloudflare.mobileconfig"}, {"name": "AdGuard DNS", "desc": "Режет рекламу и трекеры", "emoji": "🛡️", "color": "#68bc71", "file": "profiles/ruapps-dns-adguard.mobileconfig"}, {"name": "Google DNS", "desc": "8.8.8.8", "emoji": "🔎", "color": "#4285f4", "file": "profiles/ruapps-dns-google.mobileconfig"}, {"name": "Quad9", "desc": "Блокирует опасные сайты", "emoji": "🔒", "color": "#7a2bd8", "file": "profiles/ruapps-dns-quad9.mobileconfig"}];
 const $ = s => document.querySelector(s);
@@ -410,28 +456,160 @@ function openApp(a) {
     </div>`);
 }
 
-/* ---------- настройки ---------- */
-function openSettings() {
-  const t = document.documentElement.dataset.theme || "system";
-  sheet(`<div class="lt" style="padding-top:4px"><h1>Настройки</h1></div>
-    <div class="gh">Оформление</div>
-    <div class="gl"><div class="seg" id="theme">
-      ${[["system","Авто"],["light","Светлая"],["dark","Тёмная"]].map(([k, v]) => `<button data-t="${k}" class="${t === k ? "on" : ""}">${v}</button>`).join("")}
-    </div></div>
-    <div class="gf">«Авто» — как в настройках iPhone.</div>
-    <div class="gh">RuApps на экран «Домой»</div>
-    <div class="gl"><div class="gr"><div class="ico" style="background:none"><img src="ruapps_icon.png" style="width:30px;height:30px;border-radius:7px"></div>
-      <div class="t">Установить как приложение<small>Открывается на весь экран</small></div><a class="get" href="profiles/ruapps-app.mobileconfig">Профиль</a></div></div>
-    <div class="gh">DNS</div>
-    <div class="gl">${DNS.map(d => `<div class="gr"><div class="ico" style="background:${esc(d.color)}">${esc(d.emoji)}</div>
-      <div class="t">${esc(d.name)}<small>${esc(d.desc)}</small></div><a class="get" href="${esc(d.file)}">Профиль</a></div>`).join("")}</div>
-    <div class="gf">Каждый DNS-профиль заодно ставит RuApps на экран «Домой».<br><br>
-      <b>Как установить:</b> «Профиль» → «Разрешить» → <b>Настройки</b> → «Профиль загружен» → «Установить».<br>
-      <b>Удалить:</b> Настройки → Основные → VPN и управление устройством.</div>`);
-  $$("#theme button").forEach(b => b.addEventListener("click", () => {
-    setTheme(b.dataset.t); $$("#theme button").forEach(x => x.classList.toggle("on", x === b));
-  }));
+/* ---------- аккаунт ---------- */
+const PERSON = '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8.5" r="4.2"/><path d="M3.8 20.5c.9-4 4.2-6.3 8.2-6.3s7.3 2.3 8.2 6.3z"/></svg>';
+const CHEV = '<svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 7l-5 5.5"/></svg>';
+const APPLE = '<svg viewBox="0 0 17 20" fill="currentColor"><path d="M14.1 10.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.8-1-2.8-4zM11.6 3c.7-.9 1.2-2 1-3.1-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1.1 3 1.1.1 2.3-.6 3-1.4z"/></svg>';
+const hasGoogle = () => !!(AUTH && AUTH.google_client_id);
+const hasApple  = () => !!(AUTH && AUTH.apple_client_id && AUTH.apple_redirect_uri);
+const authOn    = () => hasGoogle() || hasApple();
+const userGet = () => store.get("ruapps-user", null);
+function userSet(u) { store.set("ruapps-user", u); renderAvatars(); }
+function initials(u) { return (u && u.name ? u.name : "?").split(/\s+/).map(w => w[0]).join("").slice(0, 2).toUpperCase(); }
+function avHTML(u, size) {
+  const st = `width:${size}px;height:${size}px;font-size:${Math.round(size * .4)}px`;
+  if (!u) return `<div class="av" style="${st}">${PERSON}</div>`;
+  if (u.picture) return `<div class="av" style="${st}"><img src="${esc(u.picture)}" alt="" referrerpolicy="no-referrer"></div>`;
+  return `<div class="av" style="${st};background:linear-gradient(180deg,#5e9eff,#1f63f5)">${esc(initials(u))}</div>`;
 }
+function renderAvatars() {
+  const u = userGet();
+  $$(".avatar").forEach(b => { b.classList.toggle("anon", !u); b.innerHTML = u ? avHTML(u, 36).replace('class="av"', 'class="av" style="width:100%;height:100%"') : PERSON; });
+}
+function decodeJWT(t) {
+  try { const p = t.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+    return JSON.parse(decodeURIComponent(atob(p).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))); }
+  catch (e) { return null; }
+}
+let afterLogin = null;
+function onGoogle(resp) {
+  const d = decodeJWT(resp.credential); if (!d) return toast("Не получилось войти");
+  userSet({provider:"Google", name:d.name || d.email, email:d.email, picture:d.picture || "", sub:d.sub});
+  loggedIn();
+}
+async function signInApple() {
+  try {
+    AppleID.auth.init({clientId:AUTH.apple_client_id, scope:"name email", redirectURI:AUTH.apple_redirect_uri, usePopup:true});
+    const r = await AppleID.auth.signIn();
+    const d = decodeJWT(r.authorization.id_token) || {};
+    const prev = userGet();
+    const nm = r.user && r.user.name ? `${r.user.name.firstName || ""} ${r.user.name.lastName || ""}`.trim() : (prev && prev.sub === d.sub ? prev.name : "");
+    userSet({provider:"Apple", name:nm || d.email || "Пользователь Apple", email:d.email || "", picture:"", sub:d.sub});
+    loggedIn();
+  } catch (e) { if (!e || e.error !== "popup_closed_by_user") toast("Вход через Apple не удался"); }
+}
+function loggedIn() {
+  const u = userGet(); toast(`Привет, ${(u.name || "").split(" ")[0] || "друг"}!`);
+  const next = afterLogin; afterLogin = null;
+  if (next) { closeSheet(); setTimeout(() => install(next), 350); } else openSettings();
+}
+function signOut() {
+  try { if (window.google && google.accounts) google.accounts.id.disableAutoSelect(); } catch (e) {}
+  userSet(null); toast("Вы вышли из аккаунта"); openSettings();
+}
+function openLogin(app) {
+  afterLogin = app || null;
+  sheet(`<div class="login"><img class="logo" src="ruapps_icon.png" alt="">
+    <h2>Вход в RuApps</h2>
+    <p>${app ? `Чтобы загрузить «${esc(app.name)}», войдите в аккаунт.` : "Войдите, чтобы загружать приложения."}</p>
+    <div class="lbtns">
+      ${hasApple() ? `<button class="abtn" id="abtn">${APPLE}Войти через Apple</button>` : ""}
+      ${hasGoogle() ? `<div id="gbtn"></div>` : ""}
+      ${authOn() ? "" : `<div class="need">Вход пока не подключён владельцем магазина. Пока он не настроен, приложения загружаются без входа.</div>`}
+    </div>
+    <div class="fine">Пароль вы вводите на странице Google или Apple — RuApps его не видит. Мы получаем только имя, e-mail и фото профиля, и храним их только на этом устройстве.</div></div>`);
+  if (hasApple()) $("#abtn").addEventListener("click", signInApple);
+  if (hasGoogle()) mountGoogle();
+}
+function mountGoogle(tries = 0) {
+  const el = $("#gbtn"); if (!el) return;
+  if (!(window.google && google.accounts && google.accounts.id)) { if (tries < 40) setTimeout(() => mountGoogle(tries + 1), 150); else el.textContent = "Google не загрузился. Проверь интернет."; return; }
+  google.accounts.id.initialize({client_id:AUTH.google_client_id, callback:onGoogle, ux_mode:"popup", auto_select:false});
+  const dark = matchMedia("(prefers-color-scheme: dark)").matches && document.documentElement.dataset.theme !== "light" || document.documentElement.dataset.theme === "dark";
+  google.accounts.id.renderButton(el, {theme:dark ? "filled_black" : "outline", size:"large", shape:"pill", text:"signin_with", locale:"ru", width:320});
+}
+
+/* ---------- настройки ---------- */
+const THEMES = {system:"Авто", light:"Светлая", dark:"Тёмная"};
+function grow({icon, bg, label, sub, val, chev = true, act, cls = ""}) {
+  return `<div class="gr ${act ? "btn" : ""} ${cls}" ${act ? `data-act="${act}"` : ""}>
+    ${icon ? `<div class="ico" style="background:${bg || "none"}">${icon}</div>` : ""}
+    <div class="t"><div class="lbl">${label}${sub ? `<small>${sub}</small>` : ""}</div>
+      <div style="display:flex;align-items:center">${val ? `<span class="val">${val}</span>` : ""}${chev ? CHEV : ""}</div></div></div>`;
+}
+function openSettings() {
+  const u = userGet(), t = document.documentElement.dataset.theme || "system";
+  const myN = myGet().length;
+  sheet(`<div class="st"><h1>Настройки</h1></div>
+    <div class="gl"><div class="acct" data-act="${u ? "account" : "login"}">${avHTML(u, 60)}
+      <div class="t">${u ? `<b>${esc(u.name)}</b><small>Аккаунт RuApps, вход через ${esc(u.provider)}</small>`
+                         : `<b style="color:var(--blue)">Войти</b><small>Войдите, чтобы загружать приложения</small>`}</div>${CHEV}</div></div>
+
+    <div class="gl" style="margin-top:28px">
+      ${grow({icon:"🌓", bg:"#5856d6", label:"Оформление", val:THEMES[t], act:"theme"})}
+      ${grow({icon:"🛍️", bg:"#007aff", label:"Мои приложения", val:myN || "", act:"my"})}
+    </div>
+
+    <div class="gl" style="margin-top:28px">
+      ${grow({icon:'<img src="ruapps_icon.png" style="width:30px;height:30px;border-radius:7px">', label:"RuApps на экран «Домой»", act:"home"})}
+      ${grow({icon:"🛡️", bg:"#34c759", label:"DNS", val:DNS.length + " " + plural(DNS.length, "профиль", "профиля", "профилей"), act:"dns"})}
+    </div>
+
+    <div class="gl" style="margin-top:28px">
+      ${grow({icon:"ℹ️", bg:"#8e8e93", label:"О RuApps", act:"about"})}
+    </div>
+    ${u ? `<div class="gl" style="margin-top:28px">${grow({label:"Выйти", chev:false, act:"logout", cls:"danger"})}</div>` : ""}
+    <div class="gf" style="text-align:center;margin-top:24px">RuApps · ${APPS.length} ${plural(APPS.length, "приложение", "приложения", "приложений")}</div>`);
+}
+function sub(title, html) {
+  sheet(`<button class="bk" data-act="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>Настройки</button>
+    <div class="st"><h1 style="font-size:30px">${title}</h1></div>${html}`);
+}
+function openAccount() {
+  const u = userGet(); if (!u) return openLogin();
+  sub("Аккаунт", `<div class="bigav">${avHTML(u, 96)}<b>${esc(u.name)}</b><small>${esc(u.email || "")}</small></div>
+    <div class="gl" style="margin-top:22px">
+      ${grow({label:"Имя", val:esc(u.name), chev:false})}
+      ${grow({label:"E-mail", val:esc(u.email || "скрыт"), chev:false})}
+      ${grow({label:"Вход через", val:esc(u.provider), chev:false})}
+    </div>
+    <div class="gl" style="margin-top:28px">${grow({icon:"🛍️", bg:"#007aff", label:"Мои приложения", val:myGet().length || "", act:"my"})}</div>
+    <div class="gl" style="margin-top:28px">${grow({label:"Выйти", chev:false, act:"logout", cls:"danger"})}</div>
+    <div class="gf">Данные аккаунта хранятся только на этом устройстве. После выхода они удаляются.</div>`);
+}
+function openTheme() {
+  const t = document.documentElement.dataset.theme || "system";
+  sub("Оформление", `<div class="gl" style="margin-top:8px">${Object.entries(THEMES).map(([k, v]) =>
+      `<div class="gr btn" data-theme-set="${k}"><div class="t"><div class="lbl">${v}</div>${t === k ? '<span class="check">✓</span>' : ""}</div></div>`).join("")}</div>
+    <div class="gf">«Авто» — как в настройках iPhone.</div>`);
+}
+function openHome() {
+  sub("Экран «Домой»", `<div class="gl" style="margin-top:8px"><div class="gr"><div class="ico"><img src="ruapps_icon.png" style="width:30px;height:30px;border-radius:7px"></div>
+      <div class="t"><div class="lbl">Установить как приложение<small>Открывается на весь экран</small></div><a class="get" href="profiles/ruapps-app.mobileconfig">Профиль</a></div></div></div>
+    <div class="gf"><b>Как установить:</b> «Профиль» → «Разрешить» → Настройки → «Профиль загружен» → «Установить».</div>`);
+}
+function openDNS() {
+  sub("DNS", `<div class="gl" style="margin-top:8px">${DNS.map(d => `<div class="gr"><div class="ico" style="background:${esc(d.color)}">${esc(d.emoji)}</div>
+      <div class="t"><div class="lbl">${esc(d.name)}<small>${esc(d.desc)}</small></div><a class="get" href="${esc(d.file)}">Профиль</a></div></div>`).join("")}</div>
+    <div class="gf">Каждый DNS-профиль заодно ставит RuApps на экран «Домой».<br><br>
+      <b>Включить:</b> Настройки → Основные → VPN и управление устройством → DNS.<br>
+      <b>Удалить:</b> там же → профиль → «Удалить профиль».</div>`);
+}
+function openAbout() {
+  sub("О RuApps", `<div class="bigav"><img src="ruapps_icon.png" style="width:96px;height:96px;border-radius:22.37%"><b>RuApps</b><small>Магазин приложений в браузере</small></div>
+    <div class="gl" style="margin-top:22px">
+      ${grow({label:"Приложений", val:APPS.length, chev:false})}
+      ${grow({label:"Разделов", val:CATS.length, chev:false})}
+    </div>`);
+}
+document.addEventListener("click", e => {
+  const ts = e.target.closest("[data-theme-set]");
+  if (ts) { setTheme(ts.dataset.themeSet); openTheme(); return; }
+  const a = e.target.closest("[data-act]"); if (!a) return;
+  ({ login:() => openLogin(), account:openAccount, theme:openTheme, home:openHome, dns:openDNS, about:openAbout,
+     back:openSettings, logout:signOut, my:() => { closeSheet(); showPage("my"); } }[a.dataset.act] || (() => {}))();
+});
+
 function setTheme(t) {
   document.documentElement.dataset.theme = t;
   try { localStorage.setItem("ruapps-theme", t); } catch (e) {}
@@ -452,6 +630,7 @@ $("#sbg").addEventListener("click", closeSheet);
 
 /* ---------- установка ---------- */
 function install(a) {
+  if (authOn() && !userGet()) { openLogin(a); return; }
   if (a.warn) { $("#cfYes").href = a.install; $("#cfYes").dataset.i = APPS.indexOf(a); $("#cf").classList.add("on"); return; }
   addMine(a); location.href = a.install;
 }
@@ -488,7 +667,7 @@ document.addEventListener("click", e => {
   if (row) openApp(APPS[+row.dataset.i]);
 });
 
-renderToday(); renderGames(); renderApps(); renderSearch(); renderMy();
+renderAvatars(); renderToday(); renderGames(); renderApps(); renderSearch(); renderMy();
 </script>
 </body>
 </html>
