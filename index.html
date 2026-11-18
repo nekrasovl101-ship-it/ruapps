@@ -306,6 +306,11 @@
     <div class="d">Это приложение может быть вредным и опасным для ваших данных.</div></div>
   <div class="b"><button id="cfNo">Отмена</button><a class="yes" id="cfYes" href="#">Установить</a></div>
 </div></div>
+<div class="cf-bg" id="andr"><div class="cf">
+  <div class="in"><div style="font-size:34px;margin-bottom:4px">🤖</div><div class="t">У вас Android</div>
+    <div class="d">RuApps недоступен на этой операционной системе. Приложения из RuApps устанавливаются только на iPhone и iPad.</div></div>
+  <div class="b" style="grid-template-columns:1fr"><button id="andrOk" style="font-weight:600">Понятно</button></div>
+</div></div>
 <div class="toast" id="toast"></div>
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -628,8 +633,20 @@ function sheet(html) {
 function closeSheet() { $("#sheet").classList.remove("on"); $("#sbg").classList.remove("on"); }
 $("#sbg").addEventListener("click", closeSheet);
 
+/* ---------- Android ---------- */
+const isAndroid = /Android/i.test(navigator.userAgent);
+function androidAlert() { $("#andr").classList.add("on"); }
+$("#andrOk").addEventListener("click", () => $("#andr").classList.remove("on"));
+$("#andr").addEventListener("click", e => { if (e.target.id === "andr") $("#andr").classList.remove("on"); });
+// профили (.mobileconfig) тоже только для iOS
+document.addEventListener("click", e => {
+  const l = e.target.closest('a[href$=".mobileconfig"]');
+  if (l && isAndroid) { e.preventDefault(); e.stopPropagation(); androidAlert(); }
+}, true);
+
 /* ---------- установка ---------- */
 function install(a) {
+  if (isAndroid) { androidAlert(); return; }
   if (authOn() && !userGet()) { openLogin(a); return; }
   if (a.warn) { $("#cfYes").href = a.install; $("#cfYes").dataset.i = APPS.indexOf(a); $("#cf").classList.add("on"); return; }
   addMine(a); location.href = a.install;
