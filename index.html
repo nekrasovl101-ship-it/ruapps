@@ -307,8 +307,8 @@
   <div class="b"><button id="cfNo">Отмена</button><a class="yes" id="cfYes" href="#">Установить</a></div>
 </div></div>
 <div class="cf-bg" id="andr"><div class="cf">
-  <div class="in"><div style="font-size:34px;margin-bottom:4px">🤖</div><div class="t">У вас Android</div>
-    <div class="d">RuApps недоступен на этой операционной системе. Приложения из RuApps устанавливаются только на iPhone и iPad.</div></div>
+  <div class="in"><div style="font-size:34px;margin-bottom:4px" id="andrE">🤖</div><div class="t" id="andrT">У вас Android</div>
+    <div class="d" id="andrD">RuApps недоступен на этой операционной системе. Приложения из RuApps устанавливаются только на iPhone и iPad.</div></div>
   <div class="b" style="grid-template-columns:1fr"><button id="andrOk" style="font-weight:600">Понятно</button></div>
 </div></div>
 <div class="toast" id="toast"></div>
@@ -634,19 +634,29 @@ function closeSheet() { $("#sheet").classList.remove("on"); $("#sbg").classList.
 $("#sbg").addEventListener("click", closeSheet);
 
 /* ---------- Android ---------- */
-const isAndroid = /Android/i.test(navigator.userAgent);
-function androidAlert() { $("#andr").classList.add("on"); }
+const UA = navigator.userAgent;
+const isAndroid = /Android/i.test(UA);
+// iPad в Safari притворяется Mac, но у него сенсорный экран
+const isMac = /Macintosh|Mac OS X/i.test(UA) && !/iPhone|iPad|iPod/i.test(UA) && !(navigator.maxTouchPoints > 0);
+const blocked = isAndroid || isMac;
+function androidAlert() {
+  if (isMac) {
+    $("#andrE").textContent = "💻"; $("#andrT").textContent = "Вы на macOS";
+    $("#andrD").textContent = "На компьютере невозможно устанавливать приложения. Открой RuApps в Safari на iPhone или iPad.";
+  }
+  $("#andr").classList.add("on");
+}
 $("#andrOk").addEventListener("click", () => $("#andr").classList.remove("on"));
 $("#andr").addEventListener("click", e => { if (e.target.id === "andr") $("#andr").classList.remove("on"); });
 // профили (.mobileconfig) тоже только для iOS
 document.addEventListener("click", e => {
   const l = e.target.closest('a[href$=".mobileconfig"]');
-  if (l && isAndroid) { e.preventDefault(); e.stopPropagation(); androidAlert(); }
+  if (l && blocked) { e.preventDefault(); e.stopPropagation(); androidAlert(); }
 }, true);
 
 /* ---------- установка ---------- */
 function install(a) {
-  if (isAndroid) { androidAlert(); return; }
+  if (blocked) { androidAlert(); return; }
   if (authOn() && !userGet()) { openLogin(a); return; }
   if (a.warn) { $("#cfYes").href = a.install; $("#cfYes").dataset.i = APPS.indexOf(a); $("#cf").classList.add("on"); return; }
   addMine(a); location.href = a.install;
