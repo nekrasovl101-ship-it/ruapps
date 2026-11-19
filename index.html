@@ -316,7 +316,7 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" async defer></script>
 <script>
-const AUTH = {"google_client_id": "944658927755-qt8rq7v4304eh8fgpktfnkq0rvdv9rqj.apps.googleusercontent.com", "apple_client_id": "", "apple_redirect_uri": ""};
+const AUTH = {"google_client_id": "944658927755-qt8rq7v4304eh8fgpktfnkq0rvdv9rqj.apps.googleusercontent.com", "apple_client_id": "", "apple_redirect_uri": "", "api_url": "https://ruapps.nekrasovl101.workers.dev", "bot_username": "RuAppsDevBot"};
 const APPS = [{"name": "MAX", "bundle": "ru.oneme.app", "version": "26.17.3", "build": "31710", "minIOS": "10.0", "size": 55811640, "icon": "icons/ru.oneme.app.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.oneme.app.plist", "ipa": "apps/ru.oneme.app.ipa", "expires": "27.05.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "PojavLauncher", "bundle": "net.kdt.pojavlauncher", "version": "2.2", "build": "2.2", "minIOS": "12.2", "size": 108175347, "icon": "icons/net.kdt.pojavlauncher.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fnet.kdt.pojavlauncher.plist", "ipa": "apps/net.kdt.pojavlauncher.ipa", "expires": null, "expired": false, "warn": null, "cat": "games"}, {"name": "RuTube", "bundle": "ru.rutube.main.test", "version": "47.15.0", "build": "37", "minIOS": "15.0", "size": 18368296, "icon": "icons/ru.rutube.main.test.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.rutube.main.test.plist", "ipa": "apps/ru.rutube.main.test.ipa", "expires": "16.09.2026", "expired": true, "warn": null, "cat": "video"}, {"name": "VK Video", "bundle": "com.vk.vkvideo.prod", "version": "8.183", "build": "2124", "minIOS": "17.6", "size": 132525824, "icon": "icons/com.vk.vkvideo.prod.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkvideo.prod.plist", "ipa": "apps/com.vk.vkvideo.prod.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "video"}, {"name": "VK", "bundle": "com.vk.vkclient", "version": "8.183", "build": "8149", "minIOS": "17.6", "size": 230690938, "icon": "icons/com.vk.vkclient.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkclient.plist", "ipa": "apps/com.vk.vkclient.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "Авито", "bundle": "org.reactjs.native.prod.AuReactNativeApp", "version": "220.0", "build": "1774349983", "minIOS": "15.2", "size": 366777456, "icon": "icons/org.reactjs.native.prod.AuReactNativeApp.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Forg.reactjs.native.prod.AuReactNativeApp.plist", "ipa": "apps/org.reactjs.native.prod.AuReactNativeApp.ipa", "expires": null, "expired": false, "warn": null, "cat": "tools"}, {"name": "ПочтаMail.ru", "bundle": "ru.mail.mail", "version": "15.92.0", "build": "90407", "minIOS": 10.0, "size": 486624591, "icon": "icons/ru.mail.mail.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.mail.mail.plist", "ipa": "apps/ru.mail.mail.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "Сбербанк", "bundle": "com.inv.gen", "version": "17.6.1", "build": "3", "minIOS": "15.0", "size": 283657479, "icon": "icons/com.inv.gen.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.inv.gen.plist", "ipa": "apps/com.inv.gen.ipa", "expires": null, "expired": false, "warn": "Лучше не устанавливать. Файл не проверен и может быть вредоносным: внутри не оригинальное приложение Сбера (другое название и ID, нет профиля подписи). Ставь Сбер только официальным способом.", "cat": "banks"}];
 const DNS = [{"name": "Cloudflare 1.1.1.1", "desc": "Быстрый и простой", "emoji": "☁️", "color": "#f38020", "file": "profiles/ruapps-dns-cloudflare.mobileconfig"}, {"name": "AdGuard DNS", "desc": "Режет рекламу и трекеры", "emoji": "🛡️", "color": "#68bc71", "file": "profiles/ruapps-dns-adguard.mobileconfig"}, {"name": "Google DNS", "desc": "8.8.8.8", "emoji": "🔎", "color": "#4285f4", "file": "profiles/ruapps-dns-google.mobileconfig"}, {"name": "Quad9", "desc": "Блокирует опасные сайты", "emoji": "🔒", "color": "#7a2bd8", "file": "profiles/ruapps-dns-quad9.mobileconfig"}];
 const $ = s => document.querySelector(s);
@@ -452,8 +452,10 @@ function openApp(a) {
       <div><small>Размер</small><b>${mb(a.size).split(" ")[0]}</b><span>${mb(a.size).split(" ")[1]}</span></div>
       <div><small>Совместимость</small><b>${a.minIOS ? esc(a.minIOS.split(".")[0]) + "+" : "—"}</b><span>iOS</span></div>
     </div>
+    ${a.desc ? `<div class="blk"><h3>Описание</h3><p>${esc(a.desc)}</p></div>` : ""}
     <div class="blk"><h3>Как установить</h3><p>Нажми «Загрузить» и подтверди установку. Иконка появится на экране «Домой». Если приложение не открывается — включи «Режим разработчика» в Настройки → Конфиденциальность и безопасность.</p></div>
     <div class="blk" style="border:0"><h3>Информация</h3>
+      ${a.devName ? `<div class="kv"><span>Разработчик</span><span>${esc(a.devName)}</span></div>` : ""}
       <div class="kv"><span>Идентификатор</span><span>${esc(a.bundle)}</span></div>
       <div class="kv"><span>Размер</span><span>${mb(a.size)}</span></div>
       <div class="kv"><span>Категория</span><span>${esc(c.name)}</span></div>
@@ -487,9 +489,10 @@ function decodeJWT(t) {
   catch (e) { return null; }
 }
 let afterLogin = null;
-function onGoogle(resp) {
+async function onGoogle(resp) {
   const d = decodeJWT(resp.credential); if (!d) return toast("Не получилось войти");
   userSet({provider:"Google", name:d.name || d.email, email:d.email, picture:d.picture || "", sub:d.sub});
+  await serverLogin(resp.credential);
   loggedIn();
 }
 async function signInApple() {
@@ -522,7 +525,7 @@ function openLogin(app) {
       ${hasGoogle() ? `<div id="gbtn"></div>` : ""}
       ${authOn() ? "" : `<div class="need">Вход пока не подключён владельцем магазина. Пока он не настроен, приложения загружаются без входа.</div>`}
     </div>
-    <div class="fine">Пароль вы вводите на странице Google или Apple — RuApps его не видит. Мы получаем только имя, e-mail и фото профиля, и храним их только на этом устройстве.</div></div>`);
+    <div class="fine">Пароль вы вводите на странице Google или Apple — RuApps его не видит. Мы получаем только имя, e-mail и фото профиля. Подробнее — в <a href="privacy.html" style="color:var(--blue)">политике конфиденциальности</a>.</div></div>`);
   if (hasApple()) $("#abtn").addEventListener("click", signInApple);
   if (hasGoogle()) mountGoogle();
 }
@@ -547,7 +550,7 @@ function openSettings() {
   const myN = myGet().length;
   sheet(`<div class="st"><h1>Настройки</h1></div>
     <div class="gl"><div class="acct" data-act="${u ? "account" : "login"}">${avHTML(u, 60)}
-      <div class="t">${u ? `<b>${esc(u.name)}</b><small>Аккаунт RuApps, вход через ${esc(u.provider)}</small>`
+      <div class="t">${u ? `<b>${esc(u.name)}</b><small>Аккаунт RuApps, вход через ${esc(u.provider)}${u.dev ? DEV_BADGE : ""}</small>`
                          : `<b style="color:var(--blue)">Войти</b><small>Войдите, чтобы загружать приложения</small>`}</div>${CHEV}</div></div>
 
     <div class="gl" style="margin-top:28px">
@@ -560,6 +563,7 @@ function openSettings() {
       ${grow({icon:"🛡️", bg:"#34c759", label:"DNS", val:DNS.length + " " + plural(DNS.length, "профиль", "профиля", "профилей"), act:"dns"})}
     </div>
 
+    ${devGroupHTML()}
     <div class="gl" style="margin-top:28px">
       ${grow({icon:"ℹ️", bg:"#8e8e93", label:"О RuApps", act:"about"})}
     </div>
@@ -612,7 +616,7 @@ document.addEventListener("click", e => {
   if (ts) { setTheme(ts.dataset.themeSet); openTheme(); return; }
   const a = e.target.closest("[data-act]"); if (!a) return;
   ({ login:() => openLogin(), account:openAccount, theme:openTheme, home:openHome, dns:openDNS, about:openAbout,
-     back:openSettings, logout:signOut, my:() => { closeSheet(); showPage("my"); } }[a.dataset.act] || (() => {}))();
+     back:openSettings, logout:signOut, becomedev:openBecomeDev, checkdev:checkDev, upload:openUpload, uploads:openUploads, relogin:() => openLogin(), my:() => { closeSheet(); showPage("my"); } }[a.dataset.act] || (() => {}))();
 });
 
 function setTheme(t) {
@@ -632,6 +636,381 @@ function sheet(html) {
 }
 function closeSheet() { $("#sheet").classList.remove("on"); $("#sbg").classList.remove("on"); }
 $("#sbg").addEventListener("click", closeSheet);
+
+/* =====================================================================
+   Сервер RuApps и аккаунт разработчика
+   ===================================================================== */
+const API = (AUTH && AUTH.api_url || "").replace(/\/+$/, "");
+const BOT = AUTH && AUTH.bot_username || "";
+const serverOn = () => !!API;
+
+async function api(path, opts = {}) {
+  const u = userGet();
+  const h = Object.assign({}, opts.headers || {});
+  if (u && u.session) h.authorization = "Bearer " + u.session;
+  if (opts.json) { h["content-type"] = "application/json"; opts.body = JSON.stringify(opts.json); }
+  const r = await fetch(API + path, { method: opts.method || "GET", headers: h, body: opts.body });
+  const j = await r.json().catch(() => ({}));
+  if (r.status === 401 && u && u.session) { userSet({ ...u, session: "", dev: false }); }
+  if (!r.ok) throw Object.assign(new Error(j.message || "Ошибка сервера"), { status: r.status, data: j });
+  return j;
+}
+async function serverLogin(idToken) {
+  if (!serverOn() || !idToken) return;
+  try {
+    const r = await api("/session", { method: "POST", json: { id_token: idToken } });
+    const u = userGet(); if (u) userSet({ ...u, session: r.token, dev: !!r.dev });
+  } catch (e) { toast("Сервер RuApps недоступен"); }
+}
+async function refreshMe() {
+  const u = userGet(); if (!serverOn() || !u || !u.session) return u;
+  try { const r = await api("/me"); userSet({ ...userGet(), dev: !!r.dev }); } catch (e) {}
+  return userGet();
+}
+const isDev = () => { const u = userGet(); return !!(u && u.session && u.dev); };
+
+/* ---------- приложения разработчиков в каталоге ---------- */
+async function loadRemoteApps() {
+  if (!serverOn()) return;
+  try {
+    const list = await fetch(API + "/apps").then(r => r.json());
+    if (!Array.isArray(list)) return;
+    for (const a of list) {
+      if (APPS.some(x => x.remoteId === a.id)) continue;
+      APPS.push({ name: a.name, bundle: a.bundle, version: a.version, build: a.build, minIOS: a.minIOS, size: a.size,
+                  icon: a.icon || "ruapps_icon.png", install: a.install, cat: a.cat, warn: null,
+                  desc: a.desc, devName: a.dev, remoteId: a.id });
+    }
+    renderToday(); renderGames(); renderApps(); renderSearch(); renderMy();
+  } catch (e) {}
+}
+
+/* ---------- экраны разработчика ---------- */
+const DEV_BADGE = '<span style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:rgba(255,149,0,.16);color:#c26a00;font-size:12px;font-weight:700;vertical-align:2px">🛠 Разработчик</span>';
+function devGroupHTML() {
+  const u = userGet();
+  if (!serverOn() || !u) return "";
+  if (!u.session) return `<div class="gh">Для разработчиков</div><div class="gl">${grow({ icon: "🔑", bg: "#8e8e93", label: "Войти заново", sub: "Нужно для функций разработчика", act: "relogin" })}</div>`;
+  if (u.dev) return `<div class="gh">Для разработчиков</div><div class="gl">
+      ${grow({ icon: "⬆️", bg: "#ff9500", label: "Загрузить IPA", act: "upload" })}
+      ${grow({ icon: "📦", bg: "#5856d6", label: "Мои загрузки", act: "uploads" })}</div>`;
+  return `<div class="gh">Для разработчиков</div><div class="gl">${grow({ icon: "🛠", bg: "#ff9500", label: "Стать разработчиком", sub: "Активация через Telegram-бот", act: "becomedev" })}</div>`;
+}
+
+async function openBecomeDev() {
+  sub("Разработчик", `<div class="bigav"><div style="font-size:64px">🛠</div><b>Аккаунт разработчика</b>
+      <small>Загружай свои IPA в RuApps</small></div><div class="gf" style="text-align:center" id="bdBox">Получаю код…</div>`);
+  try {
+    const r = await api("/dev/code", { method: "POST" });
+    if (r.already) { await refreshMe(); return openSettings(); }
+    $("#bdBox").outerHTML = `
+      <div class="gl" style="margin-top:22px;text-align:center;padding:18px 16px">
+        <div style="color:var(--dim);font-size:13px;text-transform:uppercase;letter-spacing:.04em">Твой код</div>
+        <div style="font:700 40px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em;margin:6px 0">${esc(r.code)}</div>
+        <div style="color:var(--dim);font-size:13px">Действует 15 минут</div></div>
+      <a class="get blue" href="${esc(r.link)}" target="_blank" rel="noopener" style="display:block;width:100%;margin-top:18px;padding:12px 0;font-size:17px">Открыть бота @${esc(r.bot)}</a>
+      <button class="get" data-act="checkdev" style="display:block;width:100%;margin-top:10px;padding:12px 0;font-size:17px">Я активировал — проверить</button>
+      <div class="gf"><b>Как это работает:</b> нажми «Открыть бота» → в Telegram нажми «Старт» — код подставится сам.
+        Если не подставился, отправь боту: <b>/start ${esc(r.code)}</b><br><br>
+        <b>Правила:</b> загружай только свои приложения или те, что тебе разрешено раздавать. Взломанные и чужие приложения отклоняются, а аккаунт разработчика отключается.</div>`;
+  } catch (e) { $("#bdBox").textContent = e.message; }
+}
+async function checkDev() {
+  const u = await refreshMe();
+  if (u && u.dev) { toast("Аккаунт разработчика активирован 🛠"); openSettings(); }
+  else toast("Пока не активирован — отправь код боту");
+}
+
+/* ---------- мои загрузки ---------- */
+const STATUS = { pending: ["На проверке", "#ff9500"], approved: ["Опубликовано", "#34c759"] };
+async function openUploads() {
+  sub("Мои загрузки", `<div id="upList" class="gf" style="text-align:center">Загружаю…</div>`);
+  try {
+    const list = await api("/my/uploads");
+    $("#upList").outerHTML = list.length ? `<div class="list" style="margin-top:8px">${list.map(a => {
+      const [t, c] = STATUS[a.status] || [a.status, "#8e8e93"];
+      return `<div class="ar" style="cursor:default"><img class="ic" src="${esc(a.icon || "ruapps_icon.png")}" alt="">
+        <div class="mt"><div class="nm">${esc(a.name)} <span style="color:var(--dim);font-weight:400">${esc(a.version)}</span></div>
+          <div class="sb"><span style="color:${c};font-weight:600">● ${t}</span> · ${mb(a.size)}</div></div>
+        <div class="getwrap"><button class="get" data-delup="${esc(a.id)}" style="color:var(--red)">Удалить</button></div></div>`;
+    }).join("")}</div>
+    <div class="gf">После проверки владелец магазина публикует приложение в каталог. Отклонённые удаляются автоматически, а бот присылает уведомление.</div>`
+      : emptyBox("📦", "Пока пусто", "Загрузи свой первый IPA.");
+  } catch (e) { $("#upList").textContent = e.message; }
+}
+async function deleteUpload(id) {
+  if (!confirm("Удалить приложение из RuApps?")) return;
+  try { await api("/my/uploads/" + id, { method: "DELETE" }); toast("Удалено"); openUploads(); }
+  catch (e) { toast(e.message); }
+}
+
+/* ---------- загрузка IPA ---------- */
+const MAX_IPA = 95 * 1024 * 1024;
+let upInfo = null;
+function openUpload() {
+  upInfo = null;
+  sub("Загрузить IPA", `
+    <label class="gl" style="display:block;margin-top:8px;padding:22px 16px;text-align:center;cursor:pointer;border:1.5px dashed var(--sep)">
+      <input type="file" id="ipaFile" accept=".ipa,application/octet-stream" style="display:none">
+      <div style="font-size:44px">📦</div><div style="font-weight:600;margin-top:6px">Выбрать IPA-файл</div>
+      <div style="color:var(--dim);font-size:13px;margin-top:2px">До 95 МБ</div></label>
+    <div id="upBody"></div>`);
+  $("#ipaFile").addEventListener("change", e => e.target.files[0] && pickIPA(e.target.files[0]));
+}
+async function pickIPA(file) {
+  const box = $("#upBody");
+  if (file.size > MAX_IPA) { box.innerHTML = `<div class="wbox">Файл ${mb(file.size)} — больше 95 МБ. Такой пока не загрузить.</div>`; return; }
+  box.innerHTML = `<div class="gf" style="text-align:center">Читаю IPA…</div>`;
+  try { upInfo = await readIPA(file); upInfo.file = file; }
+  catch (e) { box.innerHTML = `<div class="wbox">Не получилось прочитать IPA: ${esc(e.message)}</div>`; return; }
+  const i = upInfo, p = i.prov;
+  const now = Date.now();
+  const sign = !p ? `<span style="color:var(--red)">нет профиля — на айфон не встанет</span>`
+    : `${esc(p.team || "?")}${p.exp ? `, до ${new Date(p.exp).toLocaleDateString("ru-RU")}` : ""}${p.all ? ", все устройства" : `, устройств: ${p.devices}`}` +
+      (p.exp && p.exp < now ? ` <b style="color:var(--red)">— истекла!</b>` : "");
+  box.innerHTML = `
+    <div class="ah" style="margin-top:20px"><img class="ic" id="upIcon" src="${i.iconURL}" alt="" style="width:96px;height:96px">
+      <div class="mt"><h2>${esc(i.name)}</h2><div class="sub">${esc(i.bundle)}</div>
+        <div class="sub">Версия ${esc(i.version)}${i.build ? ` (${esc(i.build)})` : ""} · ${mb(file.size)}${i.minIOS ? ` · iOS ${esc(i.minIOS)}+` : ""}</div></div></div>
+    <div class="gh">Подпись</div><div class="gl"><div class="gr"><div class="t"><div class="lbl" style="font-size:15px">${sign}</div></div></div></div>
+    <div class="gf">Приложение встанет только на устройства из этой подписи.</div>
+    <div class="gh">Название в RuApps</div>
+    <div class="gl"><div class="gr"><div class="t"><input id="upName" value="${esc(i.name)}" maxlength="60"
+      style="flex:1;border:0;background:none;font:17px inherit;font-family:inherit;color:var(--text);outline:none;padding:12px 0"></div></div></div>
+    <div class="gh">Раздел</div>
+    <div class="gl">${CATS.map((c, k) => `<div class="gr btn" data-upcat="${c.id}"><div class="t"><div class="lbl">${c.emoji} ${esc(c.name)}</div>
+      <span class="check" ${k ? 'style="visibility:hidden"' : ""}>✓</span></div></div>`).join("")}</div>
+    <div class="gh">Описание</div>
+    <div class="gl" style="padding:10px 16px"><textarea id="upDesc" maxlength="600" rows="4" placeholder="Что умеет приложение"
+      style="width:100%;border:0;background:none;font:16px/1.4 inherit;font-family:inherit;color:var(--text);outline:none;resize:vertical"></textarea></div>
+    <label class="gl" style="display:flex;gap:12px;align-items:flex-start;padding:14px 16px;margin-top:28px;cursor:pointer">
+      <input type="checkbox" id="upAgree" style="width:22px;height:22px;flex:none;margin:0;accent-color:var(--blue)">
+      <span style="font-size:15px;line-height:1.4">Это моё приложение (или мне разрешено его раздавать). Это не взломанная и не чужая копия.</span></label>
+    <button class="get blue" id="upSend" style="display:block;width:100%;margin-top:18px;padding:13px 0;font-size:17px">Отправить на проверку</button>
+    <div id="upProg" style="display:none;margin-top:14px">
+      <div style="height:6px;border-radius:3px;background:var(--pill);overflow:hidden"><div id="upBar" style="height:100%;width:0;background:var(--blue);transition:width .2s"></div></div>
+      <div class="gf" id="upTxt" style="text-align:center">0%</div></div>`;
+  upInfo.cat = CATS[0].id;
+  $("#upSend").addEventListener("click", sendIPA);
+}
+document.addEventListener("click", e => {
+  const c = e.target.closest("[data-upcat]");
+  if (c && upInfo) { upInfo.cat = c.dataset.upcat;
+    $$("[data-upcat] .check").forEach(x => x.style.visibility = x.closest("[data-upcat]") === c ? "visible" : "hidden"); }
+  const d = e.target.closest("[data-delup]"); if (d) deleteUpload(d.dataset.delup);
+});
+function sendIPA() {
+  if (!$("#upAgree").checked) return toast("Подтверди, что это твоё приложение");
+  const i = upInfo, u = userGet();
+  const fd = new FormData();
+  fd.append("meta", JSON.stringify({ name: $("#upName").value.trim() || i.name, bundle: i.bundle, version: i.version, build: i.build,
+    minIOS: i.minIOS, team: i.prov && i.prov.team || "", cat: i.cat, desc: $("#upDesc").value.trim(), agree: true }));
+  if (i.iconBlob) fd.append("icon", i.iconBlob, "icon.png");
+  fd.append("ipa", i.file, "app.ipa");
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", API + "/upload");
+  xhr.setRequestHeader("authorization", "Bearer " + u.session);
+  $("#upSend").disabled = true; $("#upSend").style.opacity = .5; $("#upProg").style.display = "";
+  xhr.upload.onprogress = e => { if (e.lengthComputable) { const p = Math.round(e.loaded / e.total * 100);
+    $("#upBar").style.width = p + "%"; $("#upTxt").textContent = p < 100 ? `Загрузка… ${p}%` : "Сервер сохраняет файл…"; } };
+  xhr.onload = () => {
+    let j = {}; try { j = JSON.parse(xhr.responseText); } catch (e) {}
+    if (xhr.status === 200) { toast("Отправлено на проверку"); openUploads(); }
+    else { $("#upSend").disabled = false; $("#upSend").style.opacity = 1; $("#upTxt").textContent = j.message || "Ошибка " + xhr.status; }
+  };
+  xhr.onerror = () => { $("#upSend").disabled = false; $("#upSend").style.opacity = 1; $("#upTxt").textContent = "Нет связи с сервером"; };
+  xhr.send(fd);
+}
+
+/* =====================================================================
+   Чтение IPA в браузере: ZIP → Info.plist (XML/бинарный) → иконка (в т.ч. Apple CgBI)
+   ===================================================================== */
+async function readIPA(file) {
+  const entries = await zipEntries(file);
+  const infoE = entries.find(e => /^Payload\/[^/]+\.app\/Info\.plist$/.test(e.name));
+  if (!infoE) throw new Error("внутри нет Payload/*.app/Info.plist");
+  const appDir = infoE.name.slice(0, -"Info.plist".length);
+  const info = parsePlist(await zipRead(file, infoE));
+  const names = new Set(["AppIcon"]);
+  for (const k of ["CFBundleIcons", "CFBundleIcons~ipad"]) {
+    const pi = info[k] && info[k].CFBundlePrimaryIcon;
+    if (pi && pi.CFBundleIconFiles) pi.CFBundleIconFiles.forEach(n => names.add(n));
+    if (pi && pi.CFBundleIconName) names.add(pi.CFBundleIconName);
+  }
+  (info.CFBundleIconFiles || []).forEach(n => names.add(n));
+  if (info.CFBundleIconFile) names.add(info.CFBundleIconFile);
+  const pngs = entries.filter(e => e.name.startsWith(appDir) && !e.name.slice(appDir.length).includes("/") && /\.png$/i.test(e.name))
+    .filter(e => { const b = e.name.slice(appDir.length).split("@")[0].split("~")[0].replace(/\.png$/i, "");
+                   return [...names].some(n => b.startsWith(n.replace(/\.png$/i, ""))); });
+  let iconBlob = null, best = 0;
+  for (const e of pngs) {
+    try { const bytes = await zipRead(file, e); const sz = pngSize(bytes);
+      if (sz.w * sz.h > best) { const b = await pngToBlob(bytes); if (b) { iconBlob = b; best = sz.w * sz.h; } } } catch (err) {}
+  }
+  if (!iconBlob) iconBlob = await letterIcon((info.CFBundleDisplayName || info.CFBundleName || "?")[0]);
+  let prov = null;
+  const pe = entries.find(e => e.name === appDir + "embedded.mobileprovision");
+  if (pe) { try { prov = parseProvision(await zipRead(file, pe)); } catch (err) {} }
+  return { name: info.CFBundleDisplayName || info.CFBundleName || file.name.replace(/\.ipa$/i, ""),
+           bundle: info.CFBundleIdentifier || "", version: String(info.CFBundleShortVersionString || info.CFBundleVersion || "1.0"),
+           build: String(info.CFBundleVersion || ""), minIOS: String(info.MinimumOSVersion || ""),
+           iconBlob, iconURL: URL.createObjectURL(iconBlob), prov };
+}
+
+/* ---- ZIP ---- */
+async function buf(file, start, end) { return new Uint8Array(await file.slice(start, end).arrayBuffer()); }
+const u16 = (b, o) => b[o] | b[o + 1] << 8;
+const u32 = (b, o) => (b[o] | b[o + 1] << 8 | b[o + 2] << 16 | b[o + 3] << 24) >>> 0;
+async function zipEntries(file) {
+  const tailLen = Math.min(file.size, 66000);
+  const tail = await buf(file, file.size - tailLen, file.size);
+  let eo = -1;
+  for (let i = tail.length - 22; i >= 0; i--) if (u32(tail, i) === 0x06054b50) { eo = i; break; }
+  if (eo < 0) throw new Error("это не ZIP/IPA");
+  let cdSize = u32(tail, eo + 12), cdOff = u32(tail, eo + 16), count = u16(tail, eo + 10);
+  if (cdOff === 0xffffffff || count === 0xffff) {       // ZIP64
+    const l = eo - 20;
+    if (l >= 0 && u32(tail, l) === 0x07064b50) {
+      const z64 = Number(new DataView(tail.buffer, tail.byteOffset + l + 8, 8).getBigUint64(0, true));
+      const h = await buf(file, z64, z64 + 56);
+      count = Number(new DataView(h.buffer).getBigUint64(32, true));
+      cdSize = Number(new DataView(h.buffer).getBigUint64(40, true));
+      cdOff = Number(new DataView(h.buffer).getBigUint64(48, true));
+    }
+  }
+  const cd = await buf(file, cdOff, cdOff + cdSize);
+  const out = []; let p = 0;
+  const dec = new TextDecoder();
+  while (p + 46 <= cd.length && u32(cd, p) === 0x02014b50) {
+    const nl = u16(cd, p + 28), el = u16(cd, p + 30), cl = u16(cd, p + 32);
+    out.push({ name: dec.decode(cd.subarray(p + 46, p + 46 + nl)), method: u16(cd, p + 10),
+               csize: u32(cd, p + 20), usize: u32(cd, p + 24), off: u32(cd, p + 42) });
+    p += 46 + nl + el + cl;
+  }
+  return out;
+}
+async function zipRead(file, e) {
+  const lh = await buf(file, e.off, e.off + 30);
+  const start = e.off + 30 + u16(lh, 26) + u16(lh, 28);
+  const raw = file.slice(start, start + e.csize);
+  if (e.method === 0) return new Uint8Array(await raw.arrayBuffer());
+  if (e.method === 8) return inflateRaw(raw);
+  throw new Error("неизвестное сжатие " + e.method);
+}
+async function inflateRaw(blobOrBytes) {
+  const b = blobOrBytes instanceof Blob ? blobOrBytes : new Blob([blobOrBytes]);
+  return new Uint8Array(await new Response(b.stream().pipeThrough(new DecompressionStream("deflate-raw"))).arrayBuffer());
+}
+
+/* ---- plist ---- */
+function parsePlist(bytes) {
+  if (String.fromCharCode(...bytes.subarray(0, 8)) === "bplist00") return parseBPlist(bytes);
+  return xmlPlist(new TextDecoder().decode(bytes));
+}
+function xmlPlist(text) {
+  const doc = new DOMParser().parseFromString(text, "application/xml");
+  const conv = n => {
+    switch (n.tagName) {
+      case "dict": { const o = {}; const k = [...n.children]; for (let i = 0; i < k.length; i += 2) o[k[i].textContent] = conv(k[i + 1]); return o; }
+      case "array": return [...n.children].map(conv);
+      case "string": return n.textContent;
+      case "integer": return parseInt(n.textContent, 10);
+      case "real": return parseFloat(n.textContent);
+      case "true": return true; case "false": return false;
+      case "date": return new Date(n.textContent);
+      default: return n.textContent;
+    }
+  };
+  const root = doc.querySelector("plist > *");
+  return root ? conv(root) : {};
+}
+function parseBPlist(b) {
+  const dv = new DataView(b.buffer, b.byteOffset, b.byteLength);
+  const t = b.length - 32;
+  const offSize = b[t + 6], refSize = b[t + 7];
+  const nObj = Number(dv.getBigUint64(t + 8)), top = Number(dv.getBigUint64(t + 16)), tableOff = Number(dv.getBigUint64(t + 24));
+  const readN = (o, n) => { let v = 0; for (let i = 0; i < n; i++) v = v * 256 + b[o + i]; return v; };
+  const offs = []; for (let i = 0; i < nObj; i++) offs.push(readN(tableOff + i * offSize, offSize));
+  const lenAt = (o, nib) => {
+    if (nib !== 15) return [nib, o + 1];
+    const m = b[o + 1], n = 1 << (m & 15); return [readN(o + 2, n), o + 2 + n];
+  };
+  const obj = i => {
+    const o = offs[i], m = b[o], hi = m >> 4, lo = m & 15;
+    switch (hi) {
+      case 0: return lo === 8 ? false : lo === 9 ? true : null;
+      case 1: { const n = 1 << lo; return n === 8 ? Number(dv.getBigInt64(o + 1)) : readN(o + 1, n); }
+      case 2: return lo === 2 ? dv.getFloat32(o + 1) : dv.getFloat64(o + 1);
+      case 3: return new Date((dv.getFloat64(o + 1) + 978307200) * 1000);
+      case 4: { const [n, s] = lenAt(o, lo); return b.subarray(s, s + n); }
+      case 5: { const [n, s] = lenAt(o, lo); return String.fromCharCode(...b.subarray(s, s + n)); }
+      case 6: { const [n, s] = lenAt(o, lo); let r = ""; for (let k = 0; k < n; k++) r += String.fromCharCode(dv.getUint16(s + k * 2)); return r; }
+      case 8: return readN(o + 1, lo + 1);
+      case 10: { const [n, s] = lenAt(o, lo); const a = []; for (let k = 0; k < n; k++) a.push(obj(readN(s + k * refSize, refSize))); return a; }
+      case 13: { const [n, s] = lenAt(o, lo); const r = {};
+        for (let k = 0; k < n; k++) r[obj(readN(s + k * refSize, refSize))] = obj(readN(s + (n + k) * refSize, refSize)); return r; }
+      default: return null;
+    }
+  };
+  return obj(top);
+}
+function parseProvision(bytes) {
+  const s = new TextDecoder("latin1").decode(bytes);
+  const a = s.indexOf("<?xml"), z = s.indexOf("</plist>");
+  if (a < 0 || z < 0) return null;
+  const p = xmlPlist(new TextDecoder().decode(bytes.subarray(a, z + 8)));
+  return { team: p.TeamName || "", exp: p.ExpirationDate ? +new Date(p.ExpirationDate) : 0,
+           devices: (p.ProvisionedDevices || []).length, all: !!p.ProvisionsAllDevices };
+}
+
+/* ---- PNG и «сплющенные» иконки Apple (CgBI) ---- */
+function pngSize(b) { return { w: u32be(b, 16 + (isCgBI(b) ? 16 : 0)), h: u32be(b, 20 + (isCgBI(b) ? 16 : 0)) }; }
+const u32be = (b, o) => (b[o] << 24 | b[o + 1] << 16 | b[o + 2] << 8 | b[o + 3]) >>> 0;
+const isCgBI = b => String.fromCharCode(b[12], b[13], b[14], b[15]) === "CgBI";
+async function pngToBlob(b) {
+  if (b[0] !== 0x89 || b[1] !== 0x50) return null;
+  if (!isCgBI(b)) return new Blob([b], { type: "image/png" });
+  let p = 8, w = 0, h = 0, ctype = 6; const idat = [];
+  while (p < b.length) {
+    const len = u32be(b, p), type = String.fromCharCode(b[p + 4], b[p + 5], b[p + 6], b[p + 7]), d = b.subarray(p + 8, p + 8 + len);
+    if (type === "IHDR") { w = u32be(d, 0); h = u32be(d, 4); ctype = d[9]; if (d[8] !== 8) return null; }
+    else if (type === "IDAT") idat.push(d);
+    else if (type === "IEND") break;
+    p += 12 + len;
+  }
+  const bpp = ctype === 6 ? 4 : ctype === 2 ? 3 : 0; if (!bpp) return null;
+  const raw = await inflateRaw(new Blob(idat));
+  const stride = w * bpp, px = new Uint8ClampedArray(w * h * 4);
+  let prev = new Uint8Array(stride), q = 0;
+  for (let y = 0; y < h; y++) {
+    const f = raw[q++], line = raw.slice(q, q + stride); q += stride;
+    for (let i = 0; i < stride; i++) {
+      const a = i >= bpp ? line[i - bpp] : 0, up = prev[i], c = i >= bpp ? prev[i - bpp] : 0;
+      let v = line[i];
+      if (f === 1) v += a; else if (f === 2) v += up; else if (f === 3) v += (a + up) >> 1;
+      else if (f === 4) { const pa = Math.abs(up - c), pb = Math.abs(a - c), pc = Math.abs(a + up - 2 * c); v += pa <= pb && pa <= pc ? a : pb <= pc ? up : c; }
+      line[i] = v & 255;
+    }
+    for (let x = 0; x < w; x++) {
+      const s = x * bpp, o = (y * w + x) * 4, al = bpp === 4 ? line[s + 3] : 255;
+      let B = line[s], G = line[s + 1], R = line[s + 2];
+      if (al && al < 255) { R = Math.min(255, R * 255 / al); G = Math.min(255, G * 255 / al); B = Math.min(255, B * 255 / al); }
+      px[o] = R; px[o + 1] = G; px[o + 2] = B; px[o + 3] = al;
+    }
+    prev = line;
+  }
+  const cv = document.createElement("canvas"); cv.width = w; cv.height = h;
+  cv.getContext("2d").putImageData(new ImageData(px, w, h), 0, 0);
+  return new Promise(r => cv.toBlob(r, "image/png"));
+}
+function letterIcon(ch) {
+  const cv = document.createElement("canvas"); cv.width = cv.height = 256; const g = cv.getContext("2d");
+  const gr = g.createLinearGradient(0, 0, 256, 256); gr.addColorStop(0, "#3d8bff"); gr.addColorStop(1, "#1650e6");
+  g.fillStyle = gr; g.fillRect(0, 0, 256, 256);
+  g.fillStyle = "#fff"; g.font = "bold 140px -apple-system, Helvetica, Arial"; g.textAlign = "center"; g.textBaseline = "middle";
+  g.fillText((ch || "?").toUpperCase(), 128, 136);
+  return new Promise(r => cv.toBlob(r, "image/png"));
+}
 
 /* ---------- Android ---------- */
 const UA = navigator.userAgent;
@@ -695,6 +1074,7 @@ document.addEventListener("click", e => {
 });
 
 renderAvatars(); renderToday(); renderGames(); renderApps(); renderSearch(); renderMy();
+refreshMe(); loadRemoteApps();
 </script>
 </body>
 </html>
