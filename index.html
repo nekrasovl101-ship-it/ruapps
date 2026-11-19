@@ -745,7 +745,7 @@ async function deleteUpload(id) {
 }
 
 /* ---------- загрузка IPA ---------- */
-const MAX_IPA = 95 * 1024 * 1024;
+const MAX_IPA = 1024 * 1024 * 1024;   // до 1 ГБ — сервер принимает кусками по 90 МБ
 let upInfo = null;
 function openUpload() {
   upInfo = null;
@@ -753,13 +753,13 @@ function openUpload() {
     <label class="gl" style="display:block;margin-top:8px;padding:22px 16px;text-align:center;cursor:pointer;border:1.5px dashed var(--sep)">
       <input type="file" id="ipaFile" accept=".ipa,application/octet-stream" style="display:none">
       <div style="font-size:44px">📦</div><div style="font-weight:600;margin-top:6px">Выбрать IPA-файл</div>
-      <div style="color:var(--dim);font-size:13px;margin-top:2px">До 95 МБ</div></label>
+      <div style="color:var(--dim);font-size:13px;margin-top:2px">До 1 ГБ</div></label>
     <div id="upBody"></div>`);
   $("#ipaFile").addEventListener("change", e => e.target.files[0] && pickIPA(e.target.files[0]));
 }
 async function pickIPA(file) {
   const box = $("#upBody");
-  if (file.size > MAX_IPA) { box.innerHTML = `<div class="wbox">Файл ${mb(file.size)} — больше 95 МБ. Такой пока не загрузить.</div>`; return; }
+  if (file.size > MAX_IPA) { box.innerHTML = `<div class="wbox">Файл ${mb(file.size)} — больше 1 ГБ. Такой пока не загрузить.</div>`; return; }
   box.innerHTML = `<div class="gf" style="text-align:center">Читаю IPA…</div>`;
   try { upInfo = await readIPA(file); upInfo.file = file; }
   catch (e) { box.innerHTML = `<div class="wbox">Не получилось прочитать IPA: ${esc(e.message)}</div>`; return; }
@@ -799,27 +799,59 @@ document.addEventListener("click", e => {
     $$("[data-upcat] .check").forEach(x => x.style.visibility = x.closest("[data-upcat]") === c ? "visible" : "hidden"); }
   const d = e.target.closest("[data-delup]"); if (d) deleteUpload(d.dataset.delup);
 });
-function sendIPA() {
+async function sendIPA() {
   if (!$("#upAgree").checked) return toast("Подтверди, что это твоё приложение");
-  const i = upInfo, u = userGet();
-  const fd = new FormData();
-  fd.append("meta", JSON.stringify({ name: $("#upName").value.trim() || i.name, bundle: i.bundle, version: i.version, build: i.build,
-    minIOS: i.minIOS, team: i.prov && i.prov.team || "", cat: i.cat, desc: $("#upDesc").value.trim(), agree: true }));
-  if (i.iconBlob) fd.append("icon", i.iconBlob, "icon.png");
-  fd.append("ipa", i.file, "app.ipa");
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", API + "/upload");
-  xhr.setRequestHeader("authorization", "Bearer " + u.session);
-  $("#upSend").disabled = true; $("#upSend").style.opacity = .5; $("#upProg").style.display = "";
-  xhr.upload.onprogress = e => { if (e.lengthComputable) { const p = Math.round(e.loaded / e.total * 100);
-    $("#upBar").style.width = p + "%"; $("#upTxt").textContent = p < 100 ? `Загрузка… ${p}%` : "Сервер сохраняет файл…"; } };
-  xhr.onload = () => {
-    let j = {}; try { j = JSON.parse(xhr.responseText); } catch (e) {}
-    if (xhr.status === 200) { toast("Отправлено на проверку"); openUploads(); }
-    else { $("#upSend").disabled = false; $("#upSend").style.opacity = 1; $("#upTxt").textContent = j.message || "Ошибка " + xhr.status; }
-  };
-  xhr.onerror = () => { $("#upSend").disabled = false; $("#upSend").style.opacity = 1; $("#upTxt").textContent = "Нет связи с сервером"; };
-  xhr.send(fd);
+  const i = upInfo, file = i.file;
+  const btn = $("#upSend"), bar = $("#upBar"), txt = $("#upTxt");
+  const fail = m => { btn.disabled = false; btn.style.opacity = 1; txt.textContent = m; };
+  btn.disabled = true; btn.style.opacity = .5; $("#upProg").style.display = "";
+  bar.style.width = "0%"; txt.textContent = "Подготовка…";
+  let st;
+  try {
+    st = await api("/upload/start", { method: "POST", json: { name: $("#upName").value.trim() || i.name, bundle: i.bundle,
+      version: i.version, build: i.build, minIOS: i.minIOS, team: i.prov && i.prov.team || "", cat: i.cat,
+      desc: $("#upDesc").value.trim(), agree: true, size: file.size } });
+  } catch (e) { return fail(e.message); }
+  try {
+    if (i.iconBlob) await putBlob(`/upload/${st.id}/icon`, i.iconBlob);
+    let sent = 0;
+    for (let n = 0; n < st.parts; n++) {
+      const piece = file.slice(n * st.partSize, Math.min(file.size, (n + 1) * st.partSize));
+      for (let tryN = 1; ; tryN++) {
+        try {
+          await putBlob(`/upload/${st.id}/part/${n}`, piece, loaded => {
+            const p = Math.min(99, Math.floor((sent + loaded) / file.size * 100));
+            bar.style.width = p + "%";
+            txt.textContent = `Загрузка… ${p}%` + (st.parts > 1 ? ` · кусок ${n + 1} из ${st.parts}` : "");
+          });
+          break;
+        } catch (e) {
+          if (tryN >= 3 || e.status && e.status < 500) throw e;
+          txt.textContent = `Связь оборвалась, пробую ещё раз (${tryN + 1}/3)…`;
+          await new Promise(r => setTimeout(r, 2000 * tryN));
+        }
+      }
+      sent += piece.size;
+    }
+    bar.style.width = "100%"; txt.textContent = "Сервер сохраняет файл…";
+    await api(`/upload/${st.id}/finish`, { method: "POST" });
+    toast("Отправлено на проверку"); openUploads();
+  } catch (e) { fail(e.message || "Нет связи с сервером"); }
+}
+function putBlob(path, blob, onProgress) {
+  return new Promise((ok, bad) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("PUT", API + path);
+    xhr.setRequestHeader("authorization", "Bearer " + userGet().session);
+    xhr.setRequestHeader("content-type", "application/octet-stream");
+    if (onProgress) xhr.upload.onprogress = e => onProgress(e.loaded);
+    xhr.onload = () => {
+      let j = {}; try { j = JSON.parse(xhr.responseText); } catch (e) {}
+      xhr.status === 200 ? ok(j) : bad(Object.assign(new Error(j.message || "Ошибка " + xhr.status), { status: xhr.status }));
+    };
+    xhr.onerror = () => bad(new Error("Нет связи с сервером"));
+    xhr.send(blob);
+  });
 }
 
 /* =====================================================================
