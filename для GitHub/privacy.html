@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RuApps — Политика конфиденциальности</title>
+<link rel="icon" href="ruapps_icon.png">
+<style>
+  :root{color-scheme:light dark;--dim:#6c6c70;--sep:rgba(60,60,67,.18)}
+  @media (prefers-color-scheme:dark){:root{--dim:#aeaeb2;--sep:rgba(84,84,88,.6)}}
+  body{margin:0;font:17px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  main{max-width:720px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 24px) 20px 60px}
+  header{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+  header img{width:48px;height:48px;border-radius:22.37%}
+  h1{font-size:30px;line-height:1.15;margin:16px 0 4px;letter-spacing:-.01em}
+  h2{font-size:20px;margin:28px 0 6px}
+  p,li{color:inherit}
+  small{color:var(--dim)}
+  ul{padding-left:20px}
+  hr{border:0;border-top:.5px solid var(--sep);margin:28px 0}
+  a{color:#007aff}
+</style>
+</head>
+<body><main>
+  <header><img src="ruapps_icon.png" alt=""><b>RuApps</b></header>
+  <h1>Политика конфиденциальности</h1>
+  <small>Обновлено: 19 ноября 2026 года</small>
+
+  <p>RuApps — это веб-сайт-каталог приложений для iPhone по адресу
+    <a href="https://nekrasovl101-ship-it.github.io/ruapps/">nekrasovl101-ship-it.github.io/ruapps</a>.
+    Здесь написано, какие данные RuApps получает и что с ними происходит.</p>
+
+  <h2>Вход через Google или Apple</h2>
+  <p>Чтобы загружать приложения, можно войти через аккаунт Google или Apple. Вход проходит на странице самого Google или Apple — RuApps не видит и не получает ваш пароль.</p>
+  <p>После входа RuApps получает только:</p>
+  <ul>
+    <li>ваше имя;</li>
+    <li>адрес электронной почты;</li>
+    <li>фото профиля (только для Google);</li>
+    <li>технический идентификатор аккаунта.</li>
+  </ul>
+  <p>Эти данные используются только чтобы показать ваш аккаунт в настройках RuApps и разрешить загрузку приложений.</p>
+
+  <h2>Где хранятся данные</h2>
+  <p>Список «Мои приложения», выбранная тема и данные входа хранятся в браузере на вашем устройстве (localStorage). При входе через Google сервер RuApps один раз проверяет вход у Google и выдаёт сессию — сами данные аккаунта обычных пользователей на сервере не сохраняются.</p>
+  <p>Нажмите «Выйти» в настройках RuApps — и данные аккаунта удалятся с устройства. Также можно очистить данные сайта в настройках браузера.</p>
+
+  <h2>Аккаунт разработчика</h2>
+  <p>Если вы активируете аккаунт разработчика, сервер RuApps (на Cloudflare) сохраняет: имя, e-mail, ваш Telegram ID и имя пользователя в Telegram, дату активации. Это нужно, чтобы бот мог сообщать о проверке ваших приложений.</p>
+  <p>Загруженные IPA-файлы и иконки хранятся публично в GitHub (репозиторий ruapps-files), а их название, версия, Bundle ID, описание и ваше имя как разработчика показываются в каталоге RuApps. Удалить своё приложение можно в разделе «Мои загрузки».</p>
+  <p>Чтобы удалить аккаунт разработчика и данные о нём, напишите владельцу магазина (контакты ниже).</p>
+  <p>Мы не продаём и не передаём ваши данные третьим лицам.</p>
+
+  <h2>Сторонние сервисы</h2>
+  <ul>
+    <li><b>GitHub Pages и GitHub Releases</b> — хостинг сайта и файлов приложений. GitHub может вести технические журналы посещений (например, IP-адрес) по своим правилам.</li>
+    <li><b>Cloudflare Workers</b> — сервер RuApps (вход, аккаунты разработчиков, загрузка приложений).</li>
+    <li><b>Telegram</b> — бот для активации аккаунта разработчика и уведомлений о проверке.</li>
+    <li><b>Google Sign-In</b> и <b>Sign in with Apple</b> — сервисы входа, работают по правилам Google и Apple.</li>
+    <li><b>DNS-профили</b> в настройках — по желанию. Если вы установите профиль, запросы DNS будут идти к выбранному провайдеру (Cloudflare, AdGuard, Google или Quad9) по его правилам. Удалить профиль можно в Настройки → Основные → VPN и управление устройством.</li>
+  </ul>
+
+  <h2>Дети</h2>
+  <p>RuApps не собирает данные специально о детях и не предназначен для сбора их персональных данных.</p>
+
+  <h2>Изменения</h2>
+  <p>Если политика изменится, новая версия появится на этой странице с новой датой.</p>
+
+  <h2>Связь</h2>
+  <p>Вопросы по конфиденциальности: через профиль автора на GitHub —
+    <a href="https://github.com/nekrasovl101-ship-it">github.com/nekrasovl101-ship-it</a>.</p>
+
+  <hr>
+  <p><a href="./">← Вернуться в RuApps</a></p>
+</main></body>
+</html>

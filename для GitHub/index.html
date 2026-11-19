@@ -17,402 +17,1064 @@
 </script>
 <style>
   :root{
-    --bg:#f3f5f9; --card:#fff; --line:#e7eaf0; --text:#14171f; --dim:#7c8494; --field:#eef1f6;
-    --blue:#1f63f5; --blue2:#3d8bff; --soft:#e8f0ff; --bar:rgba(255,255,255,.88); --shadow:rgba(20,23,31,.06);
+    --bg:#ffffff; --bg2:#f2f2f7; --card:#ffffff; --text:#000; --dim:#8e8e93; --dim2:#6c6c70;
+    --sep:rgba(60,60,67,.18); --pill:#eff0f4; --blue:#007aff; --red:#ff3b30;
+    --glass:rgba(250,250,252,.72); --glassBorder:rgba(255,255,255,.7); --shadow:rgba(0,0,0,.12);
+    --r-card:22px; --r-group:14px;
   }
   :root[data-theme="dark"]{
-    --bg:#0b0d12; --card:#161a22; --line:#252b36; --text:#eef1f7; --dim:#8a93a5; --field:#1d222c;
-    --blue:#5b9bff; --blue2:#3d8bff; --soft:#1a2a4a; --bar:rgba(18,21,28,.86); --shadow:rgba(0,0,0,.3);
+    --bg:#000; --bg2:#1c1c1e; --card:#1c1c1e; --text:#fff; --dim:#8e8e93; --dim2:#aeaeb2;
+    --sep:rgba(84,84,88,.6); --pill:#2c2c2e; --blue:#0a84ff; --red:#ff453a;
+    --glass:rgba(30,30,32,.72); --glassBorder:rgba(255,255,255,.08); --shadow:rgba(0,0,0,.5);
   }
   @media (prefers-color-scheme: dark){
     :root[data-theme="system"]{
-      --bg:#0b0d12; --card:#161a22; --line:#252b36; --text:#eef1f7; --dim:#8a93a5; --field:#1d222c;
-      --blue:#5b9bff; --blue2:#3d8bff; --soft:#1a2a4a; --bar:rgba(18,21,28,.86); --shadow:rgba(0,0,0,.3);
+      --bg:#000; --bg2:#1c1c1e; --card:#1c1c1e; --text:#fff; --dim:#8e8e93; --dim2:#aeaeb2;
+      --sep:rgba(84,84,88,.6); --pill:#2c2c2e; --blue:#0a84ff; --red:#ff453a;
+      --glass:rgba(30,30,32,.72); --glassBorder:rgba(255,255,255,.08); --shadow:rgba(0,0,0,.5);
     }
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html{background:var(--bg)}
   body{margin:0;background:var(--bg);color:var(--text);
-    font:16px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
-    padding-bottom:calc(env(safe-area-inset-bottom) + 90px)}
-  button{font-family:inherit}
-  .top{position:sticky;top:0;z-index:5;background:var(--bar);
-    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
-    padding:calc(env(safe-area-inset-top) + 12px) 0 0;border-bottom:1px solid var(--line)}
-  .wrap{max-width:760px;margin:0 auto;padding:0 16px}
-  .brand{display:flex;align-items:center;gap:10px}
-  .brand img{width:36px;height:36px;border-radius:10px}
-  .brand b{font-size:24px;font-weight:800;letter-spacing:-.02em}
-  .brand b span{color:var(--blue)}
-  .search{margin-top:12px;width:100%;padding:11px 14px 11px 38px;border-radius:14px;border:0;background:var(--field);
-    color:var(--text);font-size:16px;outline:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237c8494' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E");
-    background-repeat:no-repeat;background-position:12px center;background-size:18px}
-  .search:focus{box-shadow:0 0 0 2px var(--blue2) inset}
-  .chips{display:flex;gap:8px;overflow-x:auto;padding:12px 16px;margin:0 -16px;scrollbar-width:none}
-  .chips::-webkit-scrollbar{display:none}
-  .chip{flex:none;border:0;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;background:var(--field);color:var(--text);cursor:pointer}
-  .chip.on{background:var(--blue);color:#fff}
-  .notop{padding-bottom:12px}
+    font:17px/1.3 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;padding-bottom:calc(env(safe-area-inset-bottom) + 90px)}
+  button{font-family:inherit;color:inherit}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px}
 
-  /* баннеры */
-  .banners{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:16px -16px 0;padding:0 16px;scrollbar-width:none}
-  .banners::-webkit-scrollbar{display:none}
-  .ban{flex:none;width:86%;max-width:520px;height:170px;border-radius:22px;padding:20px;color:#fff;position:relative;overflow:hidden;
-    scroll-snap-align:center;cursor:pointer;box-shadow:0 6px 18px var(--shadow)}
-  .ban small{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
-  .ban h2{margin:6px 0 4px;font-size:24px;line-height:1.15;max-width:62%}
-  .ban p{margin:0;font-size:14px;opacity:.9;max-width:62%}
-  .ban .art{position:absolute;right:-6px;bottom:-14px;font-size:110px;transform:rotate(-10deg);filter:drop-shadow(0 8px 16px rgba(0,0,0,.25))}
-  .dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
-  .dots i{width:6px;height:6px;border-radius:3px;background:var(--line);transition:.2s}
-  .dots i.on{width:18px;background:var(--blue)}
-  .catHero{margin-top:16px;height:130px}
-  .catHero h2{max-width:70%}
+  /* ---------- большой заголовок ---------- */
+  .lt{padding:calc(env(safe-area-inset-top) + 18px) 0 6px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+  .lt small{display:block;color:var(--dim);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;margin-bottom:2px}
+  .lt h1{margin:0;font-size:34px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+  .avatar{width:36px;height:36px;border-radius:50%;border:0;padding:0;cursor:pointer;overflow:hidden;flex:none;
+    background:var(--pill);box-shadow:0 0 0 .5px var(--sep)}
+  .avatar img{width:100%;height:100%;object-fit:cover}
 
-  h3{font-size:20px;margin:24px 2px 10px;display:flex;justify-content:space-between;align-items:baseline}
-  h3 a,h3 small{font-size:15px;color:var(--blue);font-weight:500;text-decoration:none;cursor:pointer}
-  h3 small{color:var(--dim)}
-  .card{background:var(--card);border-radius:20px;padding:0 14px;box-shadow:0 1px 3px var(--shadow)}
-  .app{display:flex;align-items:center;gap:14px;padding:12px 0;cursor:pointer}
-  .app+.app{border-top:1px solid var(--line)}
-  .icon{width:62px;height:62px;border-radius:22.5%;flex:none;object-fit:cover;background:var(--field);
-    box-shadow:0 0 0 .5px rgba(127,127,127,.2)}
-  .meta{flex:1;min-width:0}
-  .name{font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .sub{color:var(--dim);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .get{flex:none;border:0;border-radius:999px;padding:8px 18px;font-weight:700;font-size:14px;
-    background:var(--soft);color:var(--blue);text-decoration:none;cursor:pointer}
-  .get:active{opacity:.6}
-  .x{flex:none;border:0;background:none;color:var(--dim);font-size:22px;padding:4px 6px;cursor:pointer}
-  .wtxt{color:#e5484d}
-  .wbox{margin:16px 0 0;padding:12px 14px;border-radius:14px;background:#ffe5e5;color:#b42318;font-size:14px;line-height:1.45}
-  :root[data-theme="dark"] .wbox{background:#3a1616;color:#ff8a8a}
-  .empty{color:var(--dim);text-align:center;padding:34px 10px}
-  .empty .e{font-size:54px;margin-bottom:8px}
-  .empty b{display:block;color:var(--text);font-size:17px;margin-bottom:4px}
+  /* ---------- карточки «Сегодня» ---------- */
+  .today{display:grid;gap:22px;margin-top:14px}
+  .tc{position:relative;border-radius:var(--r-card);overflow:hidden;color:#fff;cursor:pointer;min-height:420px;
+    box-shadow:0 10px 30px var(--shadow);transition:transform .2s cubic-bezier(.2,.9,.3,1)}
+  .tc:active{transform:scale(.97)}
+  .tc .tx{position:absolute;left:20px;right:20px;top:20px;z-index:2}
+  .tc small{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;opacity:.8}
+  .tc h2{margin:4px 0 0;font-size:28px;line-height:1.1;font-weight:800;letter-spacing:-.01em;max-width:85%}
+  .tc .art{position:absolute;right:-20px;bottom:40px;font-size:190px;transform:rotate(-12deg);filter:drop-shadow(0 18px 30px rgba(0,0,0,.3))}
+  .tc .ft{position:absolute;left:0;right:0;bottom:0;padding:14px 20px;display:flex;align-items:center;gap:12px;
+    background:rgba(0,0,0,.18);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);z-index:2}
+  .tc .ft p{margin:0;font-size:14px;opacity:.95;flex:1}
+  .tc .ft img{width:40px;height:40px;border-radius:22.37%}
+  .hero-app{display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:60px}
+  .hero-app img{width:150px;height:150px;border-radius:22.37%;box-shadow:0 20px 40px rgba(0,0,0,.3)}
 
-  /* настройки */
-  .row{display:flex;align-items:center;gap:12px;padding:13px 0}
-  .row+.row{border-top:1px solid var(--line)}
-  .row .ico{width:30px;height:30px;border-radius:8px;flex:none;display:grid;place-items:center;color:#fff;font-size:16px}
-  .row .meta .name{font-weight:500}
-  .seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--field);border-radius:11px;padding:3px;margin:12px 0}
-  .seg button{border:0;background:none;color:var(--text);font:600 14px/1 inherit;font-family:inherit;padding:9px 0;border-radius:9px;cursor:pointer}
-  .seg button.on{background:var(--card);box-shadow:0 1px 4px var(--shadow),0 0 0 .5px var(--line)}
-  .note{color:var(--dim);font-size:13px;margin:8px 4px 0;line-height:1.45}
-  .note b{color:var(--text);font-weight:600}
+  /* ---------- секции ---------- */
+  .sec{margin-top:30px;border-top:.5px solid var(--sep);padding-top:16px}
+  .sec:first-of-type{border-top:0}
+  .sh{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .sh h3{margin:0;font-size:22px;font-weight:700;letter-spacing:-.01em}
+  .sh a{color:var(--blue);font-size:17px;cursor:pointer;white-space:nowrap}
+  .sh p{margin:2px 0 0;color:var(--dim);font-size:15px}
 
-  /* таб-бар */
-  .tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bar);
-    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-top:1px solid var(--line);
-    display:flex;justify-content:space-around;max-width:100%;padding:8px 10px calc(env(safe-area-inset-bottom) + 6px)}
-  .tab{border:0;background:none;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:2px;
-    font:600 11px/1 inherit;font-family:inherit;cursor:pointer;padding:2px 10px;position:relative}
-  .tab svg{width:26px;height:26px}
-  .tab.on{color:var(--blue)}
-  .badge{position:absolute;top:-2px;right:12px;min-width:17px;height:17px;border-radius:9px;background:#e5484d;color:#fff;
-    font-size:11px;line-height:17px;padding:0 4px;text-align:center}
-  .page{display:none}.page.on{display:block}
+  /* горизонтальная подборка по 3 строки */
+  .rail{display:grid;grid-auto-flow:column;grid-template-rows:repeat(3,auto);grid-auto-columns:calc(100% - 28px);
+    gap:0 16px;overflow-x:auto;scroll-snap-type:x mandatory;margin:8px -20px 0;padding:0 20px;scrollbar-width:none}
+  .rail::-webkit-scrollbar{display:none}
+  .rail .ar{scroll-snap-align:start}
+  .rail.one{grid-template-rows:auto}
 
-  /* карточка приложения */
-  .sheet-bg{position:fixed;inset:0;z-index:9;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:.25s}
-  .sheet{position:fixed;z-index:10;left:0;right:0;bottom:0;max-width:760px;margin:0 auto;background:var(--card);
-    border-radius:24px 24px 0 0;padding:22px 20px calc(env(safe-area-inset-bottom) + 22px);
-    transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.9,.3,1)}
-  .open .sheet-bg{opacity:1;pointer-events:auto}
-  .open .sheet{transform:none}
-  .grab{width:38px;height:5px;border-radius:3px;background:var(--line);margin:-8px auto 16px}
-  .head{display:flex;gap:16px;align-items:center}
-  .head .icon{width:96px;height:96px}
-  .head .name{font-size:22px;white-space:normal}
-  .tag{display:inline-block;margin-top:6px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--soft);color:var(--blue)}
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);margin:18px 0;background:var(--bg);border-radius:16px}
-  .stat{text-align:center;padding:12px 4px}
-  .stat b{display:block;font-size:17px}
-  .stat small{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.03em}
-  .rows div{display:flex;justify-content:space-between;padding:9px 0;font-size:14px;border-bottom:1px solid var(--line)}
-  .rows span:first-child{color:var(--dim)}
-  .rows span:last-child{text-align:right;word-break:break-all;margin-left:12px}
-  .big{display:block;width:100%;border:0;cursor:pointer;text-align:center;margin-top:20px;padding:15px;font-size:17px;font-weight:700;border-radius:16px;
-    background:linear-gradient(135deg,#3d8bff,#1650e6);color:#fff;text-decoration:none}
-  .hint{color:var(--dim);font-size:12px;text-align:center;margin-top:10px}
+  /* строка приложения */
+  .ar{display:flex;align-items:center;gap:12px;padding:8px 0;cursor:pointer;min-width:0}
+  .ar .ic{width:64px;height:64px;border-radius:22.37%;flex:none;object-fit:cover;background:var(--pill);
+    box-shadow:0 0 0 .5px var(--sep)}
+  .ar .mt{flex:1;min-width:0;align-self:stretch;display:flex;flex-direction:column;justify-content:center;
+    border-bottom:.5px solid var(--sep);padding:6px 0;margin:-8px 0}
+  .ar:last-child .mt,.rail .ar:nth-child(3n) .mt{border-bottom-color:transparent}
+  .ar .nm{font-size:17px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ar .sb{color:var(--dim);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+  .ar .sb.w{color:var(--red)}
+  .ar .rk{width:18px;flex:none;font-weight:600;font-size:17px;text-align:center;margin-left:-4px}
+  .getwrap{display:flex;flex-direction:column;align-items:center;gap:3px;flex:none}
+  .get{border:0;border-radius:999px;background:var(--pill);color:var(--blue);font-weight:700;font-size:15px;
+    padding:6px 0;width:84px;text-align:center;cursor:pointer;display:inline-block}
+  .get:active{opacity:.55}
+  .getwrap small{font-size:9.5px;color:var(--dim);line-height:1}
+  .list{margin-top:6px}
 
-  /* подтверждение */
-  .cf-bg{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:24px}
+  /* ---------- поиск ---------- */
+  .sf{display:flex;align-items:center;gap:8px;margin-top:12px;background:var(--pill);border-radius:12px;padding:0 10px;height:38px}
+  .sf svg{width:17px;height:17px;flex:none;color:var(--dim)}
+  .sf input{flex:1;border:0;background:none;outline:none;font:17px inherit;font-family:inherit;color:var(--text);min-width:0}
+  .sf input::placeholder{color:var(--dim)}
+  .cats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .cat{border-radius:16px;height:96px;padding:12px;color:#fff;font-weight:700;font-size:17px;position:relative;overflow:hidden;cursor:pointer}
+  .cat span{position:absolute;right:-6px;bottom:-12px;font-size:64px;transform:rotate(-12deg)}
+  .cat:active{transform:scale(.97)}
+
+  /* ---------- пусто ---------- */
+  .empty{text-align:center;color:var(--dim);padding:40px 20px}
+  .empty .e{font-size:56px;margin-bottom:10px}
+  .empty b{display:block;color:var(--text);font-size:20px;margin-bottom:4px}
+
+  /* ---------- страницы ---------- */
+  .page{display:none}.page.on{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .back{display:inline-flex;align-items:center;gap:2px;color:var(--blue);font-size:17px;border:0;background:none;padding:0;cursor:pointer;
+    margin-top:calc(env(safe-area-inset-top) + 14px)}
+  .back svg{width:22px;height:22px}
+
+  /* ---------- стеклянный таб-бар ---------- */
+  .tabbar{position:fixed;left:50%;bottom:max(8px, calc(env(safe-area-inset-bottom) - 14px));transform:translateX(-50%);z-index:20;
+    display:flex;gap:2px;padding:6px;border-radius:999px;background:var(--glass);
+    -webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);
+    border:.5px solid var(--glassBorder);box-shadow:0 10px 40px var(--shadow),0 1px 0 rgba(255,255,255,.4) inset;
+    width:min(calc(100% - 24px),460px)}
+  .tab{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0 5px;
+    border-radius:999px;color:var(--text);font-size:10.5px;font-weight:600;cursor:pointer;position:relative;transition:background .2s,color .2s}
+  .tab svg{width:25px;height:25px}
+  .tab.on{color:var(--blue);background:rgba(127,127,140,.14)}
+  .badge{position:absolute;top:2px;left:calc(50% + 6px);min-width:17px;height:17px;border-radius:9px;background:var(--red);color:#fff;
+    font-size:11px;line-height:17px;padding:0 4px;font-weight:600}
+
+  /* ---------- шит ---------- */
+  .sheet-bg{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .3s}
+  .sheet{position:fixed;z-index:31;left:0;right:0;bottom:0;top:calc(env(safe-area-inset-top) + 14px);max-width:820px;margin:0 auto;
+    background:var(--bg);border-radius:14px 14px 0 0;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    transform:translateY(105%);transition:transform .38s cubic-bezier(.2,.9,.25,1);padding:0 20px calc(env(safe-area-inset-bottom) + 30px)}
+  .sheet.on{transform:none}
+  .sheet-bg.on{opacity:1;pointer-events:auto}
+  .grab{position:sticky;top:0;padding:8px 0 4px;display:flex;justify-content:space-between;align-items:center;background:var(--bg);z-index:2}
+  .grab i{width:36px;height:5px;border-radius:3px;background:var(--sep);position:absolute;left:50%;top:6px;margin-left:-18px}
+  .close{margin-left:auto;margin-top:6px;width:30px;height:30px;border-radius:50%;border:0;background:var(--pill);color:var(--dim2);
+    font-size:17px;font-weight:700;cursor:pointer;display:grid;place-items:center}
+
+  /* страница приложения */
+  .ah{display:flex;gap:16px;margin-top:6px}
+  .ah .ic{width:118px;height:118px;border-radius:22.37%;flex:none;box-shadow:0 0 0 .5px var(--sep)}
+  .ah .mt{flex:1;min-width:0;display:flex;flex-direction:column}
+  .ah h2{margin:2px 0 0;font-size:22px;font-weight:700;line-height:1.15;letter-spacing:-.01em}
+  .ah .sub{color:var(--dim);font-size:15px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ah .row{margin-top:auto;display:flex;align-items:center;justify-content:space-between}
+  .get.blue{background:var(--blue);color:#fff;width:92px}
+  .share{border:0;background:none;color:var(--blue);cursor:pointer;padding:4px}
+  .share svg{width:24px;height:24px}
+  .info{display:flex;margin:22px -20px 0;padding:0 20px 14px;overflow-x:auto;scrollbar-width:none;border-bottom:.5px solid var(--sep)}
+  .info::-webkit-scrollbar{display:none}
+  .info div{flex:none;min-width:104px;text-align:center;padding:0 12px;border-left:.5px solid var(--sep)}
+  .info div:first-child{border-left:0;padding-left:0}
+  .info small{display:block;color:var(--dim);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.02em}
+  .info b{display:block;font-size:20px;color:var(--dim2);margin:4px 0 2px;font-weight:700}
+  .info span{display:block;color:var(--dim);font-size:12px}
+  .blk{padding:16px 0;border-bottom:.5px solid var(--sep)}
+  .blk h3{margin:0 0 8px;font-size:22px;font-weight:700}
+  .blk p{margin:0;font-size:15px;line-height:1.45;color:var(--text)}
+  .kv{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:.5px solid var(--sep);font-size:15px}
+  .kv:last-child{border-bottom:0}
+  .kv span:first-child{color:var(--dim)}
+  .kv span:last-child{text-align:right;word-break:break-all}
+  .wbox{margin-top:16px;padding:14px 16px;border-radius:var(--r-group);background:rgba(255,59,48,.12);color:var(--red);font-size:15px;line-height:1.4}
+
+  /* сгруппированные списки (настройки) */
+  .gl{background:var(--bg2);border-radius:var(--r-group);overflow:hidden;margin-top:8px}
+  .gh{color:var(--dim);font-size:13px;text-transform:uppercase;margin:26px 16px 0;letter-spacing:.02em}
+  .gf{color:var(--dim);font-size:13px;margin:8px 16px 0;line-height:1.4}
+  .gf b{color:var(--text);font-weight:600}
+  .gr{display:flex;align-items:center;gap:12px;padding:0 16px;min-height:50px}
+  .gr .ico{width:30px;height:30px;border-radius:7px;display:grid;place-items:center;font-size:17px;color:#fff;flex:none}
+  .gr .t{flex:1;min-width:0;align-self:stretch;display:flex;flex-direction:column;justify-content:center;border-bottom:.5px solid var(--sep);padding:8px 0}
+  .gr:last-child .t{border-bottom:0}
+  .gr .t small{color:var(--dim);font-size:13px}
+  .seg{display:grid;grid-template-columns:repeat(3,1fr);background:rgba(118,118,128,.16);border-radius:9px;padding:2px;margin:12px 16px}
+  .seg button{border:0;background:none;font-size:14px;font-weight:600;padding:7px 0;border-radius:7px;cursor:pointer}
+  .seg button.on{background:var(--card);box-shadow:0 3px 8px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04)}
+
+
+  /* ---------- настройки в стиле iOS ---------- */
+  .avatar{display:grid;place-items:center;color:#fff;font-weight:600;font-size:15px}
+  .avatar.anon{background:linear-gradient(180deg,#b5b5bb,#8e8e93)}
+  .avatar svg{width:22px;height:22px}
+  .st{padding:6px 0 10px}
+  .st h1{margin:0;font-size:34px;font-weight:700;letter-spacing:-.02em}
+  .acct{display:flex;align-items:center;gap:14px;padding:12px 16px;cursor:pointer}
+  .av{border-radius:50%;flex:none;overflow:hidden;display:grid;place-items:center;color:#fff;font-weight:600;
+    background:linear-gradient(180deg,#b5b5bb,#8e8e93)}
+  .av img{width:100%;height:100%;object-fit:cover}
+  .av svg{width:56%;height:56%}
+  .acct .t{flex:1;min-width:0}
+  .acct .t b{display:block;font-size:20px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .acct .t small{display:block;color:var(--dim);font-size:13px;margin-top:2px}
+  .gr.btn{cursor:pointer}
+  .gr.btn:active{background:rgba(127,127,140,.12)}
+  .gr .t{flex-direction:row;align-items:center;justify-content:space-between;gap:8px}
+  .gr .t .lbl{display:flex;flex-direction:column;min-width:0}
+  .gr .val{color:var(--dim);font-size:17px;white-space:nowrap}
+  .chev{width:8px;height:14px;flex:none;color:#c4c4c7;margin-left:6px}
+  .gr.center .t{justify-content:center}
+  .gr.danger .t{color:var(--red);justify-content:center;font-weight:400}
+  .check{color:var(--blue);font-weight:700}
+  .bk{display:inline-flex;align-items:center;gap:2px;color:var(--blue);font-size:17px;border:0;background:none;padding:6px 0;cursor:pointer}
+  .bk svg{width:22px;height:22px}
+  .bigav{display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 0 4px}
+  .bigav b{font-size:24px;font-weight:700;margin-top:10px}
+  .bigav small{color:var(--dim);font-size:15px;margin-top:2px}
+  .login{display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 8px 0}
+  .login img.logo{width:96px;height:96px;border-radius:22.37%;box-shadow:0 10px 30px var(--shadow)}
+  .login h2{margin:18px 0 6px;font-size:28px;font-weight:700}
+  .login p{margin:0;color:var(--dim);font-size:15px;line-height:1.4;max-width:320px}
+  .lbtns{display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px;margin-top:28px;align-items:stretch}
+  .abtn{height:44px;border-radius:999px;border:0;background:#000;color:#fff;font-size:17px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px}
+  :root[data-theme="dark"] .abtn{background:#fff;color:#000}
+  @media (prefers-color-scheme: dark){ :root[data-theme="system"] .abtn{background:#fff;color:#000} }
+  .abtn svg{width:18px;height:18px}
+  #gbtn{display:flex;justify-content:center;min-height:44px}
+  .fine{color:var(--dim);font-size:12px;line-height:1.4;margin-top:22px;max-width:320px}
+  .need{margin:10px 0 0;padding:12px 14px;border-radius:12px;background:rgba(255,149,0,.14);color:#c26a00;font-size:14px;line-height:1.4;text-align:left}
+
+  /* алерт и тост */
+  .cf-bg{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;padding:24px}
   .cf-bg.on{display:flex}
-  .cf{background:var(--card);border-radius:18px;max-width:320px;width:100%;text-align:center;overflow:hidden}
-  .cf .in{padding:20px 18px 16px}
-  .cf .t{font-weight:700;font-size:17px;margin:6px 0}
-  .cf .d{font-size:13px;color:var(--dim);line-height:1.45}
-  .cf .b{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
-  .cf .b>*{padding:13px 0;font:600 17px/1 inherit;font-family:inherit;border:0;background:none;color:var(--blue);text-decoration:none;cursor:pointer}
-  .cf .b>*+*{border-left:1px solid var(--line)}
-  .cf .b .yes{color:#e5484d}
-  .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 92px);transform:translate(-50%,20px);opacity:0;z-index:30;
-    background:rgba(20,23,31,.92);color:#fff;padding:10px 16px;border-radius:14px;font-size:14px;transition:.25s;pointer-events:none;white-space:nowrap}
+  .cf{width:270px;border-radius:14px;overflow:hidden;text-align:center;background:var(--glass);
+    -webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%)}
+  .cf .in{padding:20px 16px 18px}
+  .cf .t{font-weight:600;font-size:17px}
+  .cf .d{font-size:13px;margin-top:4px;line-height:1.35}
+  .cf .b{display:grid;grid-template-columns:1fr 1fr;border-top:.5px solid var(--sep)}
+  .cf .b>*{padding:11px 0;font-size:17px;border:0;background:none;color:var(--blue);cursor:pointer}
+  .cf .b>*+*{border-left:.5px solid var(--sep)}
+  .cf .b .yes{color:var(--red);font-weight:600}
+  .toast{position:fixed;left:50%;bottom:calc(max(8px, calc(env(safe-area-inset-bottom) - 14px)) + 80px);transform:translate(-50%,16px);opacity:0;z-index:60;
+    background:var(--glass);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);color:var(--text);
+    padding:11px 18px;border-radius:999px;font-size:15px;font-weight:600;transition:.25s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 30px var(--shadow)}
   .toast.on{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
-<div class="top">
-  <div class="wrap">
-    <div class="brand"><img src="ruapps_icon.png" alt=""><b>Ru<span>Apps</span></b></div>
-    <div id="storeTop">
-      <input class="search" id="q" type="search" placeholder="Игры, приложения и многое другое" autocomplete="off">
-      <div class="chips" id="chips"></div>
-    </div>
-    <div class="notop" id="plainTop" style="display:none"></div>
-  </div>
-</div>
 
-<!-- Магазин -->
-<div class="wrap page on" id="p-store"><div id="storeBody"></div></div>
+<!-- Сегодня -->
+<div class="page on" id="p-today"><div class="wrap">
+  <div class="lt"><div><small id="today"></small><h1>Сегодня</h1></div>
+    <button class="avatar" data-open="settings" aria-label="Аккаунт"></button></div>
+  <div class="today" id="todayCards"></div>
+</div></div>
 
-<!-- Мои приложения -->
-<div class="wrap page" id="p-my">
-  <h3>Мои приложения <small id="myCount"></small></h3>
-  <div id="myList"></div>
-  <div class="note">Сюда попадает всё, что ты ставил через RuApps на этом устройстве. Если приложение удалилось или подпись слетела — жми «Ещё раз».</div>
-</div>
+<!-- Игры -->
+<div class="page" id="p-games"><div class="wrap">
+  <div class="lt"><h1>Игры</h1><button class="avatar" data-open="settings" aria-label="Аккаунт"></button></div>
+  <div id="gamesBody"></div>
+</div></div>
 
-<!-- Настройки -->
-<div class="wrap page" id="p-settings">
-  <h3>Оформление</h3>
-  <div class="card" style="padding:4px 14px 12px">
-    <div class="seg" id="theme">
-      <button data-t="system">Авто</button>
-      <button data-t="light">Светлая</button>
-      <button data-t="dark">Тёмная</button>
-    </div>
-    <div class="note" style="margin:0">«Авто» — как в настройках iPhone.</div>
-  </div>
+<!-- Приложения -->
+<div class="page" id="p-apps"><div class="wrap">
+  <div class="lt"><h1>Приложения</h1><button class="avatar" data-open="settings" aria-label="Аккаунт"></button></div>
+  <div id="appsBody"></div>
+</div></div>
 
-  <h3>RuApps на экран «Домой»</h3>
-  <div class="card">
-    <div class="row">
-      <div class="ico"><img src="ruapps_icon.png" alt="" style="width:30px;height:30px;border-radius:8px"></div>
-      <div class="meta"><div class="name">Установить как приложение</div><div class="sub">Иконка RuApps, открывается на весь экран</div></div>
-      <a class="get" href="profiles/ruapps-app.mobileconfig">Профиль</a>
-    </div>
-  </div>
+<!-- Мои -->
+<div class="page" id="p-my"><div class="wrap">
+  <div class="lt"><h1>Мои</h1><button class="avatar" data-open="settings" aria-label="Аккаунт"></button></div>
+  <div id="myBody"></div>
+</div></div>
 
-  <h3>DNS</h3>
-  <div class="card" id="dns"></div>
-  <div class="note">
-    Каждый DNS-профиль заодно ставит RuApps на экран «Домой».<br><br>
-    <b>Как установить:</b> нажми «Профиль» → «Разрешить» → открой <b>Настройки</b> → сверху «Профиль загружен» → «Установить».<br>
-    DNS включается в <b>Настройки → Основные → VPN и управление устройством → DNS</b>.<br>
-    <b>Удалить:</b> там же, «VPN и управление устройством» → профиль → «Удалить профиль».
-  </div>
-</div>
+<!-- Поиск -->
+<div class="page" id="p-search"><div class="wrap">
+  <div class="lt"><h1>Поиск</h1><button class="avatar" data-open="settings" aria-label="Аккаунт"></button></div>
+  <label class="sf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+    <input id="q" type="search" placeholder="Игры, приложения и многое другое" autocomplete="off"></label>
+  <div id="searchBody"></div>
+</div></div>
 
-<nav class="tabs">
-  <button class="tab on" data-p="store">
-    <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="2.2"/><rect x="13" y="3" width="8" height="8" rx="2.2"/><rect x="3" y="13" width="8" height="8" rx="2.2"/><rect x="13" y="13" width="8" height="8" rx="2.2"/></svg>
-    Магазин
-  </button>
-  <button class="tab" data-p="my">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/><path d="M12 12v5m-2.2-2.2L12 17l2.2-2.2"/></svg>
-    Мои
-    <span class="badge" id="myBadge" style="display:none"></span>
-  </button>
-  <button class="tab" data-p="settings">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></svg>
-    Настройки
-  </button>
+<!-- Подстраница раздела -->
+<div class="page" id="p-cat"><div class="wrap">
+  <button class="back" id="catBack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg><span id="backLabel">Назад</span></button>
+  <div class="lt" style="padding-top:6px"><h1 id="catTitle"></h1></div>
+  <div id="catBody"></div>
+</div></div>
+
+<nav class="tabbar" id="tabbar">
+  <button class="tab on" data-p="today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="17" rx="4"/><path d="M8 8.5h8M8 12h5"/></svg>Сегодня</button>
+  <button class="tab" data-p="games"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10a4 4 0 0 1 4 4v3.5a2.5 2.5 0 0 1-4.6 1.4L15 14H9l-1.4 1.9A2.5 2.5 0 0 1 3 14.5V11a4 4 0 0 1 4-4z"/><path d="M8 10v3M6.5 11.5h3"/><circle cx="15.5" cy="10.5" r=".6" fill="currentColor"/><circle cx="17" cy="12.3" r=".6" fill="currentColor"/></svg>Игры</button>
+  <button class="tab" data-p="apps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg>Приложения</button>
+  <button class="tab" data-p="my"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/><path d="M12 12v5m-2.2-2.2L12 17l2.2-2.2"/></svg>Мои<span class="badge" id="myBadge" style="display:none"></span></button>
+  <button class="tab" data-p="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>Поиск</button>
 </nav>
 
-<div class="sheet-bg" id="bg"></div>
+<div class="sheet-bg" id="sbg"></div>
 <div class="sheet" id="sheet"></div>
 
 <div class="cf-bg" id="cf"><div class="cf">
-  <div class="in"><div style="font-size:34px">⚠️</div>
-    <div class="t">Вы точно хотите установить?</div>
+  <div class="in"><div class="t">Вы точно хотите установить?</div>
     <div class="d">Это приложение может быть вредным и опасным для ваших данных.</div></div>
   <div class="b"><button id="cfNo">Отмена</button><a class="yes" id="cfYes" href="#">Установить</a></div>
 </div></div>
+<div class="cf-bg" id="andr"><div class="cf">
+  <div class="in"><div style="font-size:34px;margin-bottom:4px" id="andrE">🤖</div><div class="t" id="andrT">У вас Android</div>
+    <div class="d" id="andrD">RuApps недоступен на этой операционной системе. Приложения из RuApps устанавливаются только на iPhone и iPad.</div></div>
+  <div class="b" style="grid-template-columns:1fr"><button id="andrOk" style="font-weight:600">Понятно</button></div>
+</div></div>
 <div class="toast" id="toast"></div>
 
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" async defer></script>
 <script>
+const AUTH = {"google_client_id": "944658927755-qt8rq7v4304eh8fgpktfnkq0rvdv9rqj.apps.googleusercontent.com", "apple_client_id": "", "apple_redirect_uri": "", "api_url": "https://ruapps.nekrasovl101.workers.dev", "bot_username": "RuAppsDevBot"};
 const APPS = [{"name": "MAX", "bundle": "ru.oneme.app", "version": "26.17.3", "build": "31710", "minIOS": "10.0", "size": 55811640, "icon": "icons/ru.oneme.app.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.oneme.app.plist", "ipa": "apps/ru.oneme.app.ipa", "expires": "27.05.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "PojavLauncher", "bundle": "net.kdt.pojavlauncher", "version": "2.2", "build": "2.2", "minIOS": "12.2", "size": 108175347, "icon": "icons/net.kdt.pojavlauncher.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fnet.kdt.pojavlauncher.plist", "ipa": "apps/net.kdt.pojavlauncher.ipa", "expires": null, "expired": false, "warn": null, "cat": "games"}, {"name": "RuTube", "bundle": "ru.rutube.main.test", "version": "47.15.0", "build": "37", "minIOS": "15.0", "size": 18368296, "icon": "icons/ru.rutube.main.test.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.rutube.main.test.plist", "ipa": "apps/ru.rutube.main.test.ipa", "expires": "16.09.2026", "expired": true, "warn": null, "cat": "video"}, {"name": "VK Video", "bundle": "com.vk.vkvideo.prod", "version": "8.183", "build": "2124", "minIOS": "17.6", "size": 132525824, "icon": "icons/com.vk.vkvideo.prod.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkvideo.prod.plist", "ipa": "apps/com.vk.vkvideo.prod.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "video"}, {"name": "VK", "bundle": "com.vk.vkclient", "version": "8.183", "build": "8149", "minIOS": "17.6", "size": 230690938, "icon": "icons/com.vk.vkclient.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkclient.plist", "ipa": "apps/com.vk.vkclient.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "Авито", "bundle": "org.reactjs.native.prod.AuReactNativeApp", "version": "220.0", "build": "1774349983", "minIOS": "15.2", "size": 366777456, "icon": "icons/org.reactjs.native.prod.AuReactNativeApp.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Forg.reactjs.native.prod.AuReactNativeApp.plist", "ipa": "apps/org.reactjs.native.prod.AuReactNativeApp.ipa", "expires": null, "expired": false, "warn": null, "cat": "tools"}, {"name": "ПочтаMail.ru", "bundle": "ru.mail.mail", "version": "15.92.0", "build": "90407", "minIOS": 10.0, "size": 486624591, "icon": "icons/ru.mail.mail.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.mail.mail.plist", "ipa": "apps/ru.mail.mail.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "Сбербанк", "bundle": "com.inv.gen", "version": "17.6.1", "build": "3", "minIOS": "15.0", "size": 283657479, "icon": "icons/com.inv.gen.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.inv.gen.plist", "ipa": "apps/com.inv.gen.ipa", "expires": null, "expired": false, "warn": "Лучше не устанавливать. Файл не проверен и может быть вредоносным: внутри не оригинальное приложение Сбера (другое название и ID, нет профиля подписи). Ставь Сбер только официальным способом.", "cat": "banks"}];
 const DNS = [{"name": "Cloudflare 1.1.1.1", "desc": "Быстрый и простой", "emoji": "☁️", "color": "#f38020", "file": "profiles/ruapps-dns-cloudflare.mobileconfig"}, {"name": "AdGuard DNS", "desc": "Режет рекламу и трекеры", "emoji": "🛡️", "color": "#68bc71", "file": "profiles/ruapps-dns-adguard.mobileconfig"}, {"name": "Google DNS", "desc": "8.8.8.8", "emoji": "🔎", "color": "#4285f4", "file": "profiles/ruapps-dns-google.mobileconfig"}, {"name": "Quad9", "desc": "Блокирует опасные сайты", "emoji": "🔒", "color": "#7a2bd8", "file": "profiles/ruapps-dns-quad9.mobileconfig"}];
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const mb = b => (b / 1048576).toFixed(1) + " МБ";
+const mb = b => b >= 1073741824 ? (b / 1073741824).toFixed(1) + " ГБ" : Math.round(b / 1048576) + " МБ";
 const store = {
   get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 };
 
-/* ---- разделы ---- */
 const CATS = [
-  {id:"all",    name:"Все",                 emoji:"✨"},
-  {id:"games",  name:"Игры",                emoji:"🎮", title:"Игры для iPhone",        text:"Во что поиграть сегодня",          bg:"linear-gradient(135deg,#a855f7,#6d28d9)", empty:"Игры скоро появятся"},
-  {id:"banks",  name:"Банки",               emoji:"🏦", title:"Банки и финансы",        text:"Будь осторожен: ставь только проверенное", bg:"linear-gradient(135deg,#10b981,#047857)", empty:"Банков пока нет"},
-  {id:"video",  name:"Видео и развлечения", emoji:"🎬", title:"Видео и развлечения",    text:"Кино, ролики и стримы",            bg:"linear-gradient(135deg,#fb7185,#e11d48)", empty:"Видео скоро появится"},
-  {id:"social", name:"Общение",             emoji:"💬", title:"Общение и соцсети",      text:"Мессенджеры, почта и соцсети",     bg:"linear-gradient(135deg,#38bdf8,#1d4ed8)", empty:"Пока пусто"},
-  {id:"tools",  name:"Полезное",            emoji:"🧰", title:"Полезное",               text:"Покупки, сервисы и всё для жизни",  bg:"linear-gradient(135deg,#fbbf24,#ea580c)", empty:"Пока пусто"},
+  {id:"games",  name:"Игры",                emoji:"🎮", kicker:"Подборка",   title:"Во что поиграть сегодня",          text:"Лучшие игры в RuApps",                  bg:"linear-gradient(160deg,#a855f7,#4c1d95)", empty:"Игры скоро появятся"},
+  {id:"banks",  name:"Банки",               emoji:"🏦", kicker:"Финансы",    title:"Банки и финансы",                  text:"Ставь только проверенное",              bg:"linear-gradient(160deg,#34d399,#065f46)", empty:"Банков пока нет"},
+  {id:"video",  name:"Видео и развлечения", emoji:"🎬", kicker:"Смотреть",   title:"Кино, ролики и стримы",            text:"Видео и развлечения",                   bg:"linear-gradient(160deg,#fb7185,#9f1239)", empty:"Видео скоро появится"},
+  {id:"social", name:"Общение",             emoji:"💬", kicker:"На связи",   title:"Мессенджеры и соцсети",            text:"Общайся с друзьями",                    bg:"linear-gradient(160deg,#38bdf8,#1e3a8a)", empty:"Пока пусто"},
+  {id:"tools",  name:"Полезное",            emoji:"🧰", kicker:"Каждый день", title:"Полезное на каждый день",          text:"Покупки, сервисы и всё для жизни",      bg:"linear-gradient(160deg,#fbbf24,#9a3412)", empty:"Пока пусто"},
 ];
 const catOf = id => CATS.find(c => c.id === id) || CATS[CATS.length - 1];
-let curCat = "all";
+const inCat = id => APPS.filter(a => a.cat === id);
 
-$("#chips").innerHTML = CATS.map(c => `<button class="chip${c.id === "all" ? " on" : ""}" data-c="${c.id}">${c.emoji} ${c.name}</button>`).join("");
-$("#chips").addEventListener("click", e => { const b = e.target.closest(".chip"); if (b) setCat(b.dataset.c); });
-
-function setCat(id) {
-  curCat = id;
-  $$(".chip").forEach(c => c.classList.toggle("on", c.dataset.c === id));
-  const chip = $(`.chip[data-c="${id}"]`); chip && chip.scrollIntoView({inline:"center", block:"nearest", behavior:"smooth"});
-  $("#q").value = "";
-  renderStore(); window.scrollTo(0, 0);
+/* ---------- строки ---------- */
+function getBtn(a, label = "Загрузить") {
+  return `<div class="getwrap"><button class="get" data-install="${APPS.indexOf(a)}">${label}</button>${a.warn ? "" : "<small>Через Safari</small>"}</div>`;
 }
-
-/* ---- строки ---- */
-function rowHTML(a, mode = "store") {
-  const i = APPS.indexOf(a);
-  const sub = a.warn ? '<span class="wtxt">⚠ Лучше не устанавливать</span>' : `${esc(catOf(a.cat).name)} · ${mb(a.size)}`;
-  const btn = `<button class="get" data-install="${i}">${mode === "my" ? "Ещё раз" : "Установить"}</button>`;
-  const x = mode === "my" ? `<button class="x" data-remove="${i}" aria-label="Убрать">×</button>` : "";
-  return `<div class="app" data-i="${i}"><img class="icon" src="${esc(a.icon)}" alt="" loading="lazy">
-    <div class="meta"><div class="name">${esc(a.name)}</div><div class="sub">${sub}</div></div>${btn}${x}</div>`;
+function rowHTML(a, opts = {}) {
+  const sub = a.warn ? '<div class="sb w">⚠ Лучше не устанавливать</div>' : `<div class="sb">${esc(catOf(a.cat).name)}</div>`;
+  return `<div class="ar" data-i="${APPS.indexOf(a)}">${opts.rank ? `<div class="rk">${opts.rank}</div>` : ""}
+    <img class="ic" src="${esc(a.icon)}" alt="" loading="lazy">
+    <div class="mt"><div class="nm">${esc(a.name)}</div>${sub}</div>${opts.btn || getBtn(a)}</div>`;
 }
-function listHTML(arr, mode, emptyText) {
-  return arr.length ? `<div class="card">${arr.map(a => rowHTML(a, mode)).join("")}</div>`
-    : `<div class="card"><div class="empty"><div class="e">🫥</div>${esc(emptyText || "Ничего не найдено")}</div></div>`;
+function rail(arr, rank) {
+  if (!arr.length) return "";
+  return `<div class="rail${arr.length < 3 ? " one" : ""}" ${arr.length < 3 ? 'style="grid-auto-flow:row;grid-auto-columns:auto;grid-template-rows:none"' : ""}>
+    ${arr.map((a, i) => rowHTML(a, {rank: rank ? i + 1 : 0})).join("")}</div>`;
 }
-
-/* ---- витрина ---- */
-function bannersHTML() {
-  const bs = CATS.filter(c => c.id !== "all").map(c => {
-    const n = APPS.filter(a => a.cat === c.id).length;
-    return `<div class="ban" data-c="${c.id}" style="background:${c.bg}"><small>${n ? n + " прил." : "Скоро"}</small>
-      <h2>${esc(c.title)}</h2><p>${esc(c.text)}</p><div class="art">${c.emoji}</div></div>`;
-  });
-  return `<div class="banners" id="bans">${bs.join("")}</div><div class="dots" id="dots">${bs.map((_, i) => `<i${i ? "" : ' class="on"'}></i>`).join("")}</div>`;
+function section(title, sub, arr, catId, emptyText) {
+  return `<div class="sec"><div class="sh"><div><h3>${esc(title)}</h3>${sub ? `<p>${esc(sub)}</p>` : ""}</div>
+    ${catId && arr.length ? `<a data-cat="${catId}">См. все</a>` : ""}</div>
+    ${arr.length ? rail(arr) : `<div class="empty" style="padding:24px 10px"><div class="e" style="font-size:40px">🫥</div>${esc(emptyText || "Пока пусто")}</div>`}</div>`;
 }
+function emptyBox(e, b, t) { return `<div class="empty"><div class="e">${e}</div><b>${b}</b>${t}</div>`; }
 
-function renderStore() {
-  const f = $("#q").value.trim().toLowerCase();
+/* ---------- Сегодня ---------- */
+function renderToday() {
+  $("#today").textContent = new Date().toLocaleDateString("ru-RU", {weekday:"long", day:"numeric", month:"long"});
   let h = "";
-  if (f) {
-    const res = APPS.filter(a => a.name.toLowerCase().includes(f) || a.bundle.toLowerCase().includes(f) || catOf(a.cat).name.toLowerCase().includes(f));
-    h = `<h3>Результаты <small>${res.length}</small></h3>` + listHTML(res, "store", "Ничего не найдено");
-  } else if (curCat === "all") {
-    h = bannersHTML();
-    h += `<h3>Все приложения <small>${APPS.length}</small></h3>` + listHTML(APPS, "store");
-    for (const c of CATS.slice(1)) {
-      const arr = APPS.filter(a => a.cat === c.id);
-      h += `<h3>${c.emoji} ${esc(c.name)} <a data-c="${c.id}">См. все</a></h3>` + listHTML(arr.slice(0, 4), "store", c.empty);
-    }
-  } else {
-    const c = catOf(curCat), arr = APPS.filter(a => a.cat === c.id);
-    h = `<div class="ban catHero" style="background:${c.bg};width:100%;max-width:none;cursor:default"><small>${arr.length} прил.</small>
-      <h2>${esc(c.title)}</h2><p>${esc(c.text)}</p><div class="art">${c.emoji}</div></div>`;
-    h += `<h3>${esc(c.name)} <small>${arr.length}</small></h3>` + listHTML(arr, "store", c.empty);
+  const feat = APPS.find(a => !a.warn);
+  if (feat) h += `<div class="tc" data-i="${APPS.indexOf(feat)}" style="background:linear-gradient(160deg,#3d8bff,#0b2a8c)">
+    <div class="tx"><small>Приложение дня</small><h2>${esc(feat.name)}</h2></div>
+    <div class="hero-app" style="min-height:420px"><img src="${esc(feat.icon)}" alt=""></div>
+    <div class="ft"><img src="${esc(feat.icon)}" alt=""><p><b>${esc(feat.name)}</b><br>${esc(catOf(feat.cat).name)}</p>
+      <button class="get" style="background:rgba(255,255,255,.25);color:#fff" data-install="${APPS.indexOf(feat)}">Загрузить</button></div></div>`;
+  for (const c of CATS) {
+    const arr = inCat(c.id);
+    h += `<div class="tc" data-cat="${c.id}" style="background:${c.bg}">
+      <div class="tx"><small>${esc(c.kicker)}</small><h2>${esc(c.title)}</h2></div><div class="art">${c.emoji}</div>
+      <div class="ft">${arr.slice(0, 3).map(a => `<img src="${esc(a.icon)}" alt="">`).join("")}
+        <p>${arr.length ? `${arr.length} ${plural(arr.length, "приложение", "приложения", "приложений")}` : "Скоро"} · ${esc(c.text)}</p></div></div>`;
   }
-  $("#storeBody").innerHTML = h;
-  const bans = $("#bans");
-  if (bans) bans.addEventListener("scroll", () => {
-    const i = Math.round(bans.scrollLeft / (bans.firstElementChild.offsetWidth + 12));
-    $$("#dots i").forEach((d, k) => d.classList.toggle("on", k === i));
-  }, {passive:true});
+  $("#todayCards").innerHTML = h;
+}
+function plural(n, a, b, c) { const m = n % 10, k = n % 100; return m === 1 && k !== 11 ? a : m >= 2 && m <= 4 && (k < 12 || k > 14) ? b : c; }
+
+/* ---------- Игры / Приложения ---------- */
+function renderGames() {
+  const g = inCat("games");
+  $("#gamesBody").innerHTML = g.length
+    ? section("Популярные игры", "Выбор RuApps", g, "games") + `<div class="sec"><div class="sh"><h3>Топ игр</h3></div><div class="list">${g.map((a, i) => rowHTML(a, {rank:i + 1})).join("")}</div></div>`
+    : emptyBox("🎮", "Игры скоро появятся", "Мы уже работаем над подборкой.");
+}
+function renderApps() {
+  const non = APPS.filter(a => a.cat !== "games");
+  let h = section("Все приложения", `${non.length} ${plural(non.length, "приложение", "приложения", "приложений")}`, non, null);
+  for (const c of CATS.slice(1)) h += section(c.name, c.text, inCat(c.id), c.id, c.empty);
+  $("#appsBody").innerHTML = h;
 }
 
-/* ---- мои приложения ---- */
-function myGet() { return store.get("ruapps-my", []); }
-function mySet(v) { store.set("ruapps-my", v); renderMy(); }
-function addMine(a) {
-  const my = myGet().filter(b => b !== a.bundle); my.unshift(a.bundle); mySet(my);
-  toast("Добавлено в «Мои приложения»");
+/* ---------- Поиск ---------- */
+function renderSearch() {
+  const f = $("#q").value.trim().toLowerCase();
+  if (!f) {
+    $("#searchBody").innerHTML = `<div class="sec" style="border:0"><div class="sh"><h3>Категории</h3></div><div class="cats">
+      ${CATS.map(c => `<div class="cat" data-cat="${c.id}" style="background:${c.bg}">${esc(c.name)}<span>${c.emoji}</span></div>`).join("")}</div></div>`;
+    return;
+  }
+  const res = APPS.filter(a => (a.name + " " + a.bundle + " " + catOf(a.cat).name).toLowerCase().includes(f));
+  $("#searchBody").innerHTML = res.length ? `<div class="list" style="margin-top:14px">${res.map(a => rowHTML(a)).join("")}</div>`
+    : emptyBox("🔍", "Ничего не найдено", `По запросу «${esc($("#q").value)}» пусто.`);
 }
+$("#q").addEventListener("input", renderSearch);
+
+/* ---------- Мои ---------- */
+const myGet = () => store.get("ruapps-my", []);
+function mySet(v) { store.set("ruapps-my", v); renderMy(); }
+function addMine(a) { const m = myGet().filter(b => b !== a.bundle); m.unshift(a.bundle); mySet(m); toast("Добавлено в «Мои»"); }
 function renderMy() {
   const arr = myGet().map(b => APPS.find(a => a.bundle === b)).filter(Boolean);
-  $("#myCount").textContent = arr.length || "";
   $("#myBadge").textContent = arr.length; $("#myBadge").style.display = arr.length ? "" : "none";
-  $("#myList").innerHTML = arr.length ? `<div class="card">${arr.map(a => rowHTML(a, "my")).join("")}</div>`
-    : `<div class="card"><div class="empty"><div class="e">📲</div><b>Тут пока пусто</b>Установи что-нибудь из магазина — и оно появится здесь.</div></div>`;
+  $("#myBody").innerHTML = arr.length
+    ? `<div class="sec" style="border:0"><div class="sh"><div><h3>Загружено</h3><p>На этом устройстве через RuApps</p></div></div>
+       <div class="list">${arr.map(a => rowHTML(a, {btn:`<div class="getwrap"><button class="get" data-install="${APPS.indexOf(a)}">Ещё раз</button>
+         <small><a data-remove="${APPS.indexOf(a)}" style="color:var(--red);cursor:pointer">Убрать</a></small></div>`})).join("")}</div></div>`
+    : emptyBox("📲", "Тут пока пусто", "Загрузи что-нибудь — и оно появится здесь.");
 }
 
-/* ---- установка ---- */
+/* ---------- подстраница раздела ---------- */
+let prevPage = "today";
+function openCat(id) {
+  const c = catOf(id), arr = inCat(id);
+  prevPage = curPage === "cat" ? prevPage : curPage;
+  $("#backLabel").textContent = {today:"Сегодня", games:"Игры", apps:"Приложения", my:"Мои", search:"Поиск"}[prevPage] || "Назад";
+  $("#catTitle").textContent = c.name;
+  $("#catBody").innerHTML = (`<div class="tc" style="background:${c.bg};min-height:200px;margin-top:8px;cursor:default">
+      <div class="tx"><small>${esc(c.kicker)}</small><h2>${esc(c.title)}</h2></div><div class="art" style="font-size:130px;bottom:-10px">${c.emoji}</div></div>`)
+    + (arr.length ? `<div class="list" style="margin-top:14px">${arr.map(a => rowHTML(a)).join("")}</div>` : emptyBox(c.emoji, c.empty, ""));
+  showPage("cat");
+}
+$("#catBack").addEventListener("click", () => showPage(prevPage));
+
+/* ---------- страница приложения ---------- */
+function openApp(a) {
+  const c = catOf(a.cat), i = APPS.indexOf(a);
+  sheet(`
+    <div class="ah"><img class="ic" src="${esc(a.icon)}" alt="">
+      <div class="mt"><h2>${esc(a.name)}</h2><div class="sub">${esc(c.name)}</div>
+        <div class="row"><button class="get blue" data-install="${i}">Загрузить</button>
+          <button class="share" data-share="${i}" aria-label="Поделиться"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7.5 7.5L12 3l4.5 4.5"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg></button></div></div></div>
+    ${a.warn ? `<div class="wbox">⚠️ ${esc(a.warn)}</div>` : ""}
+    <div class="info">
+      <div><small>Категория</small><b>${c.emoji}</b><span>${esc(c.name)}</span></div>
+      <div><small>Версия</small><b>${esc(a.version)}</b><span>Сборка ${esc(a.build || "—")}</span></div>
+      <div><small>Размер</small><b>${mb(a.size).split(" ")[0]}</b><span>${mb(a.size).split(" ")[1]}</span></div>
+      <div><small>Совместимость</small><b>${a.minIOS ? esc(a.minIOS.split(".")[0]) + "+" : "—"}</b><span>iOS</span></div>
+    </div>
+    ${a.desc ? `<div class="blk"><h3>Описание</h3><p>${esc(a.desc)}</p></div>` : ""}
+    <div class="blk"><h3>Как установить</h3><p>Нажми «Загрузить» и подтверди установку. Иконка появится на экране «Домой». Если приложение не открывается — включи «Режим разработчика» в Настройки → Конфиденциальность и безопасность.</p></div>
+    <div class="blk" style="border:0"><h3>Информация</h3>
+      ${a.devName ? `<div class="kv"><span>Разработчик</span><span>${esc(a.devName)}</span></div>` : ""}
+      <div class="kv"><span>Идентификатор</span><span>${esc(a.bundle)}</span></div>
+      <div class="kv"><span>Размер</span><span>${mb(a.size)}</span></div>
+      <div class="kv"><span>Категория</span><span>${esc(c.name)}</span></div>
+      <div class="kv"><span>Совместимость</span><span>${a.minIOS ? "iOS " + esc(a.minIOS) + " или новее" : "—"}</span></div>
+    </div>`);
+}
+
+/* ---------- аккаунт ---------- */
+const PERSON = '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8.5" r="4.2"/><path d="M3.8 20.5c.9-4 4.2-6.3 8.2-6.3s7.3 2.3 8.2 6.3z"/></svg>';
+const CHEV = '<svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 7l-5 5.5"/></svg>';
+const APPLE = '<svg viewBox="0 0 17 20" fill="currentColor"><path d="M14.1 10.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.8-1-2.8-4zM11.6 3c.7-.9 1.2-2 1-3.1-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1.1 3 1.1.1 2.3-.6 3-1.4z"/></svg>';
+const hasGoogle = () => !!(AUTH && AUTH.google_client_id);
+const hasApple  = () => !!(AUTH && AUTH.apple_client_id && AUTH.apple_redirect_uri);
+const authOn    = () => hasGoogle() || hasApple();
+const userGet = () => store.get("ruapps-user", null);
+function userSet(u) { store.set("ruapps-user", u); renderAvatars(); }
+function initials(u) { return (u && u.name ? u.name : "?").split(/\s+/).map(w => w[0]).join("").slice(0, 2).toUpperCase(); }
+function avHTML(u, size) {
+  const st = `width:${size}px;height:${size}px;font-size:${Math.round(size * .4)}px`;
+  if (!u) return `<div class="av" style="${st}">${PERSON}</div>`;
+  if (u.picture) return `<div class="av" style="${st}"><img src="${esc(u.picture)}" alt="" referrerpolicy="no-referrer"></div>`;
+  return `<div class="av" style="${st};background:linear-gradient(180deg,#5e9eff,#1f63f5)">${esc(initials(u))}</div>`;
+}
+function renderAvatars() {
+  const u = userGet();
+  $$(".avatar").forEach(b => { b.classList.toggle("anon", !u); b.innerHTML = u ? avHTML(u, 36).replace('class="av"', 'class="av" style="width:100%;height:100%"') : PERSON; });
+}
+function decodeJWT(t) {
+  try { const p = t.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+    return JSON.parse(decodeURIComponent(atob(p).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))); }
+  catch (e) { return null; }
+}
+let afterLogin = null;
+async function onGoogle(resp) {
+  const d = decodeJWT(resp.credential); if (!d) return toast("Не получилось войти");
+  userSet({provider:"Google", name:d.name || d.email, email:d.email, picture:d.picture || "", sub:d.sub});
+  await serverLogin(resp.credential);
+  loggedIn();
+}
+async function signInApple() {
+  try {
+    AppleID.auth.init({clientId:AUTH.apple_client_id, scope:"name email", redirectURI:AUTH.apple_redirect_uri, usePopup:true});
+    const r = await AppleID.auth.signIn();
+    const d = decodeJWT(r.authorization.id_token) || {};
+    const prev = userGet();
+    const nm = r.user && r.user.name ? `${r.user.name.firstName || ""} ${r.user.name.lastName || ""}`.trim() : (prev && prev.sub === d.sub ? prev.name : "");
+    userSet({provider:"Apple", name:nm || d.email || "Пользователь Apple", email:d.email || "", picture:"", sub:d.sub});
+    loggedIn();
+  } catch (e) { if (!e || e.error !== "popup_closed_by_user") toast("Вход через Apple не удался"); }
+}
+function loggedIn() {
+  const u = userGet(); toast(`Привет, ${(u.name || "").split(" ")[0] || "друг"}!`);
+  const next = afterLogin; afterLogin = null;
+  if (next) { closeSheet(); setTimeout(() => install(next), 350); } else openSettings();
+}
+function signOut() {
+  try { if (window.google && google.accounts) google.accounts.id.disableAutoSelect(); } catch (e) {}
+  userSet(null); toast("Вы вышли из аккаунта"); openSettings();
+}
+function openLogin(app) {
+  afterLogin = app || null;
+  sheet(`<div class="login"><img class="logo" src="ruapps_icon.png" alt="">
+    <h2>Вход в RuApps</h2>
+    <p>${app ? `Чтобы загрузить «${esc(app.name)}», войдите в аккаунт.` : "Войдите, чтобы загружать приложения."}</p>
+    <div class="lbtns">
+      ${hasApple() ? `<button class="abtn" id="abtn">${APPLE}Войти через Apple</button>` : ""}
+      ${hasGoogle() ? `<div id="gbtn"></div>` : ""}
+      ${authOn() ? "" : `<div class="need">Вход пока не подключён владельцем магазина. Пока он не настроен, приложения загружаются без входа.</div>`}
+    </div>
+    <div class="fine">Пароль вы вводите на странице Google или Apple — RuApps его не видит. Мы получаем только имя, e-mail и фото профиля. Подробнее — в <a href="privacy.html" style="color:var(--blue)">политике конфиденциальности</a>.</div></div>`);
+  if (hasApple()) $("#abtn").addEventListener("click", signInApple);
+  if (hasGoogle()) mountGoogle();
+}
+function mountGoogle(tries = 0) {
+  const el = $("#gbtn"); if (!el) return;
+  if (!(window.google && google.accounts && google.accounts.id)) { if (tries < 40) setTimeout(() => mountGoogle(tries + 1), 150); else el.textContent = "Google не загрузился. Проверь интернет."; return; }
+  google.accounts.id.initialize({client_id:AUTH.google_client_id, callback:onGoogle, ux_mode:"popup", auto_select:false});
+  const dark = matchMedia("(prefers-color-scheme: dark)").matches && document.documentElement.dataset.theme !== "light" || document.documentElement.dataset.theme === "dark";
+  google.accounts.id.renderButton(el, {theme:dark ? "filled_black" : "outline", size:"large", shape:"pill", text:"signin_with", locale:"ru", width:320});
+}
+
+/* ---------- настройки ---------- */
+const THEMES = {system:"Авто", light:"Светлая", dark:"Тёмная"};
+function grow({icon, bg, label, sub, val, chev = true, act, cls = ""}) {
+  return `<div class="gr ${act ? "btn" : ""} ${cls}" ${act ? `data-act="${act}"` : ""}>
+    ${icon ? `<div class="ico" style="background:${bg || "none"}">${icon}</div>` : ""}
+    <div class="t"><div class="lbl">${label}${sub ? `<small>${sub}</small>` : ""}</div>
+      <div style="display:flex;align-items:center">${val ? `<span class="val">${val}</span>` : ""}${chev ? CHEV : ""}</div></div></div>`;
+}
+function openSettings() {
+  const u = userGet(), t = document.documentElement.dataset.theme || "system";
+  const myN = myGet().length;
+  sheet(`<div class="st"><h1>Настройки</h1></div>
+    <div class="gl"><div class="acct" data-act="${u ? "account" : "login"}">${avHTML(u, 60)}
+      <div class="t">${u ? `<b>${esc(u.name)}</b><small>Аккаунт RuApps, вход через ${esc(u.provider)}${u.dev ? DEV_BADGE : ""}</small>`
+                         : `<b style="color:var(--blue)">Войти</b><small>Войдите, чтобы загружать приложения</small>`}</div>${CHEV}</div></div>
+
+    <div class="gl" style="margin-top:28px">
+      ${grow({icon:"🌓", bg:"#5856d6", label:"Оформление", val:THEMES[t], act:"theme"})}
+      ${grow({icon:"🛍️", bg:"#007aff", label:"Мои приложения", val:myN || "", act:"my"})}
+    </div>
+
+    <div class="gl" style="margin-top:28px">
+      ${grow({icon:'<img src="ruapps_icon.png" style="width:30px;height:30px;border-radius:7px">', label:"RuApps на экран «Домой»", act:"home"})}
+      ${grow({icon:"🛡️", bg:"#34c759", label:"DNS", val:DNS.length + " " + plural(DNS.length, "профиль", "профиля", "профилей"), act:"dns"})}
+    </div>
+
+    ${devGroupHTML()}
+    <div class="gl" style="margin-top:28px">
+      ${grow({icon:"ℹ️", bg:"#8e8e93", label:"О RuApps", act:"about"})}
+    </div>
+    ${u ? `<div class="gl" style="margin-top:28px">${grow({label:"Выйти", chev:false, act:"logout", cls:"danger"})}</div>` : ""}
+    <div class="gf" style="text-align:center;margin-top:24px">RuApps · ${APPS.length} ${plural(APPS.length, "приложение", "приложения", "приложений")}</div>`);
+}
+function sub(title, html) {
+  sheet(`<button class="bk" data-act="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>Настройки</button>
+    <div class="st"><h1 style="font-size:30px">${title}</h1></div>${html}`);
+}
+function openAccount() {
+  const u = userGet(); if (!u) return openLogin();
+  sub("Аккаунт", `<div class="bigav">${avHTML(u, 96)}<b>${esc(u.name)}</b><small>${esc(u.email || "")}</small></div>
+    <div class="gl" style="margin-top:22px">
+      ${grow({label:"Имя", val:esc(u.name), chev:false})}
+      ${grow({label:"E-mail", val:esc(u.email || "скрыт"), chev:false})}
+      ${grow({label:"Вход через", val:esc(u.provider), chev:false})}
+    </div>
+    <div class="gl" style="margin-top:28px">${grow({icon:"🛍️", bg:"#007aff", label:"Мои приложения", val:myGet().length || "", act:"my"})}</div>
+    <div class="gl" style="margin-top:28px">${grow({label:"Выйти", chev:false, act:"logout", cls:"danger"})}</div>
+    <div class="gf">Данные аккаунта хранятся только на этом устройстве. После выхода они удаляются.</div>`);
+}
+function openTheme() {
+  const t = document.documentElement.dataset.theme || "system";
+  sub("Оформление", `<div class="gl" style="margin-top:8px">${Object.entries(THEMES).map(([k, v]) =>
+      `<div class="gr btn" data-theme-set="${k}"><div class="t"><div class="lbl">${v}</div>${t === k ? '<span class="check">✓</span>' : ""}</div></div>`).join("")}</div>
+    <div class="gf">«Авто» — как в настройках iPhone.</div>`);
+}
+function openHome() {
+  sub("Экран «Домой»", `<div class="gl" style="margin-top:8px"><div class="gr"><div class="ico"><img src="ruapps_icon.png" style="width:30px;height:30px;border-radius:7px"></div>
+      <div class="t"><div class="lbl">Установить как приложение<small>Открывается на весь экран</small></div><a class="get" href="profiles/ruapps-app.mobileconfig">Профиль</a></div></div></div>
+    <div class="gf"><b>Как установить:</b> «Профиль» → «Разрешить» → Настройки → «Профиль загружен» → «Установить».</div>`);
+}
+function openDNS() {
+  sub("DNS", `<div class="gl" style="margin-top:8px">${DNS.map(d => `<div class="gr"><div class="ico" style="background:${esc(d.color)}">${esc(d.emoji)}</div>
+      <div class="t"><div class="lbl">${esc(d.name)}<small>${esc(d.desc)}</small></div><a class="get" href="${esc(d.file)}">Профиль</a></div></div>`).join("")}</div>
+    <div class="gf">Каждый DNS-профиль заодно ставит RuApps на экран «Домой».<br><br>
+      <b>Включить:</b> Настройки → Основные → VPN и управление устройством → DNS.<br>
+      <b>Удалить:</b> там же → профиль → «Удалить профиль».</div>`);
+}
+function openAbout() {
+  sub("О RuApps", `<div class="bigav"><img src="ruapps_icon.png" style="width:96px;height:96px;border-radius:22.37%"><b>RuApps</b><small>Магазин приложений в браузере</small></div>
+    <div class="gl" style="margin-top:22px">
+      ${grow({label:"Приложений", val:APPS.length, chev:false})}
+      ${grow({label:"Разделов", val:CATS.length, chev:false})}
+    </div>`);
+}
+document.addEventListener("click", e => {
+  const ts = e.target.closest("[data-theme-set]");
+  if (ts) { setTheme(ts.dataset.themeSet); openTheme(); return; }
+  const a = e.target.closest("[data-act]"); if (!a) return;
+  ({ login:() => openLogin(), account:openAccount, theme:openTheme, home:openHome, dns:openDNS, about:openAbout,
+     back:openSettings, logout:signOut, becomedev:openBecomeDev, checkdev:checkDev, upload:openUpload, uploads:openUploads, relogin:() => openLogin(), my:() => { closeSheet(); showPage("my"); } }[a.dataset.act] || (() => {}))();
+});
+
+function setTheme(t) {
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem("ruapps-theme", t); } catch (e) {}
+  const dark = t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+  document.querySelector('meta[name="theme-color"]').content = dark ? "#000000" : "#ffffff";
+}
+setTheme(document.documentElement.dataset.theme || "system");
+
+/* ---------- шит ---------- */
+function sheet(html) {
+  $("#sheet").innerHTML = `<div class="grab"><i></i><button class="close" id="sclose" aria-label="Закрыть">✕</button></div>${html}`;
+  $("#sheet").scrollTop = 0;
+  $("#sheet").classList.add("on"); $("#sbg").classList.add("on");
+  $("#sclose").addEventListener("click", closeSheet);
+}
+function closeSheet() { $("#sheet").classList.remove("on"); $("#sbg").classList.remove("on"); }
+$("#sbg").addEventListener("click", closeSheet);
+
+/* =====================================================================
+   Сервер RuApps и аккаунт разработчика
+   ===================================================================== */
+const API = (AUTH && AUTH.api_url || "").replace(/\/+$/, "");
+const BOT = AUTH && AUTH.bot_username || "";
+const serverOn = () => !!API;
+
+async function api(path, opts = {}) {
+  const u = userGet();
+  const h = Object.assign({}, opts.headers || {});
+  if (u && u.session) h.authorization = "Bearer " + u.session;
+  if (opts.json) { h["content-type"] = "application/json"; opts.body = JSON.stringify(opts.json); }
+  const r = await fetch(API + path, { method: opts.method || "GET", headers: h, body: opts.body });
+  const j = await r.json().catch(() => ({}));
+  if (r.status === 401 && u && u.session) { userSet({ ...u, session: "", dev: false }); }
+  if (!r.ok) throw Object.assign(new Error(j.message || "Ошибка сервера"), { status: r.status, data: j });
+  return j;
+}
+async function serverLogin(idToken) {
+  if (!serverOn() || !idToken) return;
+  try {
+    const r = await api("/session", { method: "POST", json: { id_token: idToken } });
+    const u = userGet(); if (u) userSet({ ...u, session: r.token, dev: !!r.dev });
+  } catch (e) { toast("Сервер RuApps недоступен"); }
+}
+async function refreshMe() {
+  const u = userGet(); if (!serverOn() || !u || !u.session) return u;
+  try { const r = await api("/me"); userSet({ ...userGet(), dev: !!r.dev }); } catch (e) {}
+  return userGet();
+}
+const isDev = () => { const u = userGet(); return !!(u && u.session && u.dev); };
+
+/* ---------- приложения разработчиков в каталоге ---------- */
+async function loadRemoteApps() {
+  if (!serverOn()) return;
+  try {
+    const list = await fetch(API + "/apps").then(r => r.json());
+    if (!Array.isArray(list)) return;
+    for (const a of list) {
+      if (APPS.some(x => x.remoteId === a.id)) continue;
+      APPS.push({ name: a.name, bundle: a.bundle, version: a.version, build: a.build, minIOS: a.minIOS, size: a.size,
+                  icon: a.icon || "ruapps_icon.png", install: a.install, cat: a.cat, warn: null,
+                  desc: a.desc, devName: a.dev, remoteId: a.id });
+    }
+    renderToday(); renderGames(); renderApps(); renderSearch(); renderMy();
+  } catch (e) {}
+}
+
+/* ---------- экраны разработчика ---------- */
+const DEV_BADGE = '<span style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:rgba(255,149,0,.16);color:#c26a00;font-size:12px;font-weight:700;vertical-align:2px">🛠 Разработчик</span>';
+function devGroupHTML() {
+  const u = userGet();
+  if (!serverOn() || !u) return "";
+  if (!u.session) return `<div class="gh">Для разработчиков</div><div class="gl">${grow({ icon: "🔑", bg: "#8e8e93", label: "Войти заново", sub: "Нужно для функций разработчика", act: "relogin" })}</div>`;
+  if (u.dev) return `<div class="gh">Для разработчиков</div><div class="gl">
+      ${grow({ icon: "⬆️", bg: "#ff9500", label: "Загрузить IPA", act: "upload" })}
+      ${grow({ icon: "📦", bg: "#5856d6", label: "Мои загрузки", act: "uploads" })}</div>`;
+  return `<div class="gh">Для разработчиков</div><div class="gl">${grow({ icon: "🛠", bg: "#ff9500", label: "Стать разработчиком", sub: "Активация через Telegram-бот", act: "becomedev" })}</div>`;
+}
+
+async function openBecomeDev() {
+  sub("Разработчик", `<div class="bigav"><div style="font-size:64px">🛠</div><b>Аккаунт разработчика</b>
+      <small>Загружай свои IPA в RuApps</small></div><div class="gf" style="text-align:center" id="bdBox">Получаю код…</div>`);
+  try {
+    const r = await api("/dev/code", { method: "POST" });
+    if (r.already) { await refreshMe(); return openSettings(); }
+    $("#bdBox").outerHTML = `
+      <div class="gl" style="margin-top:22px;text-align:center;padding:18px 16px">
+        <div style="color:var(--dim);font-size:13px;text-transform:uppercase;letter-spacing:.04em">Твой код</div>
+        <div style="font:700 40px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em;margin:6px 0">${esc(r.code)}</div>
+        <div style="color:var(--dim);font-size:13px">Действует 15 минут</div></div>
+      <a class="get blue" href="${esc(r.link)}" target="_blank" rel="noopener" style="display:block;width:100%;margin-top:18px;padding:12px 0;font-size:17px">Открыть бота @${esc(r.bot)}</a>
+      <button class="get" data-act="checkdev" style="display:block;width:100%;margin-top:10px;padding:12px 0;font-size:17px">Я активировал — проверить</button>
+      <div class="gf"><b>Как это работает:</b> нажми «Открыть бота» → в Telegram нажми «Старт» — код подставится сам.
+        Если не подставился, отправь боту: <b>/start ${esc(r.code)}</b><br><br>
+        <b>Правила:</b> загружай только свои приложения или те, что тебе разрешено раздавать. Взломанные и чужие приложения отклоняются, а аккаунт разработчика отключается.</div>`;
+  } catch (e) { $("#bdBox").textContent = e.message; }
+}
+async function checkDev() {
+  const u = await refreshMe();
+  if (u && u.dev) { toast("Аккаунт разработчика активирован 🛠"); openSettings(); }
+  else toast("Пока не активирован — отправь код боту");
+}
+
+/* ---------- мои загрузки ---------- */
+const STATUS = { pending: ["На проверке", "#ff9500"], approved: ["Опубликовано", "#34c759"] };
+async function openUploads() {
+  sub("Мои загрузки", `<div id="upList" class="gf" style="text-align:center">Загружаю…</div>`);
+  try {
+    const list = await api("/my/uploads");
+    $("#upList").outerHTML = list.length ? `<div class="list" style="margin-top:8px">${list.map(a => {
+      const [t, c] = STATUS[a.status] || [a.status, "#8e8e93"];
+      return `<div class="ar" style="cursor:default"><img class="ic" src="${esc(a.icon || "ruapps_icon.png")}" alt="">
+        <div class="mt"><div class="nm">${esc(a.name)} <span style="color:var(--dim);font-weight:400">${esc(a.version)}</span></div>
+          <div class="sb"><span style="color:${c};font-weight:600">● ${t}</span> · ${mb(a.size)}</div></div>
+        <div class="getwrap"><button class="get" data-delup="${esc(a.id)}" style="color:var(--red)">Удалить</button></div></div>`;
+    }).join("")}</div>
+    <div class="gf">После проверки владелец магазина публикует приложение в каталог. Отклонённые удаляются автоматически, а бот присылает уведомление.</div>`
+      : emptyBox("📦", "Пока пусто", "Загрузи свой первый IPA.");
+  } catch (e) { $("#upList").textContent = e.message; }
+}
+async function deleteUpload(id) {
+  if (!confirm("Удалить приложение из RuApps?")) return;
+  try { await api("/my/uploads/" + id, { method: "DELETE" }); toast("Удалено"); openUploads(); }
+  catch (e) { toast(e.message); }
+}
+
+/* ---------- загрузка IPA ---------- */
+const MAX_IPA = 95 * 1024 * 1024;
+let upInfo = null;
+function openUpload() {
+  upInfo = null;
+  sub("Загрузить IPA", `
+    <label class="gl" style="display:block;margin-top:8px;padding:22px 16px;text-align:center;cursor:pointer;border:1.5px dashed var(--sep)">
+      <input type="file" id="ipaFile" accept=".ipa,application/octet-stream" style="display:none">
+      <div style="font-size:44px">📦</div><div style="font-weight:600;margin-top:6px">Выбрать IPA-файл</div>
+      <div style="color:var(--dim);font-size:13px;margin-top:2px">До 95 МБ</div></label>
+    <div id="upBody"></div>`);
+  $("#ipaFile").addEventListener("change", e => e.target.files[0] && pickIPA(e.target.files[0]));
+}
+async function pickIPA(file) {
+  const box = $("#upBody");
+  if (file.size > MAX_IPA) { box.innerHTML = `<div class="wbox">Файл ${mb(file.size)} — больше 95 МБ. Такой пока не загрузить.</div>`; return; }
+  box.innerHTML = `<div class="gf" style="text-align:center">Читаю IPA…</div>`;
+  try { upInfo = await readIPA(file); upInfo.file = file; }
+  catch (e) { box.innerHTML = `<div class="wbox">Не получилось прочитать IPA: ${esc(e.message)}</div>`; return; }
+  const i = upInfo, p = i.prov;
+  const now = Date.now();
+  const sign = !p ? `<span style="color:var(--red)">нет профиля — на айфон не встанет</span>`
+    : `${esc(p.team || "?")}${p.exp ? `, до ${new Date(p.exp).toLocaleDateString("ru-RU")}` : ""}${p.all ? ", все устройства" : `, устройств: ${p.devices}`}` +
+      (p.exp && p.exp < now ? ` <b style="color:var(--red)">— истекла!</b>` : "");
+  box.innerHTML = `
+    <div class="ah" style="margin-top:20px"><img class="ic" id="upIcon" src="${i.iconURL}" alt="" style="width:96px;height:96px">
+      <div class="mt"><h2>${esc(i.name)}</h2><div class="sub">${esc(i.bundle)}</div>
+        <div class="sub">Версия ${esc(i.version)}${i.build ? ` (${esc(i.build)})` : ""} · ${mb(file.size)}${i.minIOS ? ` · iOS ${esc(i.minIOS)}+` : ""}</div></div></div>
+    <div class="gh">Подпись</div><div class="gl"><div class="gr"><div class="t"><div class="lbl" style="font-size:15px">${sign}</div></div></div></div>
+    <div class="gf">Приложение встанет только на устройства из этой подписи.</div>
+    <div class="gh">Название в RuApps</div>
+    <div class="gl"><div class="gr"><div class="t"><input id="upName" value="${esc(i.name)}" maxlength="60"
+      style="flex:1;border:0;background:none;font:17px inherit;font-family:inherit;color:var(--text);outline:none;padding:12px 0"></div></div></div>
+    <div class="gh">Раздел</div>
+    <div class="gl">${CATS.map((c, k) => `<div class="gr btn" data-upcat="${c.id}"><div class="t"><div class="lbl">${c.emoji} ${esc(c.name)}</div>
+      <span class="check" ${k ? 'style="visibility:hidden"' : ""}>✓</span></div></div>`).join("")}</div>
+    <div class="gh">Описание</div>
+    <div class="gl" style="padding:10px 16px"><textarea id="upDesc" maxlength="600" rows="4" placeholder="Что умеет приложение"
+      style="width:100%;border:0;background:none;font:16px/1.4 inherit;font-family:inherit;color:var(--text);outline:none;resize:vertical"></textarea></div>
+    <label class="gl" style="display:flex;gap:12px;align-items:flex-start;padding:14px 16px;margin-top:28px;cursor:pointer">
+      <input type="checkbox" id="upAgree" style="width:22px;height:22px;flex:none;margin:0;accent-color:var(--blue)">
+      <span style="font-size:15px;line-height:1.4">Это моё приложение (или мне разрешено его раздавать). Это не взломанная и не чужая копия.</span></label>
+    <button class="get blue" id="upSend" style="display:block;width:100%;margin-top:18px;padding:13px 0;font-size:17px">Отправить на проверку</button>
+    <div id="upProg" style="display:none;margin-top:14px">
+      <div style="height:6px;border-radius:3px;background:var(--pill);overflow:hidden"><div id="upBar" style="height:100%;width:0;background:var(--blue);transition:width .2s"></div></div>
+      <div class="gf" id="upTxt" style="text-align:center">0%</div></div>`;
+  upInfo.cat = CATS[0].id;
+  $("#upSend").addEventListener("click", sendIPA);
+}
+document.addEventListener("click", e => {
+  const c = e.target.closest("[data-upcat]");
+  if (c && upInfo) { upInfo.cat = c.dataset.upcat;
+    $$("[data-upcat] .check").forEach(x => x.style.visibility = x.closest("[data-upcat]") === c ? "visible" : "hidden"); }
+  const d = e.target.closest("[data-delup]"); if (d) deleteUpload(d.dataset.delup);
+});
+function sendIPA() {
+  if (!$("#upAgree").checked) return toast("Подтверди, что это твоё приложение");
+  const i = upInfo, u = userGet();
+  const fd = new FormData();
+  fd.append("meta", JSON.stringify({ name: $("#upName").value.trim() || i.name, bundle: i.bundle, version: i.version, build: i.build,
+    minIOS: i.minIOS, team: i.prov && i.prov.team || "", cat: i.cat, desc: $("#upDesc").value.trim(), agree: true }));
+  if (i.iconBlob) fd.append("icon", i.iconBlob, "icon.png");
+  fd.append("ipa", i.file, "app.ipa");
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", API + "/upload");
+  xhr.setRequestHeader("authorization", "Bearer " + u.session);
+  $("#upSend").disabled = true; $("#upSend").style.opacity = .5; $("#upProg").style.display = "";
+  xhr.upload.onprogress = e => { if (e.lengthComputable) { const p = Math.round(e.loaded / e.total * 100);
+    $("#upBar").style.width = p + "%"; $("#upTxt").textContent = p < 100 ? `Загрузка… ${p}%` : "Сервер сохраняет файл…"; } };
+  xhr.onload = () => {
+    let j = {}; try { j = JSON.parse(xhr.responseText); } catch (e) {}
+    if (xhr.status === 200) { toast("Отправлено на проверку"); openUploads(); }
+    else { $("#upSend").disabled = false; $("#upSend").style.opacity = 1; $("#upTxt").textContent = j.message || "Ошибка " + xhr.status; }
+  };
+  xhr.onerror = () => { $("#upSend").disabled = false; $("#upSend").style.opacity = 1; $("#upTxt").textContent = "Нет связи с сервером"; };
+  xhr.send(fd);
+}
+
+/* =====================================================================
+   Чтение IPA в браузере: ZIP → Info.plist (XML/бинарный) → иконка (в т.ч. Apple CgBI)
+   ===================================================================== */
+async function readIPA(file) {
+  const entries = await zipEntries(file);
+  const infoE = entries.find(e => /^Payload\/[^/]+\.app\/Info\.plist$/.test(e.name));
+  if (!infoE) throw new Error("внутри нет Payload/*.app/Info.plist");
+  const appDir = infoE.name.slice(0, -"Info.plist".length);
+  const info = parsePlist(await zipRead(file, infoE));
+  const names = new Set(["AppIcon"]);
+  for (const k of ["CFBundleIcons", "CFBundleIcons~ipad"]) {
+    const pi = info[k] && info[k].CFBundlePrimaryIcon;
+    if (pi && pi.CFBundleIconFiles) pi.CFBundleIconFiles.forEach(n => names.add(n));
+    if (pi && pi.CFBundleIconName) names.add(pi.CFBundleIconName);
+  }
+  (info.CFBundleIconFiles || []).forEach(n => names.add(n));
+  if (info.CFBundleIconFile) names.add(info.CFBundleIconFile);
+  const pngs = entries.filter(e => e.name.startsWith(appDir) && !e.name.slice(appDir.length).includes("/") && /\.png$/i.test(e.name))
+    .filter(e => { const b = e.name.slice(appDir.length).split("@")[0].split("~")[0].replace(/\.png$/i, "");
+                   return [...names].some(n => b.startsWith(n.replace(/\.png$/i, ""))); });
+  let iconBlob = null, best = 0;
+  for (const e of pngs) {
+    try { const bytes = await zipRead(file, e); const sz = pngSize(bytes);
+      if (sz.w * sz.h > best) { const b = await pngToBlob(bytes); if (b) { iconBlob = b; best = sz.w * sz.h; } } } catch (err) {}
+  }
+  if (!iconBlob) iconBlob = await letterIcon((info.CFBundleDisplayName || info.CFBundleName || "?")[0]);
+  let prov = null;
+  const pe = entries.find(e => e.name === appDir + "embedded.mobileprovision");
+  if (pe) { try { prov = parseProvision(await zipRead(file, pe)); } catch (err) {} }
+  return { name: info.CFBundleDisplayName || info.CFBundleName || file.name.replace(/\.ipa$/i, ""),
+           bundle: info.CFBundleIdentifier || "", version: String(info.CFBundleShortVersionString || info.CFBundleVersion || "1.0"),
+           build: String(info.CFBundleVersion || ""), minIOS: String(info.MinimumOSVersion || ""),
+           iconBlob, iconURL: URL.createObjectURL(iconBlob), prov };
+}
+
+/* ---- ZIP ---- */
+async function buf(file, start, end) { return new Uint8Array(await file.slice(start, end).arrayBuffer()); }
+const u16 = (b, o) => b[o] | b[o + 1] << 8;
+const u32 = (b, o) => (b[o] | b[o + 1] << 8 | b[o + 2] << 16 | b[o + 3] << 24) >>> 0;
+async function zipEntries(file) {
+  const tailLen = Math.min(file.size, 66000);
+  const tail = await buf(file, file.size - tailLen, file.size);
+  let eo = -1;
+  for (let i = tail.length - 22; i >= 0; i--) if (u32(tail, i) === 0x06054b50) { eo = i; break; }
+  if (eo < 0) throw new Error("это не ZIP/IPA");
+  let cdSize = u32(tail, eo + 12), cdOff = u32(tail, eo + 16), count = u16(tail, eo + 10);
+  if (cdOff === 0xffffffff || count === 0xffff) {       // ZIP64
+    const l = eo - 20;
+    if (l >= 0 && u32(tail, l) === 0x07064b50) {
+      const z64 = Number(new DataView(tail.buffer, tail.byteOffset + l + 8, 8).getBigUint64(0, true));
+      const h = await buf(file, z64, z64 + 56);
+      count = Number(new DataView(h.buffer).getBigUint64(32, true));
+      cdSize = Number(new DataView(h.buffer).getBigUint64(40, true));
+      cdOff = Number(new DataView(h.buffer).getBigUint64(48, true));
+    }
+  }
+  const cd = await buf(file, cdOff, cdOff + cdSize);
+  const out = []; let p = 0;
+  const dec = new TextDecoder();
+  while (p + 46 <= cd.length && u32(cd, p) === 0x02014b50) {
+    const nl = u16(cd, p + 28), el = u16(cd, p + 30), cl = u16(cd, p + 32);
+    out.push({ name: dec.decode(cd.subarray(p + 46, p + 46 + nl)), method: u16(cd, p + 10),
+               csize: u32(cd, p + 20), usize: u32(cd, p + 24), off: u32(cd, p + 42) });
+    p += 46 + nl + el + cl;
+  }
+  return out;
+}
+async function zipRead(file, e) {
+  const lh = await buf(file, e.off, e.off + 30);
+  const start = e.off + 30 + u16(lh, 26) + u16(lh, 28);
+  const raw = file.slice(start, start + e.csize);
+  if (e.method === 0) return new Uint8Array(await raw.arrayBuffer());
+  if (e.method === 8) return inflateRaw(raw);
+  throw new Error("неизвестное сжатие " + e.method);
+}
+async function inflateRaw(blobOrBytes) {
+  const b = blobOrBytes instanceof Blob ? blobOrBytes : new Blob([blobOrBytes]);
+  return new Uint8Array(await new Response(b.stream().pipeThrough(new DecompressionStream("deflate-raw"))).arrayBuffer());
+}
+
+/* ---- plist ---- */
+function parsePlist(bytes) {
+  if (String.fromCharCode(...bytes.subarray(0, 8)) === "bplist00") return parseBPlist(bytes);
+  return xmlPlist(new TextDecoder().decode(bytes));
+}
+function xmlPlist(text) {
+  const doc = new DOMParser().parseFromString(text, "application/xml");
+  const conv = n => {
+    switch (n.tagName) {
+      case "dict": { const o = {}; const k = [...n.children]; for (let i = 0; i < k.length; i += 2) o[k[i].textContent] = conv(k[i + 1]); return o; }
+      case "array": return [...n.children].map(conv);
+      case "string": return n.textContent;
+      case "integer": return parseInt(n.textContent, 10);
+      case "real": return parseFloat(n.textContent);
+      case "true": return true; case "false": return false;
+      case "date": return new Date(n.textContent);
+      default: return n.textContent;
+    }
+  };
+  const root = doc.querySelector("plist > *");
+  return root ? conv(root) : {};
+}
+function parseBPlist(b) {
+  const dv = new DataView(b.buffer, b.byteOffset, b.byteLength);
+  const t = b.length - 32;
+  const offSize = b[t + 6], refSize = b[t + 7];
+  const nObj = Number(dv.getBigUint64(t + 8)), top = Number(dv.getBigUint64(t + 16)), tableOff = Number(dv.getBigUint64(t + 24));
+  const readN = (o, n) => { let v = 0; for (let i = 0; i < n; i++) v = v * 256 + b[o + i]; return v; };
+  const offs = []; for (let i = 0; i < nObj; i++) offs.push(readN(tableOff + i * offSize, offSize));
+  const lenAt = (o, nib) => {
+    if (nib !== 15) return [nib, o + 1];
+    const m = b[o + 1], n = 1 << (m & 15); return [readN(o + 2, n), o + 2 + n];
+  };
+  const obj = i => {
+    const o = offs[i], m = b[o], hi = m >> 4, lo = m & 15;
+    switch (hi) {
+      case 0: return lo === 8 ? false : lo === 9 ? true : null;
+      case 1: { const n = 1 << lo; return n === 8 ? Number(dv.getBigInt64(o + 1)) : readN(o + 1, n); }
+      case 2: return lo === 2 ? dv.getFloat32(o + 1) : dv.getFloat64(o + 1);
+      case 3: return new Date((dv.getFloat64(o + 1) + 978307200) * 1000);
+      case 4: { const [n, s] = lenAt(o, lo); return b.subarray(s, s + n); }
+      case 5: { const [n, s] = lenAt(o, lo); return String.fromCharCode(...b.subarray(s, s + n)); }
+      case 6: { const [n, s] = lenAt(o, lo); let r = ""; for (let k = 0; k < n; k++) r += String.fromCharCode(dv.getUint16(s + k * 2)); return r; }
+      case 8: return readN(o + 1, lo + 1);
+      case 10: { const [n, s] = lenAt(o, lo); const a = []; for (let k = 0; k < n; k++) a.push(obj(readN(s + k * refSize, refSize))); return a; }
+      case 13: { const [n, s] = lenAt(o, lo); const r = {};
+        for (let k = 0; k < n; k++) r[obj(readN(s + k * refSize, refSize))] = obj(readN(s + (n + k) * refSize, refSize)); return r; }
+      default: return null;
+    }
+  };
+  return obj(top);
+}
+function parseProvision(bytes) {
+  const s = new TextDecoder("latin1").decode(bytes);
+  const a = s.indexOf("<?xml"), z = s.indexOf("</plist>");
+  if (a < 0 || z < 0) return null;
+  const p = xmlPlist(new TextDecoder().decode(bytes.subarray(a, z + 8)));
+  return { team: p.TeamName || "", exp: p.ExpirationDate ? +new Date(p.ExpirationDate) : 0,
+           devices: (p.ProvisionedDevices || []).length, all: !!p.ProvisionsAllDevices };
+}
+
+/* ---- PNG и «сплющенные» иконки Apple (CgBI) ---- */
+function pngSize(b) { return { w: u32be(b, 16 + (isCgBI(b) ? 16 : 0)), h: u32be(b, 20 + (isCgBI(b) ? 16 : 0)) }; }
+const u32be = (b, o) => (b[o] << 24 | b[o + 1] << 16 | b[o + 2] << 8 | b[o + 3]) >>> 0;
+const isCgBI = b => String.fromCharCode(b[12], b[13], b[14], b[15]) === "CgBI";
+async function pngToBlob(b) {
+  if (b[0] !== 0x89 || b[1] !== 0x50) return null;
+  if (!isCgBI(b)) return new Blob([b], { type: "image/png" });
+  let p = 8, w = 0, h = 0, ctype = 6; const idat = [];
+  while (p < b.length) {
+    const len = u32be(b, p), type = String.fromCharCode(b[p + 4], b[p + 5], b[p + 6], b[p + 7]), d = b.subarray(p + 8, p + 8 + len);
+    if (type === "IHDR") { w = u32be(d, 0); h = u32be(d, 4); ctype = d[9]; if (d[8] !== 8) return null; }
+    else if (type === "IDAT") idat.push(d);
+    else if (type === "IEND") break;
+    p += 12 + len;
+  }
+  const bpp = ctype === 6 ? 4 : ctype === 2 ? 3 : 0; if (!bpp) return null;
+  const raw = await inflateRaw(new Blob(idat));
+  const stride = w * bpp, px = new Uint8ClampedArray(w * h * 4);
+  let prev = new Uint8Array(stride), q = 0;
+  for (let y = 0; y < h; y++) {
+    const f = raw[q++], line = raw.slice(q, q + stride); q += stride;
+    for (let i = 0; i < stride; i++) {
+      const a = i >= bpp ? line[i - bpp] : 0, up = prev[i], c = i >= bpp ? prev[i - bpp] : 0;
+      let v = line[i];
+      if (f === 1) v += a; else if (f === 2) v += up; else if (f === 3) v += (a + up) >> 1;
+      else if (f === 4) { const pa = Math.abs(up - c), pb = Math.abs(a - c), pc = Math.abs(a + up - 2 * c); v += pa <= pb && pa <= pc ? a : pb <= pc ? up : c; }
+      line[i] = v & 255;
+    }
+    for (let x = 0; x < w; x++) {
+      const s = x * bpp, o = (y * w + x) * 4, al = bpp === 4 ? line[s + 3] : 255;
+      let B = line[s], G = line[s + 1], R = line[s + 2];
+      if (al && al < 255) { R = Math.min(255, R * 255 / al); G = Math.min(255, G * 255 / al); B = Math.min(255, B * 255 / al); }
+      px[o] = R; px[o + 1] = G; px[o + 2] = B; px[o + 3] = al;
+    }
+    prev = line;
+  }
+  const cv = document.createElement("canvas"); cv.width = w; cv.height = h;
+  cv.getContext("2d").putImageData(new ImageData(px, w, h), 0, 0);
+  return new Promise(r => cv.toBlob(r, "image/png"));
+}
+function letterIcon(ch) {
+  const cv = document.createElement("canvas"); cv.width = cv.height = 256; const g = cv.getContext("2d");
+  const gr = g.createLinearGradient(0, 0, 256, 256); gr.addColorStop(0, "#3d8bff"); gr.addColorStop(1, "#1650e6");
+  g.fillStyle = gr; g.fillRect(0, 0, 256, 256);
+  g.fillStyle = "#fff"; g.font = "bold 140px -apple-system, Helvetica, Arial"; g.textAlign = "center"; g.textBaseline = "middle";
+  g.fillText((ch || "?").toUpperCase(), 128, 136);
+  return new Promise(r => cv.toBlob(r, "image/png"));
+}
+
+/* ---------- Android ---------- */
+const UA = navigator.userAgent;
+const isAndroid = /Android/i.test(UA);
+// iPad в Safari притворяется Mac, но у него сенсорный экран
+const isMac = /Macintosh|Mac OS X/i.test(UA) && !/iPhone|iPad|iPod/i.test(UA) && !(navigator.maxTouchPoints > 0);
+const blocked = isAndroid || isMac;
+function androidAlert() {
+  if (isMac) {
+    $("#andrE").textContent = "💻"; $("#andrT").textContent = "Вы на macOS";
+    $("#andrD").textContent = "На компьютере невозможно устанавливать приложения. Открой RuApps в Safari на iPhone или iPad.";
+  }
+  $("#andr").classList.add("on");
+}
+$("#andrOk").addEventListener("click", () => $("#andr").classList.remove("on"));
+$("#andr").addEventListener("click", e => { if (e.target.id === "andr") $("#andr").classList.remove("on"); });
+// профили (.mobileconfig) тоже только для iOS
+document.addEventListener("click", e => {
+  const l = e.target.closest('a[href$=".mobileconfig"]');
+  if (l && blocked) { e.preventDefault(); e.stopPropagation(); androidAlert(); }
+}, true);
+
+/* ---------- установка ---------- */
 function install(a) {
+  if (blocked) { androidAlert(); return; }
+  if (authOn() && !userGet()) { openLogin(a); return; }
   if (a.warn) { $("#cfYes").href = a.install; $("#cfYes").dataset.i = APPS.indexOf(a); $("#cf").classList.add("on"); return; }
   addMine(a); location.href = a.install;
 }
 $("#cfNo").addEventListener("click", () => $("#cf").classList.remove("on"));
 $("#cfYes").addEventListener("click", () => { addMine(APPS[+$("#cfYes").dataset.i]); setTimeout(() => $("#cf").classList.remove("on"), 300); });
-$("#cf").addEventListener("click", e => { if (e.target.id === "cf") $("#cf").classList.remove("on"); });
-
 function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("on"), 1800); }
 
-/* ---- карточка ---- */
-function openApp(a) {
-  const c = catOf(a.cat);
-  $("#sheet").innerHTML = `
-    <div class="grab"></div>
-    <div class="head">
-      <img class="icon" src="${esc(a.icon)}" alt="">
-      <div class="meta"><div class="name">${esc(a.name)}</div><div class="sub">${esc(a.bundle)}</div><span class="tag">${c.emoji} ${esc(c.name)}</span></div>
-    </div>
-    <div class="stats">
-      <div class="stat"><b>${esc(a.version)}</b><small>Версия</small></div>
-      <div class="stat"><b>${a.minIOS ? esc(a.minIOS) + "+" : "—"}</b><small>iOS</small></div>
-      <div class="stat"><b>${mb(a.size)}</b><small>Размер</small></div>
-    </div>
-    <div class="rows"><div><span>Сборка</span><span>${esc(a.build || "—")}</span></div></div>
-    ${a.warn ? `<div class="wbox">⚠️ ${esc(a.warn)}</div>` : ""}
-    <button class="big" data-install="${APPS.indexOf(a)}">Установить</button>
-    <div class="hint">iPhone спросит «Установить?» — жми «Установить», иконка появится на экране «Домой».</div>`;
-  document.body.classList.add("open");
+/* ---------- навигация ---------- */
+let curPage = "today";
+function showPage(p) {
+  curPage = p;
+  $$(".page").forEach(x => x.classList.toggle("on", x.id === "p-" + p));
+  if (p !== "cat") $$(".tab").forEach(t => t.classList.toggle("on", t.dataset.p === p));
+  window.scrollTo(0, 0);
 }
-$("#bg").addEventListener("click", () => document.body.classList.remove("open"));
+$$(".tab").forEach(t => t.addEventListener("click", () => {
+  if (t.dataset.p === curPage) { window.scrollTo({top:0, behavior:"smooth"}); return; }
+  showPage(t.dataset.p); if (t.dataset.p === "search") setTimeout(() => $("#q").focus(), 50);
+}));
 
-/* общий обработчик кликов */
 document.addEventListener("click", e => {
   const ins = e.target.closest("[data-install]");
   if (ins) { e.stopPropagation(); install(APPS[+ins.dataset.install]); return; }
   const rm = e.target.closest("[data-remove]");
   if (rm) { mySet(myGet().filter(b => b !== APPS[+rm.dataset.remove].bundle)); return; }
-  const cat = e.target.closest(".ban[data-c], h3 a[data-c]");
-  if (cat) { setCat(cat.dataset.c); return; }
-  const row = e.target.closest(".app");
+  const sh = e.target.closest("[data-share]");
+  if (sh) { const a = APPS[+sh.dataset.share], url = location.href.split("#")[0];
+    if (navigator.share) navigator.share({title:a.name, text:`${a.name} в RuApps`, url}).catch(() => {});
+    else { navigator.clipboard && navigator.clipboard.writeText(url); toast("Ссылка скопирована"); } return; }
+  if (e.target.closest("[data-open='settings']")) { openSettings(); return; }
+  const cat = e.target.closest("[data-cat]");
+  if (cat && !e.target.closest(".ar")) { openCat(cat.dataset.cat); return; }
+  const row = e.target.closest("[data-i]");
   if (row) openApp(APPS[+row.dataset.i]);
 });
 
-$("#q").addEventListener("input", renderStore);
-
-/* ---- вкладки ---- */
-function showTab(p) {
-  $$(".tab").forEach(t => t.classList.toggle("on", t.dataset.p === p));
-  $$(".page").forEach(x => x.classList.toggle("on", x.id === "p-" + p));
-  $("#storeTop").style.display = p === "store" ? "" : "none";
-  $("#plainTop").style.display = p === "store" ? "none" : "";
-  window.scrollTo(0, 0);
-}
-$$(".tab").forEach(t => t.addEventListener("click", () => showTab(t.dataset.p)));
-
-/* ---- тема ---- */
-function setTheme(t) {
-  document.documentElement.dataset.theme = t;
-  try { localStorage.setItem("ruapps-theme", t); } catch (e) {}
-  $$("#theme button").forEach(b => b.classList.toggle("on", b.dataset.t === t));
-  const dark = t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
-  document.querySelector('meta[name="theme-color"]').content = dark ? "#0b0d12" : "#ffffff";
-}
-$$("#theme button").forEach(b => b.addEventListener("click", () => setTheme(b.dataset.t)));
-setTheme(document.documentElement.dataset.theme || "system");
-
-/* ---- DNS ---- */
-$("#dns").innerHTML = DNS.map(d => `
-  <div class="row">
-    <div class="ico" style="background:${esc(d.color)}">${esc(d.emoji)}</div>
-    <div class="meta"><div class="name">${esc(d.name)}</div><div class="sub">${esc(d.desc)}</div></div>
-    <a class="get" href="${esc(d.file)}">Профиль</a>
-  </div>`).join("");
-
-renderStore();
-renderMy();
+renderAvatars(); renderToday(); renderGames(); renderApps(); renderSearch(); renderMy();
+refreshMe(); loadRemoteApps();
 </script>
 </body>
 </html>
