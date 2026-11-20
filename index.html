@@ -246,6 +246,49 @@
     background:var(--glass);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);color:var(--text);
     padding:11px 18px;border-radius:999px;font-size:15px;font-weight:600;transition:.25s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 30px var(--shadow)}
   .toast.on{opacity:1;transform:translate(-50%,0)}
+
+  /* ---------- оценки и отзывы ---------- */
+  .stars{color:#ff9500;letter-spacing:1px;white-space:nowrap}
+  .stars i{font-style:normal;color:rgba(127,127,140,.35)}
+  .rsum{display:flex;align-items:center;gap:18px;margin:4px 0 12px}
+  .rsum .big{font-size:56px;font-weight:800;line-height:1;letter-spacing:-.03em}
+  .rsum .big small{display:block;font-size:13px;font-weight:600;color:var(--dim);letter-spacing:0;margin-top:4px;text-align:center}
+  .bars{flex:1;display:flex;flex-direction:column;gap:3px}
+  .bars div{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--dim)}
+  .bars div span:first-child{width:52px;text-align:right;color:var(--dim);letter-spacing:-1px}
+  .bars em{flex:1;height:4px;border-radius:2px;background:var(--pill);overflow:hidden;display:block}
+  .bars em b{display:block;height:100%;background:var(--dim)}
+  .revs{display:grid;grid-auto-flow:column;grid-auto-columns:calc(100% - 28px);gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+    margin:0 -20px;padding:0 20px 4px;scrollbar-width:none}
+  .revs::-webkit-scrollbar{display:none}
+  .rv{scroll-snap-align:start;background:var(--bg2);border-radius:var(--r-group);padding:14px 16px;min-height:150px;display:flex;flex-direction:column}
+  .rv .h{display:flex;justify-content:space-between;gap:8px;font-size:15px}
+  .rv .h b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rv .h span{color:var(--dim);font-size:13px;white-space:nowrap}
+  .rv .m{display:flex;justify-content:space-between;color:var(--dim);font-size:13px;margin-top:2px}
+  .rv p{margin:8px 0 0;font-size:15px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap}
+  .rv .del{margin-top:auto;padding-top:8px;color:var(--red);font-size:13px;cursor:pointer;align-self:flex-start;border:0;background:none;padding-left:0}
+  .linkbtn{display:flex;align-items:center;gap:6px;color:var(--blue);font-size:17px;cursor:pointer;border:0;background:none;padding:10px 0}
+  .pick{display:flex;justify-content:center;gap:10px;font-size:40px;margin:14px 0 4px;user-select:none}
+  .pick span{cursor:pointer;color:rgba(127,127,140,.35);transition:transform .15s}
+  .pick span.on{color:#ff9500}
+  .pick span:active{transform:scale(.85)}
+  .fld{width:100%;border:0;background:none;font:17px/1.4 inherit;font-family:inherit;color:var(--text);outline:none;padding:12px 16px;resize:vertical}
+  .fld+.fld{border-top:.5px solid var(--sep)}
+  /* совместимость */
+  .compat{display:flex;gap:12px;align-items:center;margin-top:16px;padding:12px 14px;border-radius:var(--r-group);font-size:15px;line-height:1.35}
+  .compat.ok{background:rgba(52,199,89,.14);color:#1f8f3d}
+  .compat.no{background:rgba(255,59,48,.12);color:var(--red)}
+  .compat.ask{background:var(--bg2);color:var(--text);cursor:pointer}
+  .compat .e{font-size:26px;flex:none}
+  .compat small{display:block;opacity:.8;font-size:13px;margin-top:1px}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;vertical-align:1px;margin-left:4px}
+  .pill.ok{background:rgba(52,199,89,.16);color:#1f8f3d}
+  .pill.no{background:rgba(255,59,48,.14);color:var(--red)}
+  .devhead{display:flex;flex-direction:column;align-items:center;text-align:center;padding:6px 0 2px}
+  .devhead b{font-size:26px;font-weight:700;margin-top:12px}
+  .devhead small{color:var(--dim);font-size:15px;margin-top:2px}
+  .devhead p{margin:12px 0 0;font-size:15px;line-height:1.45;white-space:pre-wrap;max-width:520px}
 </style>
 </head>
 <body>
@@ -317,7 +360,7 @@
 <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" async defer></script>
 <script>
 const AUTH = {"google_client_id": "944658927755-qt8rq7v4304eh8fgpktfnkq0rvdv9rqj.apps.googleusercontent.com", "apple_client_id": "", "apple_redirect_uri": "", "api_url": "https://ruapps.nekrasovl101.workers.dev", "bot_username": "RuAppsDevBot"};
-const APPS = [{"name": "MAX", "bundle": "ru.oneme.app", "version": "26.17.3", "build": "31710", "minIOS": "10.0", "size": 55811640, "icon": "icons/ru.oneme.app.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.oneme.app.plist", "ipa": "apps/ru.oneme.app.ipa", "expires": "27.05.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "PojavLauncher", "bundle": "net.kdt.pojavlauncher", "version": "2.2", "build": "2.2", "minIOS": "12.2", "size": 108175347, "icon": "icons/net.kdt.pojavlauncher.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fnet.kdt.pojavlauncher.plist", "ipa": "apps/net.kdt.pojavlauncher.ipa", "expires": null, "expired": false, "warn": null, "cat": "games"}, {"name": "RuTube", "bundle": "ru.rutube.main.test", "version": "47.15.0", "build": "37", "minIOS": "15.0", "size": 18368296, "icon": "icons/ru.rutube.main.test.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.rutube.main.test.plist", "ipa": "apps/ru.rutube.main.test.ipa", "expires": "16.09.2026", "expired": true, "warn": null, "cat": "video"}, {"name": "VK Video", "bundle": "com.vk.vkvideo.prod", "version": "8.183", "build": "2124", "minIOS": "17.6", "size": 132525824, "icon": "icons/com.vk.vkvideo.prod.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkvideo.prod.plist", "ipa": "apps/com.vk.vkvideo.prod.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "video"}, {"name": "VK", "bundle": "com.vk.vkclient", "version": "8.183", "build": "8149", "minIOS": "17.6", "size": 230690938, "icon": "icons/com.vk.vkclient.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkclient.plist", "ipa": "apps/com.vk.vkclient.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "Авито", "bundle": "org.reactjs.native.prod.AuReactNativeApp", "version": "220.0", "build": "1774349983", "minIOS": "15.2", "size": 366777456, "icon": "icons/org.reactjs.native.prod.AuReactNativeApp.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Forg.reactjs.native.prod.AuReactNativeApp.plist", "ipa": "apps/org.reactjs.native.prod.AuReactNativeApp.ipa", "expires": null, "expired": false, "warn": null, "cat": "tools"}, {"name": "ПочтаMail.ru", "bundle": "ru.mail.mail", "version": "15.92.0", "build": "90407", "minIOS": 10.0, "size": 486624591, "icon": "icons/ru.mail.mail.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.mail.mail.plist", "ipa": "apps/ru.mail.mail.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "social"}, {"name": "Сбербанк", "bundle": "com.inv.gen", "version": "17.6.1", "build": "3", "minIOS": "15.0", "size": 283657479, "icon": "icons/com.inv.gen.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.inv.gen.plist", "ipa": "apps/com.inv.gen.ipa", "expires": null, "expired": false, "warn": "Лучше не устанавливать. Файл не проверен и может быть вредоносным: внутри не оригинальное приложение Сбера (другое название и ID, нет профиля подписи). Ставь Сбер только официальным способом.", "cat": "banks"}];
+const APPS = [{"name": "MAX", "bundle": "ru.oneme.app", "version": "26.17.3", "build": "31710", "minIOS": "10.0", "size": 55811640, "icon": "icons/ru.oneme.app.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.oneme.app.plist", "ipa": "apps/ru.oneme.app.ipa", "expires": "27.05.2027", "expired": false, "warn": null, "cat": "social", "team": "Edward C Duran", "exp": 1811433716000, "all": false, "udh": ["71fbc7b20a7bb708"]}, {"name": "PojavLauncher", "bundle": "net.kdt.pojavlauncher", "version": "2.2", "build": "2.2", "minIOS": "12.2", "size": 108175347, "icon": "icons/net.kdt.pojavlauncher.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fnet.kdt.pojavlauncher.plist", "ipa": "apps/net.kdt.pojavlauncher.ipa", "expires": null, "expired": false, "warn": null, "cat": "games", "team": "", "exp": 0, "all": false, "udh": []}, {"name": "RuTube", "bundle": "ru.rutube.main.test", "version": "47.15.0", "build": "37", "minIOS": "15.0", "size": 18368296, "icon": "icons/ru.rutube.main.test.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.rutube.main.test.plist", "ipa": "apps/ru.rutube.main.test.ipa", "expires": "16.09.2026", "expired": true, "warn": null, "cat": "video", "team": "Nikita Zabludovsky", "exp": 1789547093000, "all": false, "udh": ["3f19b69fb1d48637", "8694f4476a09cb6b", "529340bca0af2f59", "fbefe6d28a3d0ec9", "d8b019cffa0a5821", "cc7f48eb2f301a6c", "f0fa70a9c25d2428", "54113de520f80d84", "da2ee10a5c0af55b", "6643dfb5521ffaf1", "f9af300a0dc644cf", "ba59230dae5df364", "4e40a2435edaa12c", "14823fa3ad88b098", "401e68695780dad1", "a8bf60ac9c54dfe9", "21f78c6047a2b07e", "be15f584481738ab", "7edeaeda7caf116a", "ed3209e516780678", "b8b4fcce72226f77", "c676814842bcb89c", "15f8b5532a573383", "a072aa0bb54a4fbb", "15d88a980d3f8786", "f2af732601ff2457", "c89feae338bb54a3", "6c47e812d1bf609e", "abaa78c3e69763fb", "6ba160f3670f49c6", "ae4997668ec8d257", "eb98c69e0c1d2b70", "addf2f957d085292", "f8d5f814891ea394", "b2eee6d93c49fd3b", "e7b7fc7256b3f75c", "7470dcea6b6b773e", "c4d1c192376c3530", "9ec580d267e400b2", "273cd126c059d708", "e1823c39d64996f8", "38f2af008e2dd0ba", "a963e6fc8607a577", "8309a17caebcdd41", "1a87eabbbffcc5c7", "e7b06c83b62bef6b", "d021ddc7c4370691", "fec31f9942414188", "160bb49f61add4c8", "def7bb805847e722", "9df64c7a6856c4b8", "3c146ecb5189c486"]}, {"name": "VK Video", "bundle": "com.vk.vkvideo.prod", "version": "8.183", "build": "2124", "minIOS": "17.6", "size": 132525824, "icon": "icons/com.vk.vkvideo.prod.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkvideo.prod.plist", "ipa": "apps/com.vk.vkvideo.prod.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "video", "team": "za jiu", "exp": 1807210691000, "all": false, "udh": ["75a7c07dca78abd1"]}, {"name": "VK", "bundle": "com.vk.vkclient", "version": "8.183", "build": "8149", "minIOS": "17.6", "size": 230690938, "icon": "icons/com.vk.vkclient.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.vk.vkclient.plist", "ipa": "apps/com.vk.vkclient.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "social", "team": "za jiu", "exp": 1807210691000, "all": false, "udh": ["75a7c07dca78abd1"]}, {"name": "Авито", "bundle": "org.reactjs.native.prod.AuReactNativeApp", "version": "220.0", "build": "1774349983", "minIOS": "15.2", "size": 366777456, "icon": "icons/org.reactjs.native.prod.AuReactNativeApp.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Forg.reactjs.native.prod.AuReactNativeApp.plist", "ipa": "apps/org.reactjs.native.prod.AuReactNativeApp.ipa", "expires": null, "expired": false, "warn": null, "cat": "tools", "team": "", "exp": 0, "all": false, "udh": []}, {"name": "ПочтаMail.ru", "bundle": "ru.mail.mail", "version": "15.92.0", "build": "90407", "minIOS": 10.0, "size": 486624591, "icon": "icons/ru.mail.mail.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fru.mail.mail.plist", "ipa": "apps/ru.mail.mail.ipa", "expires": "08.04.2027", "expired": false, "warn": null, "cat": "social", "team": "za jiu", "exp": 1807210691000, "all": false, "udh": ["75a7c07dca78abd1"]}, {"name": "Сбербанк", "bundle": "com.inv.gen", "version": "17.6.1", "build": "3", "minIOS": "15.0", "size": 283657479, "icon": "icons/com.inv.gen.png", "install": "itms-services://?action=download-manifest&url=https%3A%2F%2Fnekrasovl101-ship-it.github.io%2Fruapps%2Fmanifests%2Fcom.inv.gen.plist", "ipa": "apps/com.inv.gen.ipa", "expires": null, "expired": false, "warn": "Лучше не устанавливать. Файл не проверен и может быть вредоносным: внутри не оригинальное приложение Сбера (другое название и ID, нет профиля подписи). Ставь Сбер только официальным способом.", "cat": "banks", "team": "", "exp": 0, "all": false, "udh": []}];
 const DNS = [{"name": "Cloudflare 1.1.1.1", "desc": "Быстрый и простой", "emoji": "☁️", "color": "#f38020", "file": "profiles/ruapps-dns-cloudflare.mobileconfig"}, {"name": "AdGuard DNS", "desc": "Режет рекламу и трекеры", "emoji": "🛡️", "color": "#68bc71", "file": "profiles/ruapps-dns-adguard.mobileconfig"}, {"name": "Google DNS", "desc": "8.8.8.8", "emoji": "🔎", "color": "#4285f4", "file": "profiles/ruapps-dns-google.mobileconfig"}, {"name": "Quad9", "desc": "Блокирует опасные сайты", "emoji": "🔒", "color": "#7a2bd8", "file": "profiles/ruapps-dns-quad9.mobileconfig"}];
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
@@ -343,10 +386,13 @@ function getBtn(a, label = "Загрузить") {
   return `<div class="getwrap"><button class="get" data-install="${APPS.indexOf(a)}">${label}</button>${a.warn ? "" : "<small>Через Safari</small>"}</div>`;
 }
 function rowHTML(a, opts = {}) {
-  const sub = a.warn ? '<div class="sb w">⚠ Лучше не устанавливать</div>' : `<div class="sb">${esc(catOf(a.cat).name)}</div>`;
+  const r = ratingOf(a), cp = compatOf(a);
+  const pill = cp === true ? '<span class="pill ok">✓ встанет</span>' : cp === false ? '<span class="pill no">не встанет</span>' : "";
+  const sub = a.warn ? '<div class="sb w">⚠ Лучше не устанавливать</div>'
+    : `<div class="sb">${r ? `<span class="stars">★</span> ${r.avg.toFixed(1)} · ` : ""}${esc(catOf(a.cat).name)}${pill}</div>`;
   return `<div class="ar" data-i="${APPS.indexOf(a)}">${opts.rank ? `<div class="rk">${opts.rank}</div>` : ""}
     <img class="ic" src="${esc(a.icon)}" alt="" loading="lazy">
-    <div class="mt"><div class="nm">${esc(a.name)}</div>${sub}</div>${opts.btn || getBtn(a)}</div>`;
+    <div class="mt"><div class="nm" data-noi18n>${esc(a.name)}</div>${sub}</div>${opts.btn || getBtn(a)}</div>`;
 }
 function rail(arr, rank) {
   if (!arr.length) return "";
@@ -362,13 +408,13 @@ function emptyBox(e, b, t) { return `<div class="empty"><div class="e">${e}</div
 
 /* ---------- Сегодня ---------- */
 function renderToday() {
-  $("#today").textContent = new Date().toLocaleDateString("ru-RU", {weekday:"long", day:"numeric", month:"long"});
+  $("#today").textContent = new Date().toLocaleDateString(LOC, {weekday:"long", day:"numeric", month:"long"});
   let h = "";
   const feat = APPS.find(a => !a.warn);
   if (feat) h += `<div class="tc" data-i="${APPS.indexOf(feat)}" style="background:linear-gradient(160deg,#3d8bff,#0b2a8c)">
-    <div class="tx"><small>Приложение дня</small><h2>${esc(feat.name)}</h2></div>
+    <div class="tx"><small>Приложение дня</small><h2 data-noi18n>${esc(feat.name)}</h2></div>
     <div class="hero-app" style="min-height:420px"><img src="${esc(feat.icon)}" alt=""></div>
-    <div class="ft"><img src="${esc(feat.icon)}" alt=""><p><b>${esc(feat.name)}</b><br>${esc(catOf(feat.cat).name)}</p>
+    <div class="ft"><img src="${esc(feat.icon)}" alt=""><p><b data-noi18n>${esc(feat.name)}</b><br>${esc(catOf(feat.cat).name)}</p>
       <button class="get" style="background:rgba(255,255,255,.25);color:#fff" data-install="${APPS.indexOf(feat)}">Загрузить</button></div></div>`;
   for (const c of CATS) {
     const arr = inCat(c.id);
@@ -442,25 +488,33 @@ function openApp(a) {
   const c = catOf(a.cat), i = APPS.indexOf(a);
   sheet(`
     <div class="ah"><img class="ic" src="${esc(a.icon)}" alt="">
-      <div class="mt"><h2>${esc(a.name)}</h2><div class="sub">${esc(c.name)}</div>
+      <div class="mt"><h2 data-noi18n>${esc(a.name)}</h2><div class="sub">${esc(c.name)}</div>
         <div class="row"><button class="get blue" data-install="${i}">Загрузить</button>
           <button class="share" data-share="${i}" aria-label="Поделиться"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7.5 7.5L12 3l4.5 4.5"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg></button></div></div></div>
     ${a.warn ? `<div class="wbox">⚠️ ${esc(a.warn)}</div>` : ""}
+    ${compatHTML(a)}
     <div class="info">
+      ${ratingOf(a) ? `<div><small>${ratingOf(a).count} ${plural(ratingOf(a).count, "оценка", "оценки", "оценок")}</small><b>${ratingOf(a).avg.toFixed(1)}</b><span>${starsHTML(ratingOf(a).avg)}</span></div>` : ""}
+      ${a.installs ? `<div><small>Загрузки</small><b>${a.installs}</b><span>${plural(a.installs, "раз", "раза", "раз")}</span></div>` : ""}
+      ${a.devId ? `<div data-dev="${esc(a.devId)}" style="cursor:pointer"><small>Разработчик</small><b>👤</b><span style="color:var(--blue)" data-noi18n>${esc(a.devName)}</span></div>` : ""}
       <div><small>Категория</small><b>${c.emoji}</b><span>${esc(c.name)}</span></div>
       <div><small>Версия</small><b>${esc(a.version)}</b><span>Сборка ${esc(a.build || "—")}</span></div>
       <div><small>Размер</small><b>${mb(a.size).split(" ")[0]}</b><span>${mb(a.size).split(" ")[1]}</span></div>
       <div><small>Совместимость</small><b>${a.minIOS ? esc(a.minIOS.split(".")[0]) + "+" : "—"}</b><span>iOS</span></div>
     </div>
-    ${a.desc ? `<div class="blk"><h3>Описание</h3><p>${esc(a.desc)}</p></div>` : ""}
+    ${a.desc ? `<div class="blk"><h3>Описание</h3><p data-noi18n>${esc(a.desc)}</p></div>` : ""}
+    <div class="blk" id="revBlk" data-key="${esc(appKey(a))}"><h3>Оценки и отзывы</h3><div class="gf" style="margin:0">Загружаю…</div></div>
     <div class="blk"><h3>Как установить</h3><p>Нажми «Загрузить» и подтверди установку. Иконка появится на экране «Домой». Если приложение не открывается — включи «Режим разработчика» в Настройки → Конфиденциальность и безопасность.</p></div>
     <div class="blk" style="border:0"><h3>Информация</h3>
-      ${a.devName ? `<div class="kv"><span>Разработчик</span><span>${esc(a.devName)}</span></div>` : ""}
+      ${a.devName ? `<div class="kv" ${a.devId ? `data-dev="${esc(a.devId)}" style="cursor:pointer"` : ""}><span>Разработчик</span><span ${a.devId ? 'style="color:var(--blue)"' : ""} data-noi18n>${esc(a.devName)}${a.devId ? " ›" : ""}</span></div>` : ""}
+      ${a.team ? `<div class="kv"><span>Подпись</span><span>${esc(a.team)}${a.exp ? `, до ${new Date(a.exp).toLocaleDateString(LOC)}` : ""}</span></div>` : ""}
       <div class="kv"><span>Идентификатор</span><span>${esc(a.bundle)}</span></div>
       <div class="kv"><span>Размер</span><span>${mb(a.size)}</span></div>
       <div class="kv"><span>Категория</span><span>${esc(c.name)}</span></div>
       <div class="kv"><span>Совместимость</span><span>${a.minIOS ? "iOS " + esc(a.minIOS) + " или новее" : "—"}</span></div>
     </div>`);
+  location.replace("#app=" + encodeURIComponent(appKey(a)));
+  loadReviews(a);
 }
 
 /* ---------- аккаунт ---------- */
@@ -474,7 +528,7 @@ const userGet = () => store.get("ruapps-user", null);
 function userSet(u) { store.set("ruapps-user", u); renderAvatars(); }
 function initials(u) { return (u && u.name ? u.name : "?").split(/\s+/).map(w => w[0]).join("").slice(0, 2).toUpperCase(); }
 function avHTML(u, size) {
-  const st = `width:${size}px;height:${size}px;font-size:${Math.round(size * .4)}px`;
+  const st = `width:${size}px;height:${size}px;font-size:${Math.round(size * .4)}px" data-noi18n="`;
   if (!u) return `<div class="av" style="${st}">${PERSON}</div>`;
   if (u.picture) return `<div class="av" style="${st}"><img src="${esc(u.picture)}" alt="" referrerpolicy="no-referrer"></div>`;
   return `<div class="av" style="${st};background:linear-gradient(180deg,#5e9eff,#1f63f5)">${esc(initials(u))}</div>`;
@@ -534,7 +588,7 @@ function mountGoogle(tries = 0) {
   if (!(window.google && google.accounts && google.accounts.id)) { if (tries < 40) setTimeout(() => mountGoogle(tries + 1), 150); else el.textContent = "Google не загрузился. Проверь интернет."; return; }
   google.accounts.id.initialize({client_id:AUTH.google_client_id, callback:onGoogle, ux_mode:"popup", auto_select:false});
   const dark = matchMedia("(prefers-color-scheme: dark)").matches && document.documentElement.dataset.theme !== "light" || document.documentElement.dataset.theme === "dark";
-  google.accounts.id.renderButton(el, {theme:dark ? "filled_black" : "outline", size:"large", shape:"pill", text:"signin_with", locale:"ru", width:320});
+  google.accounts.id.renderButton(el, {theme:dark ? "filled_black" : "outline", size:"large", shape:"pill", text:"signin_with", locale:LANG, width:320});
 }
 
 /* ---------- настройки ---------- */
@@ -550,11 +604,13 @@ function openSettings() {
   const myN = myGet().length;
   sheet(`<div class="st"><h1>Настройки</h1></div>
     <div class="gl"><div class="acct" data-act="${u ? "account" : "login"}">${avHTML(u, 60)}
-      <div class="t">${u ? `<b>${esc(u.name)}</b><small>Аккаунт RuApps, вход через ${esc(u.provider)}${u.dev ? DEV_BADGE : ""}</small>`
+      <div class="t">${u ? `<b data-noi18n>${esc(u.name)}</b><small>Аккаунт RuApps, вход через ${esc(u.provider)}${u.dev ? DEV_BADGE : ""}</small>`
                          : `<b style="color:var(--blue)">Войти</b><small>Войдите, чтобы загружать приложения</small>`}</div>${CHEV}</div></div>
 
     <div class="gl" style="margin-top:28px">
       ${grow({icon:"🌓", bg:"#5856d6", label:"Оформление", val:THEMES[t], act:"theme"})}
+      ${grow({icon:"🌐", bg:"#007aff", label:"Язык", val:LANG === "en" ? "English" : "Русский", act:"lang"})}
+      ${grow({icon:"📱", bg:"#ff2d55", label:"Мой iPhone", val:myDev() ? esc(modelName(myDev().model)) : "Проверить", act:"udid"})}
       ${grow({icon:"🛍️", bg:"#007aff", label:"Мои приложения", val:myN || "", act:"my"})}
     </div>
 
@@ -576,9 +632,9 @@ function sub(title, html) {
 }
 function openAccount() {
   const u = userGet(); if (!u) return openLogin();
-  sub("Аккаунт", `<div class="bigav">${avHTML(u, 96)}<b>${esc(u.name)}</b><small>${esc(u.email || "")}</small></div>
+  sub("Аккаунт", `<div class="bigav">${avHTML(u, 96)}<b data-noi18n>${esc(u.name)}</b><small>${esc(u.email || "")}</small></div>
     <div class="gl" style="margin-top:22px">
-      ${grow({label:"Имя", val:esc(u.name), chev:false})}
+      ${grow({label:"Имя", val:`<span data-noi18n>${esc(u.name)}</span>`, chev:false})}
       ${grow({label:"E-mail", val:esc(u.email || "скрыт"), chev:false})}
       ${grow({label:"Вход через", val:esc(u.provider), chev:false})}
     </div>
@@ -616,7 +672,7 @@ document.addEventListener("click", e => {
   if (ts) { setTheme(ts.dataset.themeSet); openTheme(); return; }
   const a = e.target.closest("[data-act]"); if (!a) return;
   ({ login:() => openLogin(), account:openAccount, theme:openTheme, home:openHome, dns:openDNS, about:openAbout,
-     back:openSettings, logout:signOut, becomedev:openBecomeDev, checkdev:checkDev, upload:openUpload, uploads:openUploads, relogin:() => openLogin(), my:() => { closeSheet(); showPage("my"); } }[a.dataset.act] || (() => {}))();
+     back:openSettings, logout:signOut, lang:openLang, udid:openUdid, devprofile:openDevProfile, writerev:openWriteReview, becomedev:openBecomeDev, checkdev:checkDev, upload:openUpload, uploads:openUploads, relogin:() => openLogin(), my:() => { closeSheet(); showPage("my"); } }[a.dataset.act] || (() => {}))();
 });
 
 function setTheme(t) {
@@ -634,7 +690,8 @@ function sheet(html) {
   $("#sheet").classList.add("on"); $("#sbg").classList.add("on");
   $("#sclose").addEventListener("click", closeSheet);
 }
-function closeSheet() { $("#sheet").classList.remove("on"); $("#sbg").classList.remove("on"); }
+function closeSheet() { $("#sheet").classList.remove("on"); $("#sbg").classList.remove("on");
+  if (location.hash.startsWith("#app=")) history.replaceState(null, "", location.pathname + location.search); }
 $("#sbg").addEventListener("click", closeSheet);
 
 /* =====================================================================
@@ -679,11 +736,14 @@ async function loadRemoteApps() {
       if (APPS.some(x => x.remoteId === a.id)) continue;
       APPS.push({ name: a.name, bundle: a.bundle, version: a.version, build: a.build, minIOS: a.minIOS, size: a.size,
                   icon: a.icon || "ruapps_icon.png", install: a.install, cat: a.cat, warn: null,
-                  desc: a.desc, devName: a.dev, remoteId: a.id });
+                  desc: a.desc, devName: a.dev, devId: a.devId, remoteId: a.id, team: a.team, exp: a.exp, all: a.all,
+                  udh: a.udh, installs: a.installs, created: a.created });
     }
-    renderToday(); renderGames(); renderApps(); renderSearch(); renderMy();
+    renderAll();
   } catch (e) {}
+  openFromHash();
 }
+function renderAll() { renderToday(); renderGames(); renderApps(); renderSearch(); renderMy(); }
 
 /* ---------- экраны разработчика ---------- */
 const DEV_BADGE = '<span style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:rgba(255,149,0,.16);color:#c26a00;font-size:12px;font-weight:700;vertical-align:2px">🛠 Разработчик</span>';
@@ -693,7 +753,8 @@ function devGroupHTML() {
   if (!u.session) return `<div class="gh">Для разработчиков</div><div class="gl">${grow({ icon: "🔑", bg: "#8e8e93", label: "Войти заново", sub: "Нужно для функций разработчика", act: "relogin" })}</div>`;
   if (u.dev) return `<div class="gh">Для разработчиков</div><div class="gl">
       ${grow({ icon: "⬆️", bg: "#ff9500", label: "Загрузить IPA", act: "upload" })}
-      ${grow({ icon: "📦", bg: "#5856d6", label: "Мои загрузки", act: "uploads" })}</div>`;
+      ${grow({ icon: "📦", bg: "#5856d6", label: "Мои загрузки", act: "uploads" })}
+      ${grow({ icon: "👤", bg: "#34c759", label: "Мой профиль разработчика", sub: "Аватарка, описание, страница", act: "devprofile" })}</div>`;
   return `<div class="gh">Для разработчиков</div><div class="gl">${grow({ icon: "🛠", bg: "#ff9500", label: "Стать разработчиком", sub: "Активация через Telegram-бот", act: "becomedev" })}</div>`;
 }
 
@@ -722,7 +783,7 @@ async function checkDev() {
 }
 
 /* ---------- мои загрузки ---------- */
-const STATUS = { pending: ["На проверке", "#ff9500"], approved: ["Опубликовано", "#34c759"] };
+const STATUS = { pending: ["На проверке", "#ff9500"], approved: ["Опубликовано", "#34c759"], expired: ["Подпись истекла — скрыто", "#ff3b30"] };
 async function openUploads() {
   sub("Мои загрузки", `<div id="upList" class="gf" style="text-align:center">Загружаю…</div>`);
   try {
@@ -730,7 +791,7 @@ async function openUploads() {
     $("#upList").outerHTML = list.length ? `<div class="list" style="margin-top:8px">${list.map(a => {
       const [t, c] = STATUS[a.status] || [a.status, "#8e8e93"];
       return `<div class="ar" style="cursor:default"><img class="ic" src="${esc(a.icon || "ruapps_icon.png")}" alt="">
-        <div class="mt"><div class="nm">${esc(a.name)} <span style="color:var(--dim);font-weight:400">${esc(a.version)}</span></div>
+        <div class="mt"><div class="nm"><span data-noi18n>${esc(a.name)}</span> <span style="color:var(--dim);font-weight:400">${esc(a.version)}</span></div>
           <div class="sb"><span style="color:${c};font-weight:600">● ${t}</span> · ${mb(a.size)}</div></div>
         <div class="getwrap"><button class="get" data-delup="${esc(a.id)}" style="color:var(--red)">Удалить</button></div></div>`;
     }).join("")}</div>
@@ -765,15 +826,17 @@ async function pickIPA(file) {
   catch (e) { box.innerHTML = `<div class="wbox">Не получилось прочитать IPA: ${esc(e.message)}</div>`; return; }
   const i = upInfo, p = i.prov;
   const now = Date.now();
+  const mine = myDev(), fits = p && mine ? (p.all || p.udh.includes(mine.h)) : null;
   const sign = !p ? `<span style="color:var(--red)">нет профиля — на айфон не встанет</span>`
-    : `${esc(p.team || "?")}${p.exp ? `, до ${new Date(p.exp).toLocaleDateString("ru-RU")}` : ""}${p.all ? ", все устройства" : `, устройств: ${p.devices}`}` +
+    : `${esc(p.team || "?")}${p.exp ? `, до ${new Date(p.exp).toLocaleDateString(LOC)}` : ""}${p.all ? ", все устройства" : `, устройств: ${p.devices}`}` +
       (p.exp && p.exp < now ? ` <b style="color:var(--red)">— истекла!</b>` : "");
   box.innerHTML = `
     <div class="ah" style="margin-top:20px"><img class="ic" id="upIcon" src="${i.iconURL}" alt="" style="width:96px;height:96px">
       <div class="mt"><h2>${esc(i.name)}</h2><div class="sub">${esc(i.bundle)}</div>
         <div class="sub">Версия ${esc(i.version)}${i.build ? ` (${esc(i.build)})` : ""} · ${mb(file.size)}${i.minIOS ? ` · iOS ${esc(i.minIOS)}+` : ""}</div></div></div>
     <div class="gh">Подпись</div><div class="gl"><div class="gr"><div class="t"><div class="lbl" style="font-size:15px">${sign}</div></div></div></div>
-    <div class="gf">Приложение встанет только на устройства из этой подписи.</div>
+    <div class="gf">Приложение встанет только на устройства из этой подписи.${fits === true ? " <b style=\"color:#1f8f3d\">Твой iPhone в подписи ✓</b>" : fits === false ? " <b style=\"color:var(--red)\">Твоего iPhone в подписи нет.</b>" : ""}</div>
+    ${!p || (p.exp && p.exp < now) ? `<div class="wbox">🔏 Автопроверка: ${!p ? "в IPA нет профиля подписи" : "подпись истекла"} — сервер такой файл не примет. Переподпиши IPA и выбери снова.</div>` : ""}
     <div class="gh">Название в RuApps</div>
     <div class="gl"><div class="gr"><div class="t"><input id="upName" value="${esc(i.name)}" maxlength="60"
       style="flex:1;border:0;background:none;font:17px inherit;font-family:inherit;color:var(--text);outline:none;padding:12px 0"></div></div></div>
@@ -810,7 +873,8 @@ async function sendIPA() {
   try {
     st = await api("/upload/start", { method: "POST", json: { name: $("#upName").value.trim() || i.name, bundle: i.bundle,
       version: i.version, build: i.build, minIOS: i.minIOS, team: i.prov && i.prov.team || "", cat: i.cat,
-      desc: $("#upDesc").value.trim(), agree: true, size: file.size } });
+      desc: $("#upDesc").value.trim(), agree: true, size: file.size,
+      prov: i.prov ? { present: true, team: i.prov.team, exp: i.prov.exp, all: i.prov.all, udh: i.prov.udh } : { present: false } } });
   } catch (e) { return fail(e.message); }
   try {
     if (i.iconBlob) await putBlob(`/upload/${st.id}/icon`, i.iconBlob);
@@ -882,7 +946,7 @@ async function readIPA(file) {
   if (!iconBlob) iconBlob = await letterIcon((info.CFBundleDisplayName || info.CFBundleName || "?")[0]);
   let prov = null;
   const pe = entries.find(e => e.name === appDir + "embedded.mobileprovision");
-  if (pe) { try { prov = parseProvision(await zipRead(file, pe)); } catch (err) {} }
+  if (pe) { try { prov = parseProvision(await zipRead(file, pe)); prov.udh = await Promise.all(prov.list.slice(0, 1000).map(udidHash)); delete prov.list; } catch (err) {} }
   return { name: info.CFBundleDisplayName || info.CFBundleName || file.name.replace(/\.ipa$/i, ""),
            bundle: info.CFBundleIdentifier || "", version: String(info.CFBundleShortVersionString || info.CFBundleVersion || "1.0"),
            build: String(info.CFBundleVersion || ""), minIOS: String(info.MinimumOSVersion || ""),
@@ -992,7 +1056,7 @@ function parseProvision(bytes) {
   if (a < 0 || z < 0) return null;
   const p = xmlPlist(new TextDecoder().decode(bytes.subarray(a, z + 8)));
   return { team: p.TeamName || "", exp: p.ExpirationDate ? +new Date(p.ExpirationDate) : 0,
-           devices: (p.ProvisionedDevices || []).length, all: !!p.ProvisionsAllDevices };
+           devices: (p.ProvisionedDevices || []).length, all: !!p.ProvisionsAllDevices, list: p.ProvisionedDevices || [] };
 }
 
 /* ---- PNG и «сплющенные» иконки Apple (CgBI) ---- */
@@ -1044,6 +1108,377 @@ function letterIcon(ch) {
   return new Promise(r => cv.toBlob(r, "image/png"));
 }
 
+/* =====================================================================
+   Язык, оценки, «встанет ли на мой iPhone», страница разработчика
+   ===================================================================== */
+const LANG = store.get("ruapps-lang", "ru") === "en" ? "en" : "ru";
+const LOC = LANG === "en" ? "en-US" : "ru-RU";
+function openLang() {
+  sub("Язык", `<div class="gl" style="margin-top:8px">${[["ru", "Русский"], ["en", "English"]].map(([k, v]) =>
+      `<div class="gr btn" data-lang-set="${k}"><div class="t"><div class="lbl" data-noi18n>${v}</div>${LANG === k ? '<span class="check">✓</span>' : ""}</div></div>`).join("")}</div>
+    <div class="gf">Названия и описания приложений остаются как у разработчика.</div>`);
+}
+document.addEventListener("click", e => {
+  const l = e.target.closest("[data-lang-set]"); if (!l) return;
+  store.set("ruapps-lang", l.dataset.langSet); location.reload();
+});
+
+const appKey = a => a.remoteId ? "r-" + a.remoteId : "b-" + a.bundle;
+
+/* ---- оценки ---- */
+let RATINGS = {};
+const ratingOf = a => { const r = RATINGS[appKey(a)]; return r && r.count ? r : null; };
+function starsHTML(v) { const n = Math.round(v); return `<span class="stars">${"★".repeat(n)}<i>${"★".repeat(5 - n)}</i></span>`; }
+async function loadRatings() {
+  if (!serverOn()) return;
+  try { RATINGS = await fetch(API + "/ratings").then(r => r.json()) || {}; renderAll(); } catch (e) {}
+}
+let revCache = null;
+async function loadReviews(a) {
+  const box = $("#revBlk"); if (!box) return;
+  if (!serverOn()) { box.remove(); return; }
+  const key = appKey(a);
+  let d; try { d = await api("/reviews/" + encodeURIComponent(key)); } catch (e) { box.querySelector(".gf").textContent = e.message; return; }
+  if (!$("#revBlk") || $("#revBlk").dataset.key !== key) return;
+  revCache = { a, d };
+  RATINGS[key] = d.count ? { avg: d.avg, count: d.count } : undefined;
+  const mine = d.items.find(r => r.mine);
+  const max = Math.max(1, ...d.dist);
+  $("#revBlk").innerHTML = `<div class="sh" style="margin-bottom:6px"><h3 style="margin:0">Оценки и отзывы</h3></div>
+    ${d.count ? `<div class="rsum"><div class="big">${d.avg.toFixed(1)}<small>из 5</small></div>
+      <div class="bars">${[5, 4, 3, 2, 1].map(n => `<div><span>${"★".repeat(n)}</span><em><b style="width:${d.dist[n - 1] / max * 100}%"></b></em></div>`).join("")}
+        <div style="justify-content:flex-end;font-size:13px">${d.count} ${plural(d.count, "оценка", "оценки", "оценок")}</div></div></div>
+      <div class="revs">${d.items.map(r => `<div class="rv">
+        <div class="h"><b data-noi18n>${esc(r.title || (r.text ? r.text.split("\n")[0].slice(0, 40) : "Без заголовка"))}</b><span>${new Date(r.ts).toLocaleDateString(LOC, {day:"numeric", month:"short"})}</span></div>
+        <div class="m">${starsHTML(r.stars)}<span data-noi18n>${esc(r.name)}</span></div>
+        ${r.text ? `<p data-noi18n>${esc(r.text)}</p>` : ""}
+        ${r.mine ? `<button class="del" data-delrev="${esc(key)}">Удалить мой отзыв</button>` : ""}</div>`).join("")}</div>`
+    : `<div class="gf" style="margin:0 0 4px">Пока нет оценок. Будь первым!</div>`}
+    <button class="linkbtn" data-act="writerev">✍️ ${mine ? "Изменить мой отзыв" : "Написать отзыв"}</button>`;
+}
+function openWriteReview() {
+  if (!revCache) return;
+  const { a, d } = revCache, u = userGet();
+  if (!u || !u.session) { openLogin(); return toast("Войди, чтобы оставить отзыв"); }
+  const mine = d.items.find(r => r.mine) || {};
+  let stars = mine.stars || 0;
+  sheet(`<div class="st" style="text-align:center"><img src="${esc(a.icon)}" style="width:64px;height:64px;border-radius:22.37%;margin-top:4px" alt="">
+      <h1 style="font-size:24px;margin-top:8px">${esc(a.name)}</h1></div>
+    <div style="text-align:center;color:var(--dim);font-size:15px">Нажми на звезду, чтобы оценить</div>
+    <div class="pick" id="pick">${[1, 2, 3, 4, 5].map(n => `<span data-star="${n}">★</span>`).join("")}</div>
+    <div class="gl" style="margin-top:14px"><input class="fld" id="rvTitle" maxlength="60" placeholder="Заголовок" value="${esc(mine.title || "")}">
+      <textarea class="fld" id="rvText" rows="6" maxlength="1000" placeholder="Отзыв (необязательно)">${esc(mine.text || "")}</textarea></div>
+    <button class="get blue" id="rvSend" style="display:block;width:100%;margin-top:18px;padding:13px 0;font-size:17px">Отправить</button>
+    <div class="gf">Отзыв увидят все. Имя берётся из аккаунта Google (только имя, без фамилии и почты).</div>`);
+  const paint = () => $$("#pick span").forEach(s => s.classList.toggle("on", +s.dataset.star <= stars));
+  paint();
+  $("#pick").addEventListener("click", e => { const s = e.target.closest("[data-star]"); if (s) { stars = +s.dataset.star; paint(); } });
+  $("#rvSend").addEventListener("click", async () => {
+    if (!stars) return toast("Поставь оценку");
+    $("#rvSend").disabled = true;
+    try {
+      const r = await api("/reviews/" + encodeURIComponent(appKey(a)), { method: "POST",
+        json: { stars, title: $("#rvTitle").value, text: $("#rvText").value, appName: a.name } });
+      RATINGS[appKey(a)] = { avg: r.avg, count: r.count }; renderAll();
+      toast("Спасибо за отзыв!"); openApp(a);
+    } catch (e) { $("#rvSend").disabled = false; toast(e.message); }
+  });
+}
+document.addEventListener("click", async e => {
+  const d = e.target.closest("[data-delrev]"); if (!d || !revCache) return;
+  if (!confirm("Удалить твой отзыв?")) return;
+  try { const r = await api("/reviews/" + encodeURIComponent(d.dataset.delrev), { method: "DELETE" });
+        RATINGS[d.dataset.delrev] = r.count ? { avg: r.avg, count: r.count } : undefined; renderAll(); toast("Отзыв удалён"); openApp(revCache.a); }
+  catch (err) { toast(err.message); }
+});
+
+/* ---- «встанет ли на мой iPhone?» ---- */
+async function udidHash(u) {
+  const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(String(u).trim().toLowerCase()));
+  return [...new Uint8Array(d)].slice(0, 8).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+const myDev = () => store.get("ruapps-device", null);
+const MODELS = {"iPhone15,4":"iPhone 15","iPhone15,5":"iPhone 15 Plus","iPhone16,1":"iPhone 15 Pro","iPhone16,2":"iPhone 15 Pro Max",
+  "iPhone17,3":"iPhone 16","iPhone17,4":"iPhone 16 Plus","iPhone17,1":"iPhone 16 Pro","iPhone17,2":"iPhone 16 Pro Max","iPhone17,5":"iPhone 16e",
+  "iPhone18,3":"iPhone 17","iPhone18,1":"iPhone 17 Pro","iPhone18,2":"iPhone 17 Pro Max","iPhone18,4":"iPhone Air",
+  "iPhone14,7":"iPhone 14","iPhone14,8":"iPhone 14 Plus","iPhone15,2":"iPhone 14 Pro","iPhone15,3":"iPhone 14 Pro Max",
+  "iPhone14,5":"iPhone 13","iPhone14,4":"iPhone 13 mini","iPhone14,2":"iPhone 13 Pro","iPhone14,3":"iPhone 13 Pro Max","iPhone14,6":"iPhone SE (3)",
+  "iPhone13,2":"iPhone 12","iPhone13,1":"iPhone 12 mini","iPhone13,3":"iPhone 12 Pro","iPhone13,4":"iPhone 12 Pro Max","iPhone12,1":"iPhone 11"};
+const modelName = m => MODELS[m] || m || "iPhone";
+function compatOf(a) {
+  const d = myDev(); if (!d) return null;
+  if (a.all) return true;
+  if (!Array.isArray(a.udh)) return null;          // нет данных о подписи
+  return a.udh.includes(d.h);
+}
+function compatHTML(a) {
+  if (blocked) return "";
+  const c = compatOf(a), d = myDev();
+  if (c === true) return `<div class="compat ok"><div class="e">✅</div><div><b>Встанет на твой ${esc(modelName(d.model))}</b><small>${a.all ? "Подпись для всех устройств" : "Твой iPhone есть в подписи приложения"}</small></div></div>`;
+  if (c === false) return `<div class="compat no"><div class="e">⛔️</div><div><b>Не встанет на твой ${esc(modelName(d.model))}</b><small>Твоего iPhone нет в подписи. Попроси разработчика добавить твой UDID.</small></div></div>`;
+  if (!d && Array.isArray(a.udh)) return `<div class="compat ask" data-act="udid"><div class="e">📱</div><div><b>Встанет ли на мой iPhone?</b><small>Проверить за 20 секунд</small></div>${CHEV}</div>`;
+  return "";
+}
+function openUdid() {
+  const d = myDev();
+  const prof = API + "/udid/profile?ret=" + encodeURIComponent(location.href.split("#")[0]);
+  sub("Мой iPhone", (d ? `<div class="bigav"><div style="font-size:64px">📱</div><b>${esc(modelName(d.model))}</b><small>Проверен ${new Date(d.at).toLocaleDateString(LOC)}</small></div>
+      <div class="gl" style="margin-top:22px">${grow({label:"Подходящие приложения", val:APPS.filter(a => compatOf(a) === true).length, chev:false})}
+        ${grow({label:"Не встанут", val:APPS.filter(a => compatOf(a) === false).length, chev:false})}</div>` :
+      `<div class="bigav"><div style="font-size:64px">📱</div><b>Встанет ли на мой iPhone?</b><small>Узнай, какие приложения заработают у тебя</small></div>`) +
+    (serverOn() ? `<a class="get blue" href="${esc(prof)}" style="display:block;width:100%;margin-top:22px;padding:12px 0;font-size:17px">${d ? "Проверить заново" : "Проверить iPhone"}</a>` : "") +
+    (d ? `<button class="get" id="udidForget" style="display:block;width:100%;margin-top:10px;padding:12px 0;font-size:17px;color:var(--red)">Забыть мой iPhone</button>` : "") +
+    `<div class="gf"><b>Как это работает:</b> «Проверить iPhone» → «Разрешить» → Настройки → «Профиль загружен» → «Установить». iPhone сам передаст свой идентификатор (UDID) и вернёт тебя в RuApps.<br><br>
+      Профиль ничего не устанавливает и сразу исчезает. UDID хранится только на этом устройстве — на сервер RuApps не сохраняется.</div>`);
+  if ($("#udidForget")) $("#udidForget").addEventListener("click", () => { store.set("ruapps-device", null); renderAll(); toast("Готово"); openUdid(); });
+}
+async function takeUdidFromHash() {
+  const m = location.hash.match(/udid=([^&]+)/); if (!m) return;
+  const q = new URLSearchParams(location.hash.slice(1));
+  history.replaceState(null, "", location.pathname + location.search);
+  store.set("ruapps-device", { h: await udidHash(decodeURIComponent(m[1])), model: q.get("model") || "", ios: q.get("ios") || "", at: Date.now() });
+  renderAll();
+  const d = myDev(), ok = APPS.filter(a => compatOf(a) === true).length;
+  toast(`${modelName(d.model)} проверен ✓`);
+  setTimeout(openUdid, 400);
+}
+
+/* ---- страница разработчика ---- */
+async function openDev(pid) {
+  sheet(`<div id="devBox" class="gf" style="text-align:center;margin-top:40px">Загружаю…</div>`);
+  let d; try { d = await fetch(API + "/devs/" + pid).then(r => r.json()); } catch (e) { d = { message: "Нет связи с сервером" }; }
+  if (!$("#devBox")) return;
+  if (!d.pid) { $("#devBox").textContent = d.message || "Не найдено"; return; }
+  const apps = d.apps.map(x => APPS.find(a => a.remoteId === x.id)).filter(Boolean);
+  const total = apps.reduce((s, a) => s + (a.installs || 0), 0);
+  $("#devBox").outerHTML = `<div class="devhead">
+      ${d.avatar ? `<div class="av" style="width:110px;height:110px"><img src="${esc(d.avatar)}" alt=""></div>` : `<div class="av" style="width:110px;height:110px;font-size:42px;background:linear-gradient(180deg,#5e9eff,#1f63f5)" data-noi18n>${esc(initials({name:d.name}))}</div>`}
+      <b data-noi18n>${esc(d.name)}</b><small>Разработчик · в RuApps с ${new Date(d.since).toLocaleDateString(LOC, {month:"long", year:"numeric"})}</small>
+      ${d.bio ? `<p data-noi18n>${esc(d.bio)}</p>` : ""}
+      ${d.site ? `<a href="${esc(d.site)}" target="_blank" rel="noopener" style="color:var(--blue);margin-top:10px;font-size:15px">${esc(d.site.replace(/^https:\/\//, ""))}</a>` : ""}</div>
+    <div class="info" style="justify-content:center">
+      <div><small>Приложения</small><b>${apps.length}</b><span>в RuApps</span></div>
+      <div><small>Загрузки</small><b>${total}</b><span>всего</span></div></div>
+    <div class="sec" style="border:0;margin-top:10px"><div class="sh"><h3>Приложения</h3></div>
+      ${apps.length ? `<div class="list">${apps.map(a => rowHTML(a)).join("")}</div>` : emptyBox("📦", "Пока пусто", "")}</div>`;
+}
+document.addEventListener("click", e => {
+  const d = e.target.closest("[data-dev]"); if (!d) return;
+  e.stopPropagation(); openDev(d.dataset.dev);
+}, true);
+
+async function openDevProfile() {
+  sub("Профиль разработчика", `<div id="dpBox" class="gf" style="text-align:center">Загружаю…</div>`);
+  let me; try { me = await api("/me"); } catch (e) { $("#dpBox").textContent = e.message; return; }
+  const di = me.devInfo || {}, u = userGet();
+  let avatar = di.avatar || "";
+  const avBox = () => avatar ? `<div class="av" style="width:96px;height:96px"><img src="${esc(avatar)}" alt=""></div>` : avHTML(u, 96);
+  $("#dpBox").outerHTML = `<label class="bigav" style="cursor:pointer"><span id="dpAv">${avBox()}</span>
+      <input type="file" id="dpFile" accept="image/*" style="display:none"><span style="color:var(--blue);font-size:15px;margin-top:8px">Изменить фото</span></label>
+    <div class="gh">Имя на странице</div>
+    <div class="gl"><input class="fld" id="dpNick" maxlength="40" placeholder="${esc(u.name)}" value="${esc(di.nick || "")}"></div>
+    <div class="gh">О себе</div>
+    <div class="gl"><textarea class="fld" id="dpBio" rows="4" maxlength="500" placeholder="Чем занимаешься, какие приложения делаешь">${esc(di.bio || "")}</textarea></div>
+    <div class="gh">Сайт или Telegram</div>
+    <div class="gl"><input class="fld" id="dpSite" maxlength="200" placeholder="https://t.me/…" value="${esc(di.site || "")}"></div>
+    <button class="get blue" id="dpSave" style="display:block;width:100%;margin-top:22px;padding:13px 0;font-size:17px">Сохранить</button>
+    <button class="get" id="dpOpen" style="display:block;width:100%;margin-top:10px;padding:12px 0;font-size:17px">Открыть мою страницу</button>
+    <div class="gf">Страницу видят все: имя, фото, описание и твои опубликованные приложения. E-mail не показывается.</div>`;
+  $("#dpFile").addEventListener("change", async e => {
+    const f = e.target.files[0]; if (!f) return;
+    try { avatar = await squareJPEG(f, 256); $("#dpAv").innerHTML = avBox(); } catch (err) { toast("Не получилось открыть картинку"); }
+  });
+  $("#dpSave").addEventListener("click", async () => {
+    let site = $("#dpSite").value.trim(); if (site && !/^https:\/\//.test(site)) site = "https://" + site.replace(/^http:\/\//, "");
+    try { await api("/dev/profile", { method: "POST", json: { nick: $("#dpNick").value, bio: $("#dpBio").value, site, avatar } });
+          toast("Сохранено"); } catch (e) { toast(e.message); }
+  });
+  $("#dpOpen").addEventListener("click", () => openDev(di.pid));
+}
+function squareJPEG(file, size) {
+  return new Promise((ok, bad) => {
+    const img = new Image(); img.onerror = bad;
+    img.onload = () => {
+      const cv = document.createElement("canvas"); cv.width = cv.height = size;
+      const s = Math.min(img.width, img.height);
+      cv.getContext("2d").drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, size, size);
+      let q = .85, url = cv.toDataURL("image/jpeg", q);
+      while (url.length > 85000 && q > .3) { q -= .1; url = cv.toDataURL("image/jpeg", q); }
+      URL.revokeObjectURL(img.src); ok(url);
+    };
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+/* =====================================================================
+   English — перевод интерфейса «на лету» (тексты разработчиков не трогаем)
+   ===================================================================== */
+const EN = {
+  "Сегодня":"Today","Игры":"Games","Приложения":"Apps","Мои":"My Apps","Поиск":"Search","Назад":"Back","Настройки":"Settings",
+  "Аккаунт":"Account","Закрыть":"Close","Поделиться":"Share","Загрузить":"Get","Установить":"Install","Отмена":"Cancel","Понятно":"OK",
+  "Банки":"Banks","Видео и развлечения":"Video & Entertainment","Общение":"Social","Полезное":"Utilities",
+  "Подборка":"Collection","Финансы":"Finance","Смотреть":"Watch","На связи":"Stay in touch","Каждый день":"Every day",
+  "Во что поиграть сегодня":"What to play today","Банки и финансы":"Banks & finance","Кино, ролики и стримы":"Movies, clips & streams",
+  "Мессенджеры и соцсети":"Messengers & social networks","Полезное на каждый день":"Everyday essentials",
+  "Лучшие игры в RuApps":"Best games on RuApps","Ставь только проверенное":"Install only what you trust","Общайся с друзьями":"Chat with friends",
+  "Покупки, сервисы и всё для жизни":"Shopping, services and more","Игры скоро появятся":"Games coming soon","Банков пока нет":"No banks yet",
+  "Видео скоро появится":"Video coming soon","Пока пусто":"Nothing here yet","Скоро":"Soon","Приложение дня":"App of the Day",
+  "См. все":"See All","Популярные игры":"Popular games","Выбор RuApps":"RuApps picks","Топ игр":"Top games","Все приложения":"All apps",
+  "Мы уже работаем над подборкой.":"We're working on it.","Категории":"Categories","Ничего не найдено":"No results",
+  "Игры, приложения и многое другое":"Games, apps and more","Загружено":"Downloaded","На этом устройстве через RuApps":"On this device via RuApps",
+  "Ещё раз":"Again","Убрать":"Remove","Тут пока пусто":"Nothing here yet","Загрузи что-нибудь — и оно появится здесь.":"Get something and it will show up here.",
+  "Через Safari":"Via Safari","⚠ Лучше не устанавливать":"⚠ Better not install","✓ встанет":"✓ fits","не встанет":"won't fit",
+  "Категория":"Category","Версия":"Version","Размер":"Size","Совместимость":"Compatibility","Описание":"Description","Как установить":"How to install",
+  "Информация":"Information","Разработчик":"Developer","Идентификатор":"Bundle ID","Подпись":"Signature","Загрузки":"Downloads",
+  "Нажми «Загрузить» и подтверди установку. Иконка появится на экране «Домой». Если приложение не открывается — включи «Режим разработчика» в Настройки → Конфиденциальность и безопасность.":
+    "Tap “Get” and confirm the installation. The icon will appear on your Home Screen. If the app doesn't open, turn on Developer Mode in Settings → Privacy & Security.",
+  "Оценки и отзывы":"Ratings & Reviews","Загружаю…":"Loading…","из 5":"out of 5","Без заголовка":"No title","Удалить мой отзыв":"Delete my review",
+  "Пока нет оценок. Будь первым!":"No ratings yet. Be the first!","✍️ Написать отзыв":"✍️ Write a Review","✍️ Изменить мой отзыв":"✍️ Edit my review",
+  "Нажми на звезду, чтобы оценить":"Tap a star to rate","Заголовок":"Title","Отзыв (необязательно)":"Review (optional)","Отправить":"Send",
+  "Отзыв увидят все. Имя берётся из аккаунта Google (только имя, без фамилии и почты).":"Everyone will see your review. Only your first name from Google is shown — no surname or e-mail.",
+  "Поставь оценку":"Pick a rating","Спасибо за отзыв!":"Thanks for the review!","Удалить твой отзыв?":"Delete your review?","Отзыв удалён":"Review deleted",
+  "Войди, чтобы оставить отзыв":"Sign in to write a review",
+  "Подпись для всех устройств":"Signed for all devices","Твой iPhone есть в подписи приложения":"Your iPhone is in the app's signature",
+  "Твоего iPhone нет в подписи. Попроси разработчика добавить твой UDID.":"Your iPhone isn't in the signature. Ask the developer to add your UDID.",
+  "Встанет ли на мой iPhone?":"Will it work on my iPhone?","Проверить за 20 секунд":"Check in 20 seconds","Мой iPhone":"My iPhone","Проверить":"Check",
+  "Подходящие приложения":"Compatible apps","Не встанут":"Won't install","Узнай, какие приложения заработают у тебя":"Find out which apps will work for you",
+  "Проверить iPhone":"Check iPhone","Проверить заново":"Check again","Забыть мой iPhone":"Forget my iPhone","Как это работает:":"How it works:",
+  "«Проверить iPhone» → «Разрешить» → Настройки → «Профиль загружен» → «Установить». iPhone сам передаст свой идентификатор (UDID) и вернёт тебя в RuApps.":
+    "“Check iPhone” → “Allow” → Settings → “Profile Downloaded” → “Install”. Your iPhone will send its identifier (UDID) and bring you back to RuApps.",
+  "Профиль ничего не устанавливает и сразу исчезает. UDID хранится только на этом устройстве — на сервер RuApps не сохраняется.":
+    "The profile installs nothing and disappears right away. The UDID stays on this device only — RuApps doesn't store it on the server.",
+  "Готово":"Done","Язык":"Language","Названия и описания приложений остаются как у разработчика.":"App names and descriptions stay as the developer wrote them.",
+  "Оформление":"Appearance","Авто":"Automatic","Светлая":"Light","Тёмная":"Dark","«Авто» — как в настройках iPhone.":"“Automatic” follows your iPhone settings.",
+  "Мои приложения":"My apps","RuApps на экран «Домой»":"RuApps on Home Screen","О RuApps":"About RuApps","Выйти":"Sign Out","Войти":"Sign In",
+  "Войдите, чтобы загружать приложения":"Sign in to get apps","Войдите, чтобы загружать приложения.":"Sign in to get apps.",
+  "Вход в RuApps":"Sign in to RuApps","Войти через Apple":"Sign in with Apple",
+  "Вход пока не подключён владельцем магазина. Пока он не настроен, приложения загружаются без входа.":"Sign-in isn't set up by the store owner yet. Until then, apps install without signing in.",
+  "Пароль вы вводите на странице Google или Apple — RuApps его не видит. Мы получаем только имя, e-mail и фото профиля. Подробнее — в":
+    "You enter your password on Google's or Apple's page — RuApps never sees it. We only get your name, e-mail and profile photo. More in the",
+  "политике конфиденциальности":"privacy policy","Google не загрузился. Проверь интернет.":"Google didn't load. Check your connection.",
+  "Имя":"Name","Вход через":"Signed in with","скрыт":"hidden","Данные аккаунта хранятся только на этом устройстве. После выхода они удаляются.":
+    "Account data is stored only on this device and is deleted when you sign out.",
+  "Экран «Домой»":"Home Screen","Установить как приложение":"Install as an app","Открывается на весь экран":"Opens full screen","Профиль":"Profile",
+  "Как установить:":"How to install:","«Профиль» → «Разрешить» → Настройки → «Профиль загружен» → «Установить».":"“Profile” → “Allow” → Settings → “Profile Downloaded” → “Install”.",
+  "Каждый DNS-профиль заодно ставит RuApps на экран «Домой».":"Each DNS profile also adds RuApps to your Home Screen.","Включить:":"Turn on:","Удалить:":"Remove:",
+  "Настройки → Основные → VPN и управление устройством → DNS.":"Settings → General → VPN & Device Management → DNS.",
+  "там же → профиль → «Удалить профиль».":"same place → profile → “Remove Profile”.",
+  "Магазин приложений в браузере":"An app store in your browser","Приложений":"Apps","Разделов":"Categories",
+  "Для разработчиков":"For developers","Войти заново":"Sign in again","Нужно для функций разработчика":"Needed for developer features",
+  "Загрузить IPA":"Upload IPA","Мои загрузки":"My uploads","Мой профиль разработчика":"My developer profile","Аватарка, описание, страница":"Photo, bio, page",
+  "Стать разработчиком":"Become a developer","Активация через Telegram-бот":"Activated via Telegram bot","🛠 Разработчик":"🛠 Developer",
+  "Аккаунт разработчика":"Developer account","Загружай свои IPA в RuApps":"Upload your IPAs to RuApps","Получаю код…":"Getting a code…",
+  "Твой код":"Your code","Действует 15 минут":"Valid for 15 minutes","Я активировал — проверить":"I've activated — check","Правила:":"Rules:",
+  "загружай только свои приложения или те, что тебе разрешено раздавать. Взломанные и чужие приложения отклоняются, а аккаунт разработчика отключается.":
+    "upload only your own apps or apps you're allowed to distribute. Cracked or stolen apps are rejected and the developer account is disabled.",
+  "Аккаунт разработчика активирован 🛠":"Developer account activated 🛠","Пока не активирован — отправь код боту":"Not activated yet — send the code to the bot",
+  "На проверке":"In review","Опубликовано":"Published","Подпись истекла — скрыто":"Signature expired — hidden","Удалить":"Delete","Удалено":"Deleted",
+  "После проверки владелец магазина публикует приложение в каталог. Отклонённые удаляются автоматически, а бот присылает уведомление.":
+    "After review the store owner publishes the app. Rejected apps are deleted automatically and the bot notifies you.",
+  "Загрузи свой первый IPA.":"Upload your first IPA.","Удалить приложение из RuApps?":"Delete this app from RuApps?",
+  "Выбрать IPA-файл":"Choose an IPA file","До 1 ГБ":"Up to 1 GB","Читаю IPA…":"Reading IPA…","Название в RuApps":"Name on RuApps","Раздел":"Category",
+  "Что умеет приложение":"What the app does","Это моё приложение (или мне разрешено его раздавать). Это не взломанная и не чужая копия.":
+    "This is my app (or I'm allowed to distribute it). It's not a cracked or stolen copy.",
+  "Отправить на проверку":"Submit for review","Подготовка…":"Preparing…","Сервер сохраняет файл…":"Server is saving the file…",
+  "Отправлено на проверку":"Submitted for review","Подтверди, что это твоё приложение":"Confirm this is your app",
+  "Приложение встанет только на устройства из этой подписи.":"The app will install only on devices in this signature.",
+  "Твой iPhone в подписи ✓":"Your iPhone is in the signature ✓","Твоего iPhone в подписи нет.":"Your iPhone isn't in the signature.",
+  "нет профиля — на айфон не встанет":"no profile — won't install on an iPhone","— истекла!":"— expired!",
+  "Профиль разработчика":"Developer profile","Изменить фото":"Change photo","Имя на странице":"Display name","О себе":"About",
+  "Чем занимаешься, какие приложения делаешь":"What you do and what apps you make","Сайт или Telegram":"Website or Telegram","Сохранить":"Save",
+  "Открыть мою страницу":"Open my page","Сохранено":"Saved","Не получилось открыть картинку":"Couldn't open the image",
+  "Страницу видят все: имя, фото, описание и твои опубликованные приложения. E-mail не показывается.":"Everyone can see your page: name, photo, bio and published apps. Your e-mail is never shown.",
+  "в RuApps":"on RuApps","всего":"total","Не найдено":"Not found",
+  "Вы точно хотите установить?":"Are you sure you want to install?","Это приложение может быть вредным и опасным для ваших данных.":"This app may be harmful and dangerous for your data.",
+  "У вас Android":"You're on Android","RuApps недоступен на этой операционной системе. Приложения из RuApps устанавливаются только на iPhone и iPad.":
+    "RuApps isn't available on this system. Apps from RuApps install only on iPhone and iPad.",
+  "Вы на macOS":"You're on macOS","На компьютере невозможно устанавливать приложения. Открой RuApps в Safari на iPhone или iPad.":"Apps can't be installed on a computer. Open RuApps in Safari on iPhone or iPad.",
+  "Добавлено в «Мои»":"Added to My Apps","Ссылка скопирована":"Link copied","Вы вышли из аккаунта":"You signed out","Не получилось войти":"Couldn't sign in",
+  "Вход через Apple не удался":"Sign in with Apple failed","Сервер RuApps недоступен":"RuApps server is unavailable","Нет связи с сервером":"No connection to the server",
+  "Ошибка сервера":"Server error","Пользователь Apple":"Apple user","Войдите заново":"Please sign in again","Аккаунт":"Account",
+  "Сначала активируй аккаунт разработчика":"Activate your developer account first","Файл больше 1 ГБ":"The file is larger than 1 GB",
+  "Нужно согласиться с правилами":"You need to accept the rules","Ты не можешь оставлять отзывы":"You can't post reviews",
+  "Владелец магазина заблокировал тебе аккаунт разработчика":"The store owner has blocked your developer account",
+  "Приложение не найдено":"App not found","Поставь от 1 до 5 звёзд":"Pick 1 to 5 stars","Разработчик не найден":"Developer not found",
+  "Аватарка должна быть картинкой":"The photo must be an image","Аватарка слишком большая":"The photo is too large",
+  "Загрузка не найдена — начни заново":"Upload not found — start again",
+  "МБ":"MB","ГБ":"GB","Быстрый и простой":"Fast and simple","Режет рекламу и трекеры":"Blocks ads and trackers","Блокирует опасные сайты":"Blocks dangerous sites",
+};
+const EN_RX = [
+  [/^Привет, (.+)!$/, "Hi, $1!"],
+  [/^Чтобы загрузить «(.+)», войдите в аккаунт\.$/, "To get “$1”, sign in."],
+  [/^По запросу «(.*)» пусто\.$/, "Nothing found for “$1”."],
+  [/^Встанет на твой (.+)$/, "Will install on your $1"],
+  [/^Не встанет на твой (.+)$/, "Won't install on your $1"],
+  [/^(.+) проверен ✓$/, "$1 checked ✓"],
+  [/^Проверен (.+)$/, "Checked $1"],
+  [/^Разработчик · в RuApps с (.+)$/, "Developer · on RuApps since $1"],
+  [/^Аккаунт RuApps, вход через (.+)$/, "RuApps account, signed in with $1"],
+  [/^Открыть бота @(.+)$/, "Open @$1 bot"],
+  [/^Файл (.+) — больше 1 ГБ\. Такой пока не загрузить\.$/, "The file is $1 — over 1 GB. It can't be uploaded yet."],
+  [/^Связь оборвалась, пробую ещё раз \((.+)\)…$/, "Connection dropped, retrying ($1)…"],
+  [/^Не получилось прочитать IPA: (.*)$/, "Couldn't read the IPA: $1"],
+  [/^Твоего (.+) нет в подписи «(.+)» — скорее всего, не установится\. Всё равно попробовать\?$/, "Your $1 isn't in the signature of “$2” — it probably won't install. Try anyway?"],
+  [/^🔏 Автопроверка: (.+) — сервер такой файл не примет\. Переподпиши IPA и выбери снова\.$/, m => m],
+  [/^Подпись истекла (.+)\. Переподпиши IPA и загрузи снова\.$/, "The signature expired on $1. Re-sign the IPA and upload again."],
+  [/^В IPA нет профиля подписи/, "The IPA has no provisioning profile (embedded.mobileprovision) — it won't install on any iPhone. Sign it and upload again."],
+  [/^В профиле подписи нет ни одного устройства/, "The provisioning profile has no devices — the app won't install anywhere."],
+  [/^Не больше (\d+) приложений на проверке одновременно$/, "No more than $1 apps in review at once"],
+];
+const FRAG = [
+  ["🔏 Автопроверка:", "🔏 Auto-check:"], ["в IPA нет профиля подписи", "the IPA has no signing profile"], ["подпись истекла", "signature expired"],
+  ["— сервер такой файл не примет. Переподпиши IPA и выбери снова.", "— the server won't accept it. Re-sign the IPA and pick it again."],
+  [" или новее", " or later"], ["Загрузка…", "Uploading…"], [" · кусок ", " · part "], [" из ", " of "], ["Версия ", "Version "], ["Сборка ", "Build "],
+  [", до ", ", until "], [", все устройства", ", all devices"], [", устройств: ", ", devices: "], [" ГБ", " GB"], [" МБ", " MB"],
+  ["● На проверке", "● In review"], ["● Опубликовано", "● Published"], ["● Подпись истекла — скрыто", "● Signature expired — hidden"],
+  ["Скоро · ", "Soon · "], ["нажми «Открыть бота» → в Telegram нажми «Старт» — код подставится сам.", "tap “Open bot” → tap “Start” in Telegram — the code fills in automatically."],
+  ["Если не подставился, отправь боту:", "If it didn't, send the bot:"], ["iOS ", "iOS "],
+];
+const PLURALS = [[/(\d+) (приложение|приложения|приложений)/g, (m, n) => `${n} app${n == 1 ? "" : "s"}`],
+  [/(\d+) (оценка|оценки|оценок)/g, (m, n) => `${n} rating${n == 1 ? "" : "s"}`],
+  [/(\d+) (профиль|профиля|профилей)/g, (m, n) => `${n} profile${n == 1 ? "" : "s"}`],
+  [/(\d+) (раз|раза)(?![а-я])/g, (m, n) => `${n} time${n == 1 ? "" : "s"}`]];
+const CYR = /[А-Яа-яЁё]/;
+function tr(str) {
+  if (LANG !== "en" || !str) return str;
+  const t = String(str).trim(); if (!t || !CYR.test(t)) return str;
+  let r = EN[t];
+  if (r === undefined) for (const [rx, f] of EN_RX) if (rx.test(t)) { r = typeof f === "string" ? t.replace(rx, f) : null; break; }
+  if (r == null) {
+    r = t; for (const [rx, f] of PLURALS) r = r.replace(rx, f);
+    if (EN[r] !== undefined) r = EN[r];
+    else for (const [a, b] of FRAG) r = r.split(a).join(b);
+    r = r.replace(/^(.*?) · (.+)$/, (m, a, b) => (EN[a] || a) + " · " + (EN[b] || b));
+  }
+  return String(str).replace(t, r);
+}
+function i18n(root) {
+  if (LANG !== "en" || !root) return;
+  if (root.nodeType === 3) { if (!root.parentElement || !root.parentElement.closest("[data-noi18n],script,style,textarea")) { const v = tr(root.nodeValue); if (v !== root.nodeValue) root.nodeValue = v; } return; }
+  if (root.nodeType !== 1 || root.closest("[data-noi18n],script,style")) return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = []; while (w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(n => { if (!n.parentElement.closest("[data-noi18n],script,style,textarea")) { const v = tr(n.nodeValue); if (v !== n.nodeValue) n.nodeValue = v; } });
+  [root, ...root.querySelectorAll("[placeholder],[aria-label],[title]")].forEach(el => {
+    for (const at of ["placeholder", "aria-label", "title"]) if (el.hasAttribute && el.hasAttribute(at)) { const v = tr(el.getAttribute(at)); if (v !== el.getAttribute(at)) el.setAttribute(at, v); }
+  });
+}
+if (LANG === "en") {
+  document.documentElement.lang = "en";
+  const _confirm = window.confirm.bind(window); window.confirm = m => _confirm(tr(m));
+  new MutationObserver(ms => ms.forEach(m => { if (m.type === "characterData") i18n(m.target); else m.addedNodes.forEach(i18n); }))
+    .observe(document.body, { childList: true, subtree: true, characterData: true });
+  i18n(document.body);
+}
+
+/* ---- ссылки вида #app=... ---- */
+function openFromHash() {
+  const m = location.hash.match(/^#app=(.+)$/); if (!m) return;
+  const key = decodeURIComponent(m[1]);
+  const a = APPS.find(x => appKey(x) === key);
+  if (a && !$("#sheet").classList.contains("on")) openApp(a);
+}
+
 /* ---------- Android ---------- */
 const UA = navigator.userAgent;
 const isAndroid = /Android/i.test(UA);
@@ -1069,6 +1504,7 @@ document.addEventListener("click", e => {
 function install(a) {
   if (blocked) { androidAlert(); return; }
   if (authOn() && !userGet()) { openLogin(a); return; }
+  if (compatOf(a) === false && !confirm(`Твоего ${modelName(myDev().model)} нет в подписи «${a.name}» — скорее всего, не установится. Всё равно попробовать?`)) return;
   if (a.warn) { $("#cfYes").href = a.install; $("#cfYes").dataset.i = APPS.indexOf(a); $("#cf").classList.add("on"); return; }
   addMine(a); location.href = a.install;
 }
@@ -1095,7 +1531,7 @@ document.addEventListener("click", e => {
   const rm = e.target.closest("[data-remove]");
   if (rm) { mySet(myGet().filter(b => b !== APPS[+rm.dataset.remove].bundle)); return; }
   const sh = e.target.closest("[data-share]");
-  if (sh) { const a = APPS[+sh.dataset.share], url = location.href.split("#")[0];
+  if (sh) { const a = APPS[+sh.dataset.share], url = location.href.split("#")[0] + "#app=" + encodeURIComponent(appKey(a));
     if (navigator.share) navigator.share({title:a.name, text:`${a.name} в RuApps`, url}).catch(() => {});
     else { navigator.clipboard && navigator.clipboard.writeText(url); toast("Ссылка скопирована"); } return; }
   if (e.target.closest("[data-open='settings']")) { openSettings(); return; }
@@ -1105,8 +1541,8 @@ document.addEventListener("click", e => {
   if (row) openApp(APPS[+row.dataset.i]);
 });
 
-renderAvatars(); renderToday(); renderGames(); renderApps(); renderSearch(); renderMy();
-refreshMe(); loadRemoteApps();
+renderAvatars(); renderAll();
+takeUdidFromHash(); refreshMe(); loadRemoteApps().then(loadRatings); if (!serverOn()) openFromHash();
 </script>
 </body>
 </html>
