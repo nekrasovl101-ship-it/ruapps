@@ -387,7 +387,7 @@ function getBtn(a, label = "Загрузить") {
 }
 function rowHTML(a, opts = {}) {
   const r = ratingOf(a), cp = compatOf(a);
-  const pill = a.sig && a.sig !== "ok" ? '<span class="pill no">без подписи</span>'
+  const pill = a.sig && a.sig !== "ok" ? ""
     : cp === true ? '<span class="pill ok">✓ встанет</span>' : cp === false ? '<span class="pill no">не встанет</span>' : "";
   const sub = a.warn ? '<div class="sb w">⚠ Лучше не устанавливать</div>'
     : `<div class="sb">${r ? `<span class="stars">★</span> ${r.avg.toFixed(1)} · ` : ""}${esc(catOf(a.cat).name)}${pill}</div>`;
@@ -493,8 +493,7 @@ function openApp(a) {
         <div class="row"><button class="get blue" data-install="${i}">Загрузить</button>
           <button class="share" data-share="${i}" aria-label="Поделиться"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7.5 7.5L12 3l4.5 4.5"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg></button></div></div></div>
     ${a.warn ? `<div class="wbox">⚠️ ${esc(a.warn)}</div>` : ""}
-    ${a.sig && a.sig !== "ok" ? `<div class="compat ask" style="cursor:default;background:rgba(255,149,0,.14);color:#c26a00"><div class="e">🔏</div><div><b>${a.sig === "expired" ? "Подпись истекла" : "Приложение без подписи"}</b>
-      <small>Может не установиться напрямую. Если так — <a href="${esc(a.download)}" style="color:var(--blue);font-weight:600">скачай IPA</a> и подпиши сам (ESign, Sideloadly).</small></div></div>` : compatHTML(a)}
+    ${a.sig && a.sig !== "ok" ? "" : compatHTML(a)}
     <div class="info">
       ${ratingOf(a) ? `<div><small>${ratingOf(a).count} ${plural(ratingOf(a).count, "оценка", "оценки", "оценок")}</small><b>${ratingOf(a).avg.toFixed(1)}</b><span>${starsHTML(ratingOf(a).avg)}</span></div>` : ""}
       ${a.installs ? `<div><small>Загрузки</small><b>${a.installs}</b><span>${plural(a.installs, "раз", "раза", "раз")}</span></div>` : ""}
