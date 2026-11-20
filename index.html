@@ -387,7 +387,8 @@ function getBtn(a, label = "Загрузить") {
 }
 function rowHTML(a, opts = {}) {
   const r = ratingOf(a), cp = compatOf(a);
-  const pill = cp === true ? '<span class="pill ok">✓ встанет</span>' : cp === false ? '<span class="pill no">не встанет</span>' : "";
+  const pill = a.sig && a.sig !== "ok" ? '<span class="pill no">без подписи</span>'
+    : cp === true ? '<span class="pill ok">✓ встанет</span>' : cp === false ? '<span class="pill no">не встанет</span>' : "";
   const sub = a.warn ? '<div class="sb w">⚠ Лучше не устанавливать</div>'
     : `<div class="sb">${r ? `<span class="stars">★</span> ${r.avg.toFixed(1)} · ` : ""}${esc(catOf(a.cat).name)}${pill}</div>`;
   return `<div class="ar" data-i="${APPS.indexOf(a)}">${opts.rank ? `<div class="rk">${opts.rank}</div>` : ""}
@@ -492,7 +493,8 @@ function openApp(a) {
         <div class="row"><button class="get blue" data-install="${i}">Загрузить</button>
           <button class="share" data-share="${i}" aria-label="Поделиться"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7.5 7.5L12 3l4.5 4.5"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg></button></div></div></div>
     ${a.warn ? `<div class="wbox">⚠️ ${esc(a.warn)}</div>` : ""}
-    ${compatHTML(a)}
+    ${a.sig && a.sig !== "ok" ? `<div class="compat ask" style="cursor:default;background:rgba(255,149,0,.14);color:#c26a00"><div class="e">🔏</div><div><b>${a.sig === "expired" ? "Подпись истекла" : "Приложение без подписи"}</b>
+      <small>Может не установиться напрямую. Если так — <a href="${esc(a.download)}" style="color:var(--blue);font-weight:600">скачай IPA</a> и подпиши сам (ESign, Sideloadly).</small></div></div>` : compatHTML(a)}
     <div class="info">
       ${ratingOf(a) ? `<div><small>${ratingOf(a).count} ${plural(ratingOf(a).count, "оценка", "оценки", "оценок")}</small><b>${ratingOf(a).avg.toFixed(1)}</b><span>${starsHTML(ratingOf(a).avg)}</span></div>` : ""}
       ${a.installs ? `<div><small>Загрузки</small><b>${a.installs}</b><span>${plural(a.installs, "раз", "раза", "раз")}</span></div>` : ""}
@@ -737,7 +739,7 @@ async function loadRemoteApps() {
       APPS.push({ name: a.name, bundle: a.bundle, version: a.version, build: a.build, minIOS: a.minIOS, size: a.size,
                   icon: a.icon || "ruapps_icon.png", install: a.install, cat: a.cat, warn: null,
                   desc: a.desc, devName: a.dev, devId: a.devId, remoteId: a.id, team: a.team, exp: a.exp, all: a.all,
-                  udh: a.udh, installs: a.installs, created: a.created });
+                  udh: a.udh, installs: a.installs, created: a.created, sig: a.sig || "ok", download: a.download });
     }
     renderAll();
   } catch (e) {}
@@ -836,7 +838,7 @@ async function pickIPA(file) {
         <div class="sub">Версия ${esc(i.version)}${i.build ? ` (${esc(i.build)})` : ""} · ${mb(file.size)}${i.minIOS ? ` · iOS ${esc(i.minIOS)}+` : ""}</div></div></div>
     <div class="gh">Подпись</div><div class="gl"><div class="gr"><div class="t"><div class="lbl" style="font-size:15px">${sign}</div></div></div></div>
     <div class="gf">Приложение встанет только на устройства из этой подписи.${fits === true ? " <b style=\"color:#1f8f3d\">Твой iPhone в подписи ✓</b>" : fits === false ? " <b style=\"color:var(--red)\">Твоего iPhone в подписи нет.</b>" : ""}</div>
-    ${!p || (p.exp && p.exp < now) ? `<div class="wbox">🔏 Автопроверка: ${!p ? "в IPA нет профиля подписи" : "подпись истекла"} — сервер такой файл не примет. Переподпиши IPA и выбери снова.</div>` : ""}
+    ${!p || (p.exp && p.exp < now) ? `<div class="wbox" style="background:rgba(255,149,0,.14);color:#c26a00">🔏 Автопроверка: ${!p ? "IPA не подписан" : "подпись истекла"}. Выложить всё равно можно — в магазине будет пометка «без подписи».</div>` : ""}
     <div class="gh">Название в RuApps</div>
     <div class="gl"><div class="gr"><div class="t"><input id="upName" value="${esc(i.name)}" maxlength="60"
       style="flex:1;border:0;background:none;font:17px inherit;font-family:inherit;color:var(--text);outline:none;padding:12px 0"></div></div></div>
@@ -865,6 +867,9 @@ document.addEventListener("click", e => {
 async function sendIPA() {
   if (!$("#upAgree").checked) return toast("Подтверди, что это твоё приложение");
   const i = upInfo, file = i.file;
+  const badSig = !i.prov ? "Этот IPA не подписан." : i.prov.exp && i.prov.exp < Date.now() ? "У этого IPA истекла подпись." :
+                 !i.prov.all && !(i.prov.udh || []).length ? "В подписи этого IPA нет устройств." : "";
+  if (badSig && !confirm(badSig + " Вы точно хотите выложить его в RuApps?")) return;
   const btn = $("#upSend"), bar = $("#upBar"), txt = $("#upTxt");
   const fail = m => { btn.disabled = false; btn.style.opacity = 1; txt.textContent = m; };
   btn.disabled = true; btn.style.opacity = .5; $("#upProg").style.display = "";
@@ -874,7 +879,8 @@ async function sendIPA() {
     st = await api("/upload/start", { method: "POST", json: { name: $("#upName").value.trim() || i.name, bundle: i.bundle,
       version: i.version, build: i.build, minIOS: i.minIOS, team: i.prov && i.prov.team || "", cat: i.cat,
       desc: $("#upDesc").value.trim(), agree: true, size: file.size,
-      prov: i.prov ? { present: true, team: i.prov.team, exp: i.prov.exp, all: i.prov.all, udh: i.prov.udh } : { present: false } } });
+      prov: i.prov ? { present: true, team: i.prov.team, exp: i.prov.exp, all: i.prov.all, udh: i.prov.udh } : { present: false },
+      allowUnsigned: !!badSig } });
   } catch (e) { return fail(e.message); }
   try {
     if (i.iconBlob) await putBlob(`/upload/${st.id}/icon`, i.iconBlob);
@@ -1402,7 +1408,9 @@ const EN = {
   "Приложение не найдено":"App not found","Поставь от 1 до 5 звёзд":"Pick 1 to 5 stars","Разработчик не найден":"Developer not found",
   "Аватарка должна быть картинкой":"The photo must be an image","Аватарка слишком большая":"The photo is too large",
   "Загрузка не найдена — начни заново":"Upload not found — start again",
-  "МБ":"MB","ГБ":"GB","Быстрый и простой":"Fast and simple","Режет рекламу и трекеры":"Blocks ads and trackers","Блокирует опасные сайты":"Blocks dangerous sites",
+  "МБ":"MB","ГБ":"GB","без подписи":"unsigned","Приложение без подписи":"Unsigned app","Подпись истекла":"Signature expired",
+  "Может не установиться напрямую. Если так —":"It may not install directly. If so,","скачай IPA":"download the IPA","и подпиши сам (ESign, Sideloadly).":"and sign it yourself (ESign, Sideloadly).",
+  "IPA не подписан":"the IPA is unsigned","Выложить всё равно можно — в магазине будет пометка «без подписи».":"You can still publish it — it will be marked “unsigned” in the store.","Быстрый и простой":"Fast and simple","Режет рекламу и трекеры":"Blocks ads and trackers","Блокирует опасные сайты":"Blocks dangerous sites",
 };
 const EN_RX = [
   [/^Привет, (.+)!$/, "Hi, $1!"],
@@ -1424,9 +1432,12 @@ const EN_RX = [
   [/^В IPA нет профиля подписи/, "The IPA has no provisioning profile (embedded.mobileprovision) — it won't install on any iPhone. Sign it and upload again."],
   [/^В профиле подписи нет ни одного устройства/, "The provisioning profile has no devices — the app won't install anywhere."],
   [/^Не больше (\d+) приложений на проверке одновременно$/, "No more than $1 apps in review at once"],
+  [/^(Этот IPA не подписан\.|У этого IPA истекла подпись\.|В подписи этого IPA нет устройств\.) Вы точно хотите выложить его в RuApps\?$/, m => m],
 ];
 const FRAG = [
-  ["🔏 Автопроверка:", "🔏 Auto-check:"], ["в IPA нет профиля подписи", "the IPA has no signing profile"], ["подпись истекла", "signature expired"],
+  ["🔏 Автопроверка:", "🔏 Auto-check:"], ["Этот IPA не подписан.", "This IPA is unsigned."], ["У этого IPA истекла подпись.", "This IPA's signature has expired."],
+  ["В подписи этого IPA нет устройств.", "This IPA's signature has no devices."], [" Вы точно хотите выложить его в RuApps?", " Are you sure you want to publish it on RuApps?"],
+  ["IPA не подписан", "the IPA is unsigned"], ["Выложить всё равно можно — в магазине будет пометка «без подписи».", "You can still publish it — it will be marked “unsigned” in the store."], ["в IPA нет профиля подписи", "the IPA has no signing profile"], ["подпись истекла", "signature expired"],
   ["— сервер такой файл не примет. Переподпиши IPA и выбери снова.", "— the server won't accept it. Re-sign the IPA and pick it again."],
   [" или новее", " or later"], ["Загрузка…", "Uploading…"], [" · кусок ", " · part "], [" из ", " of "], ["Версия ", "Version "], ["Сборка ", "Build "],
   [", до ", ", until "], [", все устройства", ", all devices"], [", устройств: ", ", devices: "], [" ГБ", " GB"], [" МБ", " MB"],
